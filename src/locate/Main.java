@@ -147,14 +147,14 @@ public class Main extends JavaPlugin implements Listener {
 	//
 	static HashMap<String , Integer > guide = new HashMap<String , Integer > () ;
 	//건물 인덱스
-	static HashMap<String , String > villageindex = new HashMap<String , String > () ;
+	public static HashMap<String , String > villageindex = new HashMap<String , String > () ;
 	//건물 체크할 리스트
 	static HashMap<String , Integer > buildcheck = new HashMap<String , Integer > () ;
 	static HashMap<String , String > village_index_name = new HashMap<String , String > () ;
 	static HashMap<String , Integer > player_stats = new HashMap<String , Integer > () ;
 	//마을 청크 등록
 	static HashMap<String , String > chunk_index = new HashMap<String , String > () ;
-	static HashMap<Location , String > villge_index_loc = new HashMap<Location, String > () ;
+	public static HashMap<Location , String > villge_index_loc = new HashMap<Location, String > () ;
 	
     private final String prefix = ChatColor.YELLOW + "[Structure] ";
     
