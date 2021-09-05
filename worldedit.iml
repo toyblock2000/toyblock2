@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
+    <libelement value="jar://$USER_HOME$/Desktop/API/StructureBlockLib.jar!/" />
+    <libelement value="jar://$USER_HOME$/Desktop/API/worldedit-core-7.2.5-all.jar!/" />
+    <libelement value="jar://$USER_HOME$/Desktop/API/FastAsyncWorldEdit-Bukkit-1.17-125.jar!/" />
+    <conelement value="org.eclipse.jst.j2ee.internal.web.container" />
+    <conelement value="org.eclipse.jst.j2ee.internal.module.container" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="jdk" jdkName="JavaSE-15" jdkType="JavaSDK" />
+    <orderEntry type="library" name="org.eclipse.jst.j2ee.internal.web.container" level="application" />
+    <orderEntry type="library" name="org.eclipse.jst.j2ee.internal.module.container" level="application" />
+    <orderEntry type="module-library">
+      <library name="patched_1.17.1.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="StructureBlockLib.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/API/StructureBlockLib.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="worldedit-core-7.2.5-all.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/API/worldedit-core-7.2.5-all.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="FastAsyncWorldEdit-Bukkit-1.17-125.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/API/FastAsyncWorldEdit-Bukkit-1.17-125.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>

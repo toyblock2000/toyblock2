@@ -1,0 +1,16 @@
+main : locate.Main
+name : world
+version : 1.0.4
+author : toy_block
+description : testing
+api-version : 1.17
+commands:
+  contract:
+    description: Your description
+    usage: /contract
+  log:
+    description: Your description
+    usage: /log
+  manager_spawn:
+    description: Your description
+    usage: /manager_spawn
