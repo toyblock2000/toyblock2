@@ -1,19 +1,31 @@
 package com.toyblock.toyblockserver.structure;
 
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.world.World;
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.session.Session;
+import com.sk89q.worldguard.session.SessionManager;
+import com.sk89q.worldguard.session.handler.Handler;
 import locate.Main;
 import locate.WorldEditAPIController;
 import locate.tool;
 import org.bukkit.Location;
+
+import javax.annotation.Nullable;
 
 public class CastleBuild {
     Location castleLoc;
     String castleName;
     int castleLevel =1;
     int rotate =0;
+    String Color = "red";
 
-    public CastleBuild(Location castleLoc , String castleName) {
+    public CastleBuild(Location castleLoc , String castleName, String Color) {
     this.castleLoc=castleLoc;
     this.castleName=castleName;
+    this.Color=Color;
     }
     public void setLevel(int level) {
         this.castleLevel=level;
@@ -35,6 +47,16 @@ public class CastleBuild {
 
     }
     public void build() {
+        int x_loc = tool.change_xyz(castleLoc.getBlockX());
+        int z_loc = tool.change_xyz(castleLoc.getBlockZ());
+        int y_start = castleLoc.getBlockY();
+        int x_start = x_loc+50;
+        int z_start = z_loc+50;
+        BlockVector3 min = BlockVector3.at(x_loc-50, 0, z_loc-50);
+        BlockVector3 max = BlockVector3.at(x_loc+50, 300, z_loc+50);
+        ProtectedRegion region = new ProtectedCuboidRegion("castle"+Color, min, max);
+        region.setOwners();
+
         WorldEditAPIController edit = new WorldEditAPIController("./Astral_server/schematic/village/castle", "world");
         edit.load(castleName+castleLevel);
         edit.paste(castleLoc,rotate);
@@ -69,6 +91,3 @@ public class CastleBuild {
     }
 
 
-}
-
-}
