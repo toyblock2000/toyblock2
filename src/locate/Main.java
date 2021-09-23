@@ -756,7 +756,7 @@ Villager v;
 				}
 				else {
 					player.chat("실행이안됫음");
-					player.chat(v.getProfession().toString());\
+					player.chat(v.getProfession().toString());
 					this.cancel();
 				}
 			}
