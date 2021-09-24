@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.structure.dungeon;
 
+import com.toyblock.toyblockserver.structure.protect.protect;
 import locate.WorldEditAPIController;
 import org.bukkit.Location;
 
@@ -22,6 +23,8 @@ public class DungeonBuild {
         WorldEditAPIController buildTool = new WorldEditAPIController("../toyblock/dungeon/schematics", "world");
         buildTool.load(dungeonName);
         buildTool.paste(dungeonLoc,rotate);
+        protect protect = new protect("Dungeon",dungeonLoc);
+        protect.protect();
     }
 
 }
