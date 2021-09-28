@@ -20,10 +20,13 @@ public class CastleBuild {
         else{this.rotate=0;}
     }
     public void Build() {
+        //생성
         WorldEditAPIController buildTool = new WorldEditAPIController("../toyblock/castle/schematics", "world");
         buildTool.load(castleName);
         buildTool.paste(castleLoc,rotate);
+        //보호
         protect protect = new protect("castle",castleLoc);
         protect.protect();
+
     }
 }
