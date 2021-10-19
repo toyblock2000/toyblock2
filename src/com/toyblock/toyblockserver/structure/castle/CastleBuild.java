@@ -16,7 +16,7 @@ public class CastleBuild {
         if(SWNE =='S'){this.rotate=90;}
         if(SWNE =='W'){this.rotate=180;}
         if(SWNE =='N'){this.rotate=270;}
-        if(SWNE =='E'){this.rotate=360;}
+        if(SWNE =='E'){this.rotate=0;}
         else{this.rotate=0;}
     }
     public void Build() {
@@ -27,6 +27,6 @@ public class CastleBuild {
         //보호
         protect protect = new protect("castle",castleLoc);
         protect.protect();
-
     }
+
 }
