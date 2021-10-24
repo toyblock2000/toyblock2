@@ -21,8 +21,8 @@ public class CastleBuild {
     }
     public void Build() {
         //생성
-        WorldEditAPIController buildTool = new WorldEditAPIController("../toyblock/castle/schematics", "world");
-        buildTool.load(castleName);
+        WorldEditAPIController buildTool = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle", "world");
+        buildTool.load(castleName+".schem");
         buildTool.paste(castleLoc,rotate);
         //보호
         protect protect = new protect("castle",castleLoc);

@@ -52,6 +52,7 @@ import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.session.ClipboardHolder;
 
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
+import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
 import natural_spawn.natural_spawn;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -132,6 +133,7 @@ public class Main extends JavaPlugin implements Listener {
 		this.getCommand("manager_spawn").setExecutor(new manager_spawn());
 		getServer().getPluginManager().registerEvents(new castle_manager_class(),this);
 		getServer().getPluginManager().registerEvents(new CastleBuildPlayer(),this);
+		getServer().getPluginManager().registerEvents(new PlayerCastlePath(),this);
 		getServer().getPluginManager().registerEvents(new natural_spawn (),this);
 		getServer().getPluginManager().registerEvents(new villager_test(),this);
 		   consol.sendMessage("청크");
