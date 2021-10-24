@@ -9,6 +9,7 @@ import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
+import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import locate.WorldEditAPIController;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -61,6 +62,7 @@ public class Castle_Path {
             WorldEditAPIController pathedit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle/path", "world");
             pathedit.load("path_test.schem");
             pathedit.paste(loc, 0);
+            structureHashMap.Link.put(loc,"path");
             player.chat(" 생성완료 "
             );
 

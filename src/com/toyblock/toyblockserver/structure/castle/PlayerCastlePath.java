@@ -1,8 +1,11 @@
 package com.toyblock.toyblockserver.structure.castle;
 
 import com.toyblock.toyblockserver.structure.CastleBuildCheckUi;
+import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
+import locate.tool;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -17,7 +20,8 @@ public class PlayerCastlePath implements Listener {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;
         }
-        event.getPlayer().chat("실행중");
+        event.getPlayer().chat("길 실행중");
+        Player player = event.getPlayer();
 
         List castleBuildLore = new ArrayList();
         castleBuildLore.add(0,"길 건설");
@@ -27,8 +31,18 @@ public class PlayerCastlePath implements Listener {
 
             event.getPlayer().chat("생성가능여부확인시작..");
 
+            String view = tool.getDirection(player);
+
+
+
             Location point = event.getPlayer().getTargetBlock(100).getLocation();
             Location loc = new LocBalance().balance(point);
+
+            if (!PathLink.LinkCheck(loc,player,view)) {
+                return;
+            }
+
+
             Castle_Path path = new Castle_Path(loc, event.getPlayer());
             path.build();
 
@@ -36,6 +50,15 @@ public class PlayerCastlePath implements Listener {
         }
         else {
             event.getPlayer().chat("실패");
+            Location loc = player.getLocation();
+            String locs = new LocationSave().locSave(loc);
+            player.chat(locs);
+            player.chat(""+ new LocationSave().x(locs));
+            player.chat(""+ new LocationSave().y(locs));
+            player.chat(""+ new LocationSave().z(locs));
+            player.chat(""+ new LocationSave().world(locs));
+
+
         }
         
 

@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.structure.protect;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 
 public class protect {
@@ -30,10 +31,12 @@ public class protect {
                     for (int z = -100; z < 1; z = z + 5) {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
                         if(pointLoc.getY()==endLoc.getY()) {
-                            structureHashMap.protect.put(pointLoc,"Castle_connect");
+                            structureHashMap.Link.put(pointLoc,"Castle_connect");
+
                         }
                         else {
                             structureHashMap.protect.put(pointLoc,"Castle");
+
                         }
                     }
                 }

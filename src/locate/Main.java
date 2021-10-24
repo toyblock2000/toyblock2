@@ -138,13 +138,13 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new villager_test(),this);
 		   consol.sendMessage("청크");
 		data.loadConfig();
-		data.fileToMap(data.file, villageindex);
+		//data.fileToMap(data.file, villageindex);
 	}
 	@Override
 	public void onDisable() {
 		super.onDisable();
 
-		data.mapToFile(data.file, villageindex);
+	//	data.mapToFile(data.file, villageindex);
 	}
 	//
 	static HashMap<String , Integer > buildname = new HashMap<String , Integer > () ;

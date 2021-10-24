@@ -12,11 +12,11 @@ public class CastleBuild {
         this.castleName = castleName;
         this.castleLoc= castleLoc;
     }
-    public void setRotate(char SWNE) {
-        if(SWNE =='S'){this.rotate=90;}
-        if(SWNE =='W'){this.rotate=180;}
-        if(SWNE =='N'){this.rotate=270;}
-        if(SWNE =='E'){this.rotate=0;}
+    public void setRotate(String SWNE) {
+        if(SWNE =="S"){this.rotate=90;}
+        if(SWNE =="W"){this.rotate=180;}
+        if(SWNE =="N"){this.rotate=270;}
+        if(SWNE =="E"){this.rotate=0;}
         else{this.rotate=0;}
     }
     public void Build() {
@@ -25,7 +25,7 @@ public class CastleBuild {
         buildTool.load(castleName+".schem");
         buildTool.paste(castleLoc,rotate);
         //보호
-        protect protect = new protect("castle",castleLoc);
+        protect protect = new protect("Castle",castleLoc);
         protect.protect();
     }
 
