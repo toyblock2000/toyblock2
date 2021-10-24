@@ -434,7 +434,7 @@ public class Main extends JavaPlugin implements Listener {
 		
 	}
 	  
-	@EventHandler
+	//@EventHandler
 	public void Structure_15x15s(PlayerInteractEvent event) {
 		
 		String viewcheck;

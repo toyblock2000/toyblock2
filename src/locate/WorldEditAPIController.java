@@ -58,6 +58,8 @@ public class WorldEditAPIController {
 	// 월드
 	private World w;
 
+	public int count;
+
 	public WorldEditAPIController(String baseDir, String worldString) {
 		this.baseDir = baseDir;
 		this.w = new BukkitWorld(Bukkit.getWorld(worldString));  
@@ -189,15 +191,15 @@ public class WorldEditAPIController {
 		
 		
 	}
-	public void Check(World world) {
+	public void airCheck() {
 		
-		EditSession edit = WorldEdit.getInstance().newEditSession(world);
+		EditSession edit = WorldEdit.getInstance().newEditSession(w);
 		Set<BaseBlock> air = new HashSet<>();
 		BlockType water = BlockTypes.AIR;
 		BlockState waterState = water.getDefaultState();
 		air.add(waterState.toBaseBlock());
 		int count = edit.countBlocks(clipboard.getRegion(), air);
-				
+		this.count = count;
 		
 	}
 	public void tester() {
