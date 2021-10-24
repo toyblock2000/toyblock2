@@ -34,16 +34,16 @@ public class CastleBuild {
 
     public void setDirection(String direction) {
         if (direction.equals("S")) {
-            rotate = 0;
+            this.rotate = 0;
         }
         if (direction.equals("W")) {
-            rotate = 60;
+            this.rotate = 90;
         }
         if (direction.equals("N")) {
-            rotate = 90;
+            this.rotate = 180;
         }
         if (direction.equals("E")) {
-            rotate = 120;
+            this.rotate = 260;
         }
 
 
@@ -57,10 +57,11 @@ public class CastleBuild {
         int z_start = z_loc + 50;
         BlockVector3 min = BlockVector3.at(x_loc - 50, 0, z_loc - 50);
         BlockVector3 max = BlockVector3.at(x_loc + 50, 300, z_loc + 50);
-        ProtectedRegion region = new ProtectedCuboidRegion("castle" + Color, min, max);
+      //  ProtectedRegion region = new ProtectedCuboidRegion("castle" + Color, min, max);
+
 
         WorldEditAPIController edit = new WorldEditAPIController("./Astral_server/schematic/village/castle", "world");
-        edit.load(castleName + castleLevel);
+        edit.load(castleName);
         edit.paste(castleLoc, rotate);
         for (int x = -100; x < 1; x = x + 5) {
             for (int y = -200; y < 200; y = y + 10) {
