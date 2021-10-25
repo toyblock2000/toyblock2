@@ -1,13 +1,7 @@
 package com.toyblock.toyblockserver.structure;
 
 import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.world.World;
-import com.sk89q.worldguard.LocalPlayer;
-import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.sk89q.worldguard.session.Session;
-import com.sk89q.worldguard.session.SessionManager;
-import com.sk89q.worldguard.session.handler.Handler;
+
 import locate.Main;
 import locate.WorldEditAPIController;
 import locate.tool;

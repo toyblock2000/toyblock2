@@ -21,7 +21,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.eclipse.jst.j2ee.internal.web.container" level="application" />
     <orderEntry type="library" name="org.eclipse.jst.j2ee.internal.module.container" level="application" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="patched_1.17.1.jar">
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
@@ -39,7 +39,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="worldedit-core-7.2.5-all.jar">
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/API/worldedit-core-7.2.5-all.jar!/" />
@@ -67,5 +67,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="plugins" level="project" />
+    <orderEntry type="library" name="worldedit-bukkit-7.2.6-beta-02" level="project" />
+    <orderEntry type="library" name="worldedit-bukkit-7.2.6-beta-021" level="project" />
+    <orderEntry type="library" name="patched_1.17.1" level="project" />
   </component>
 </module>
