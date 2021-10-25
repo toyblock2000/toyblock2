@@ -53,6 +53,8 @@ import com.sk89q.worldedit.session.ClipboardHolder;
 
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
+import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import hashmap.MapSaveTool;
 import natural_spawn.natural_spawn;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -123,6 +125,7 @@ import org.bukkit.util.Vector;
 
 public class Main extends JavaPlugin implements Listener {
 	ConsoleCommandSender consol = Bukkit.getConsoleSender();
+	private final File f = new File(getDataFolder(), "/protectData.txt");
 	@Override
 	public void onEnable() {
 		super.onEnable();
@@ -138,6 +141,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new villager_test(),this);
 		   consol.sendMessage("청크");
 		data.loadConfig();
+		MapSaveTool.makeFile(f);
 		//data.fileToMap(data.file, villageindex);
 	}
 	@Override
