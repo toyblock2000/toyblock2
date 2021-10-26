@@ -1,6 +1,5 @@
 package hashmap;
 
-import com.toyblock.toyblockserver.structure.castle.ExtendedHouse;
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import org.bukkit.Location;
@@ -11,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.*;
 import java.util.HashMap;
 
-public class MapSaveTool extends JavaPlugin {
+public class Structure_Protect_Save extends JavaPlugin {
 
     static FileConfiguration config;                                   // 콘피그 정보 객체를 만듭니다.
     static File file = new File("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village_loc");   // 콘피그 파일이 될 파일 객체를 만듭니다.
@@ -42,7 +41,7 @@ public class MapSaveTool extends JavaPlugin {
         try {
             FileWriter writer = new FileWriter(f, false);
             LocationSave save = new LocationSave();
-            for(Location location : map.keySet()){
+            for(Location location : structureHashMap.protect.keySet()){
                 String str_loc = save.locSave(location);
                 writer.write(str_loc+"|"+map.get(location)+"\n");
             }
@@ -51,7 +50,7 @@ public class MapSaveTool extends JavaPlugin {
             e.printStackTrace();
         }
     }
-    public static void Protect_fileToMap(File f, HashMap<Location,String> map) {
+    public static void Protect_fileToMap(File f, HashMap<String,String> map) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(f));
             String fileLine = null;
@@ -62,7 +61,7 @@ public class MapSaveTool extends JavaPlugin {
                 LocationSave save = new LocationSave();
                 Location locs = save.locput(key);
 
-                map.put(locs,index);
+                structureHashMap.protect.put(locs,index);
 
             }
         } catch (FileNotFoundException e3) {
@@ -71,5 +70,7 @@ public class MapSaveTool extends JavaPlugin {
             e4.printStackTrace();
         }
     }
+
+}
 
 }

@@ -125,7 +125,8 @@ import org.bukkit.util.Vector;
 
 public class Main extends JavaPlugin implements Listener {
 	ConsoleCommandSender consol = Bukkit.getConsoleSender();
-	private final File f = new File(getDataFolder(), "/protectData.txt");
+	private final File f_protect = new File(getDataFolder(), "/ProtectData.txt");
+	private final File f_link = new File(getDataFolder(), "/Link.txt");
 	@Override
 	public void onEnable() {
 		super.onEnable();
@@ -141,12 +142,18 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new villager_test(),this);
 		   consol.sendMessage("청크");
 		data.loadConfig();
-		MapSaveTool.makeFile(f);
-		//data.fileToMap(data.file, villageindex);
+		MapSaveTool.makeFile(f_protect);
+		MapSaveTool.makeFile(f_link);
+		MapSaveTool.Protect_fileToMap(f_protect,structureHashMap.protect);
+		MapSaveTool.Protect_fileToMap(f_link,structureHashMap.Link);
+
 	}
 	@Override
 	public void onDisable() {
 		super.onDisable();
+		MapSaveTool.Protect_mapToFile(f_protect,structureHashMap.protect);
+		MapSaveTool.Protect_mapToFile(f_link,structureHashMap.Link);
+
 
 	//	data.mapToFile(data.file, villageindex);
 	}
