@@ -3,6 +3,7 @@ package com.toyblock.toyblockserver.structure.protect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 
 public class protect {
     Location structureLoc;
@@ -60,12 +61,11 @@ public class protect {
                 for (int y = -400; y < 401; y = y + 5) {
                     for (int z = -200; z < 1; z = z + 5) {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
-                        if(pointLoc.getY()==endLoc.getY()) {
-                            structureHashMap.protect.put(pointLoc,"Dungeon_connect");
-                        }
-                        else {
+
+                        Block blockadd = world.getBlockAt(pointLoc);
+                        blockadd.setType(Material.GOLD_BLOCK);
                             structureHashMap.protect.put(pointLoc,"Dungeon");
-                        }
+
                     }
                 }
             }

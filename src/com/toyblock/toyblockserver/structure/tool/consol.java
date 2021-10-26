@@ -4,8 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 
 public class consol {
-    ConsoleCommandSender consol = Bukkit.getConsoleSender();
-    public void send(String str) {
+    static ConsoleCommandSender consol = Bukkit.getConsoleSender();
+    public static void send(String str) {
         consol.sendMessage(str);
     }
 }

@@ -25,14 +25,12 @@ public class Castle_Path {
     World world;
     Player player;
 
-    public Castle_Path(Location Loc, Player player) {
+    public Castle_Path(Location Loc) {
         this.loc = Loc;
         this.world = Loc.getWorld();
-        this.player = player;
     }
 
     public void build() {
-        player.chat("빌드");
         Location point1 = world.getBlockAt(loc.getBlockX() + 2, loc.getBlockY() + 4, loc.getBlockZ() + 2).getLocation();
         Location point2 = world.getBlockAt(point1.getBlockX() - 4, point1.getBlockY() - 9, point1.getBlockZ() - 4).getLocation();
 
@@ -54,21 +52,18 @@ public class Castle_Path {
         airSet.add(waterState.toBaseBlock());
 
         int count = edit.countBlocks(region, airSet);
-        player.chat("확인" + count);
 
         if (count >= 80) {
-            player.chat(" 성공완료 "
-            );
+
             WorldEditAPIController pathedit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle/path", "world");
             pathedit.load("path_test.schem");
             pathedit.paste(loc, 0);
             structureHashMap.Link.put(loc,"path");
-            player.chat(" 생성완료 "
-            );
+
 
 
         } else {
-            player.chat("실패");
+
         }
     }
 }
