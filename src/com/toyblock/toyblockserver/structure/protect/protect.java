@@ -63,7 +63,6 @@ public class protect {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
 
                         Block blockadd = world.getBlockAt(pointLoc);
-                        blockadd.setType(Material.GOLD_BLOCK);
                             structureHashMap.protect.put(pointLoc,"Dungeon");
 
                     }

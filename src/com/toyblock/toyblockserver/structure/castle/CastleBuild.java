@@ -3,13 +3,17 @@ package com.toyblock.toyblockserver.structure.castle;
 import com.toyblock.toyblockserver.structure.dungeon.AutoDungeonBuild;
 import com.toyblock.toyblockserver.structure.protect.protect;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.WorldEditAPIController;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public class CastleBuild {
     String castleName;
     Location castleLoc;
     int rotate;
+    Player player = Bukkit.getPlayer("Devil");
     public CastleBuild(String castleName, Location castleLoc) {
         this.castleName = castleName;
         this.castleLoc= castleLoc;
@@ -29,9 +33,13 @@ public class CastleBuild {
         //보호
         protect protect = new protect("Castle",castleLoc);
         protect.protect();
+        player.chat("던전 만들기");
         structureHashMap.Chunk.put(castleLoc.getChunk(),"castle");
+        player.chat("던전 만들기 진행 1");
         AutoDungeonBuild dungeon = new AutoDungeonBuild();
         dungeon.AutoBuild(castleLoc.getChunk());
+        player.chat("던전 생성완료했다");
+
     }
 
 }

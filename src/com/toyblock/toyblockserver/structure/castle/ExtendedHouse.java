@@ -9,7 +9,7 @@ public class ExtendedHouse {
     public boolean heightCheck(Location loc) {
 
 
-        for (int i = 0; i == 11; i++) {
+        for (int i = 0; i < 11; i++) {
             Location downloc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 5 + i, loc.getBlockZ());
             if (structureHashMap.protect.containsKey(downloc) || structureHashMap.Link.containsKey(downloc)) {
                 return false;
@@ -119,13 +119,13 @@ public class ExtendedHouse {
             return 0;
         }
         if(view == "W") {
-            return 90;
+            return 270;
         }
         if(view == "N") {
             return 180;
         }
         if(view == "E") {
-            return 360;
+            return 90;
         }
 
         return 0;
