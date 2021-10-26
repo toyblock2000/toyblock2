@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.structure.castle;
 
 import com.toyblock.toyblockserver.structure.protect.protect;
+import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import locate.WorldEditAPIController;
 import org.bukkit.Location;
 
@@ -27,6 +28,7 @@ public class CastleBuild {
         //보호
         protect protect = new protect("Castle",castleLoc);
         protect.protect();
+        structureHashMap.Chunk.put(castleLoc.getChunk(),"castle");
     }
 
 }

@@ -2,6 +2,7 @@ package com.toyblock.toyblockserver.structure.castle;
 
 import com.toyblock.toyblockserver.structure.CastleBuildCheckUi;
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
+import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
 import locate.tool;
 import org.bukkit.Location;
@@ -45,6 +46,7 @@ public class PlayerCastlePath implements Listener {
 
             Castle_Path path = new Castle_Path(loc, event.getPlayer());
             path.build();
+            structureHashMap.Chunk.put(loc.getChunk(),"castle");
 
 
         }

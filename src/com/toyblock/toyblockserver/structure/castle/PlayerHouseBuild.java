@@ -48,6 +48,7 @@ public class PlayerHouseBuild {
                 houseedit.load("house_test.schem");
                 houseedit.paste(loc, new ExtendedHouse().viewInt(view));
                 new ExtendedHouse().houseMapPut(loc,view);
+                structureHashMap.Chunk.put(loc.getChunk(),"castle");
             }
 
 
