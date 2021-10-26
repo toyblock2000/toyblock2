@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.structure.castle;
 
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.tool.consol;
 import org.bukkit.Location;
 
 public class ExtendedHouse {
@@ -20,42 +21,56 @@ public class ExtendedHouse {
     }
 
     public boolean houseCheck2x2(Location loc, String view) {
+        consol.send("집체크");
         if (view == "S") {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
-            if (!heightCheck(loc) || heightCheck(loc10) || heightCheck(loc01) || heightCheck(loc11)) {
+            if (heightCheck(loc) && heightCheck(loc10) && heightCheck(loc01) && heightCheck(loc11)) {
+                consol.send("집체크성공");
+                return true;
+            }
+            else {
                 return false;
             }
-            return true;
         }
         if (view == "W") {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() + 5);
-            if (!heightCheck(loc) || heightCheck(loc10) || heightCheck(loc01) || heightCheck(loc11)) {
+            if (heightCheck(loc) && heightCheck(loc10) && heightCheck(loc01) && heightCheck(loc11)) {
+                consol.send("집체크성공");
+                return true;
+            }
+            else {
                 return false;
             }
-            return true;
         }
         if (view == "N") {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() - 5);
-            if (!heightCheck(loc) || heightCheck(loc10) || heightCheck(loc01) || heightCheck(loc11)) {
+            if (heightCheck(loc) && heightCheck(loc10) && heightCheck(loc01) && heightCheck(loc11)) {
+                consol.send("집체크성공");
+                return true;
+            }
+            else {
                 return false;
             }
-            return true;
         }
         if (view == "E") {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() - 5);
-            if (!heightCheck(loc) || heightCheck(loc10) || heightCheck(loc01) || heightCheck(loc11)) {
+            if (heightCheck(loc) && heightCheck(loc10) && heightCheck(loc01) && heightCheck(loc11)) {
+                consol.send("집체크성공");
+                return true;
+            }
+            else {
                 return false;
             }
-            return true;
         }
+        consol.send("집체크실패");
         return false;
 
     }

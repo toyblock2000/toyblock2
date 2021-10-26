@@ -10,11 +10,9 @@ import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.WorldEditAPIController;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -59,7 +57,9 @@ public class Castle_Path {
             pathedit.load("path_test.schem");
             pathedit.paste(loc, 0);
             structureHashMap.Link.put(loc,"path");
-
+            structureHashMap.Chunk.put(loc.getChunk(),"path");
+            consol.send(""+loc);
+            world.getBlockAt(loc).setType(Material.GOLD_BLOCK);
 
 
         } else {

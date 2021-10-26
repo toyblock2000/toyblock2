@@ -3,6 +3,7 @@ package com.toyblock.toyblockserver.structure.castle;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,22 +14,22 @@ public class PathRandomNpcBuild {
         this.pathloc = pathloc;
     }
     public void pathBuild() {
-        Location s_add = pathloc.add(5,0,0);
-        Location w_add = pathloc.add(0,0,5);
-        Location n_add = pathloc.add(-5,0,0);
-        Location e_add = pathloc.add(0,0,-5);
+        Location s_add = new Location(pathloc.getWorld(),pathloc.getBlockX()+5,pathloc.getBlockY(),pathloc.getBlockZ());
+        Location w_add =  new Location(pathloc.getWorld(),pathloc.getBlockX(),pathloc.getBlockY(),pathloc.getBlockZ()+5);
+        Location n_add =  new Location(pathloc.getWorld(),pathloc.getBlockX()-5,pathloc.getBlockY(),pathloc.getBlockZ());
+        Location e_add =  new Location(pathloc.getWorld(),pathloc.getBlockX(),pathloc.getBlockY(),pathloc.getBlockZ()-5);
         Location randompath = random(s_add,w_add,n_add,e_add);
         if(randompath==null) {
             consol.send("길 생성에 실패됨");
             return;
         }
         Castle_Path path = new Castle_Path(randompath);
+        consol.send("길 생성에 성공"+randompath);
         path.build();
-
 
     }
     public Location random (Location s,Location w,Location n, Location e) {
-
+        consol.send("랜덤실행");
         ArrayList box = new ArrayList();
         if(pathtrue(s)) {
             box.add(s);
@@ -52,6 +53,7 @@ public class PathRandomNpcBuild {
 
     }
     public boolean pathtrue(Location pathloc) {
+        consol.send("패스뜨루");
         int y = pathloc.getWorld().getHighestBlockAt(pathloc).getY();
         int path1 = pathloc.getBlockY();
         int path2 = pathloc.getBlockY();
@@ -63,15 +65,17 @@ public class PathRandomNpcBuild {
         return false;
     }
     public boolean heightCheck(Location loc) {
-
-
-        for (int i = 0; i == 11; i++) {
+        consol.send("하이첵뜨루");
+        for (int i = 0; i < 11; i++) {
             Location downloc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 5 + i, loc.getBlockZ());
+            consol.send("로케이션");
             if (structureHashMap.protect.containsKey(downloc) || structureHashMap.Link.containsKey(downloc)) {
+                consol.send("리턴");
                 return false;
             }
 
         }
+
         return true;
 
     }

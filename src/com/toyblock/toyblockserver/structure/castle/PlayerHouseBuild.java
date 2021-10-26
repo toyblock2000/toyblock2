@@ -3,18 +3,20 @@ package com.toyblock.toyblockserver.structure.castle;
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
+import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.WorldEditAPIController;
 import locate.tool;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerHouseBuild {
+public class PlayerHouseBuild implements Listener {
     @EventHandler
     public void houseBuild(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
@@ -49,6 +51,7 @@ public class PlayerHouseBuild {
                 houseedit.paste(loc, new ExtendedHouse().viewInt(view));
                 new ExtendedHouse().houseMapPut(loc,view);
                 structureHashMap.Chunk.put(loc.getChunk(),"castle");
+                consol.send("집완성");
             }
 
 
