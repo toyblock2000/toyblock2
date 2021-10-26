@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.structure.castle;
 
+import com.toyblock.toyblockserver.structure.dungeon.AutoDungeonBuild;
 import com.toyblock.toyblockserver.structure.protect.protect;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import locate.WorldEditAPIController;
@@ -29,6 +30,8 @@ public class CastleBuild {
         protect protect = new protect("Castle",castleLoc);
         protect.protect();
         structureHashMap.Chunk.put(castleLoc.getChunk(),"castle");
+        AutoDungeonBuild dungeon = new AutoDungeonBuild();
+        dungeon.AutoBuild(castleLoc.getChunk());
     }
 
 }
