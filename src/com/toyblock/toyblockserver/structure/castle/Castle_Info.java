@@ -18,21 +18,29 @@ public class Castle_Info {
     ItemStack vote3 = new ItemStack(Material.SKELETON_SKULL);
     ItemStack vote_house = new ItemStack(Material.SKELETON_SKULL);
 
-    public LivingEntity mini_vote1(ItemStack vote,Location loc) {
-        LivingEntity mob = (LivingEntity)loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
-        ArmorStand stand = (ArmorStand)mob;
+    public LivingEntity mini_vote1(ItemStack vote, Location loc) {
+        LivingEntity mob = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+        ArmorStand stand = (ArmorStand) mob;
         stand.getEquipment().setHelmet(vote);
         stand.setSmall(true);
         stand.setVisible(false);
         return mob;
-        
-    } 
-    public void vote_1(Location loc,String view) {
+
+    }
+
+    public void vote_1(Location loc, String view) {
+        Location vote1loc = new Location (loc.getWorld(),loc.getBlockX(),loc.getBlockY(),loc.getBlockZ());
         LivingEntity mob = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
         ArmorStand stand = (ArmorStand) mob;
         stand.getEquipment().setHelmet(vote_house);
         stand.setVisible(true);
         stand.addPassenger(mini_vote1(vote1, loc));
+    }
+    public void vote_make (Location loc,String view,String vote1,String vote2, String vote3) {
+
+
+
+
     }
 
 }
