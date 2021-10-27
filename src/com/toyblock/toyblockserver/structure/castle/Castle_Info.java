@@ -29,14 +29,15 @@ public class Castle_Info {
     }
 
     public void vote_1(Location loc, String view) {
-        Location vote1loc = new Location (loc.getWorld(),loc.getBlockX(),loc.getBlockY(),loc.getBlockZ());
-        LivingEntity mob = (LivingEntity) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+        Location vote_loc = new Location (loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY(),loc.getBlockZ()+0.5);
+        LivingEntity mob = (LivingEntity) loc.getWorld().spawnEntity(vote_loc, EntityType.ARMOR_STAND);
         ArmorStand stand = (ArmorStand) mob;
         stand.getEquipment().setHelmet(vote_house);
         stand.setVisible(true);
         stand.addPassenger(mini_vote1(vote1, loc));
     }
     public void vote_make (Location loc,String view,String vote1,String vote2, String vote3) {
+
 
 
 

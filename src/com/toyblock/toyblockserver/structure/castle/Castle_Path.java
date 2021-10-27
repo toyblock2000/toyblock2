@@ -14,6 +14,7 @@ import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.WorldEditAPIController;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,6 +61,9 @@ public class Castle_Path {
             structureHashMap.Chunk.put(loc.getChunk(),"path");
             consol.send(""+loc);
             world.getBlockAt(loc).setType(Material.GOLD_BLOCK);
+            Castle_Info npc = new Castle_Info();
+            npc.
+                    vote_1(loc,"S");
 
 
         } else {
