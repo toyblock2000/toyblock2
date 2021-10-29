@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.structure.castle;
 
 import com.toyblock.toyblockserver.structure.CastleBuildCheckUi;
+import com.toyblock.toyblockserver.structure.castle.path.rule.PathLineCheck;
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
@@ -43,7 +44,6 @@ public class PlayerCastlePath implements Listener {
             if (!PathLink.LinkCheck(loc,player,view)) {
                 return;
             }
-
 
             Castle_Path path = new Castle_Path(loc);
             path.build();

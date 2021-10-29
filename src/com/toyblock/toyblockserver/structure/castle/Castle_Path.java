@@ -9,12 +9,12 @@ import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
+import com.toyblock.toyblockserver.structure.castle.path.rule.PathLineCheck;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.WorldEditAPIController;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -53,6 +53,11 @@ public class Castle_Path {
         int count = edit.countBlocks(region, airSet);
 
         if (count >= 80) {
+
+            PathLineCheck pathline = new PathLineCheck();
+            if (pathline.pathLineCheck(loc)) {
+                return;
+            }
 
             WorldEditAPIController pathedit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle/path", "world");
             pathedit.load("path_test.schem");
