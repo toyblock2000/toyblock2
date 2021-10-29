@@ -46,7 +46,8 @@ public class PathRandomNpcBuild {
         Collections.shuffle(box);
         if(box.get(0)==null) {
             return null;
-        }
+        }0
+
         return (Location)box.get(0);
 
 
