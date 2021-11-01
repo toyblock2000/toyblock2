@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -19,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.util.EulerAngle;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -129,6 +131,7 @@ public class InvestmentNpc implements Listener {
     public static void openInv (Player player , UUID UUID) {
         player.openInventory(PathInvestment.Inv.get(UUID));
     }
+
     @EventHandler
     public void investmentOpen (PlayerInteractAtEntityEvent event) {
         Player player = event.getPlayer();
@@ -140,7 +143,19 @@ public class InvestmentNpc implements Listener {
             player.chat("노투자");
             return;
         }
+        if(PathInvestment.OpenInv.containsKey(PathInvestment.Inv.get(event.getRightClicked().getUniqueId()))) {
+            return;
+        }
+        PathInvestment.OpenInv.put(PathInvestment.Inv.get(event.getRightClicked().getUniqueId()),"on");
         openInv(player,event.getRightClicked().getUniqueId());
+    }
+    @EventHandler
+    public void investmentClose(InventoryCloseEvent event) {
+        if(PathInvestment.OpenInv.containsKey(event.getInventory())) {
+            Player player =(Player)event.getPlayer();
+            player.chat("인벤종료");
+            PathInvestment.OpenInv.remove(event.getInventory());
+        }
     }
 
 }
