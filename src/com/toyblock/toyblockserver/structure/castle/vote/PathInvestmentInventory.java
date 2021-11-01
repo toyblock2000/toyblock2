@@ -56,13 +56,13 @@ public class PathInvestmentInventory implements Listener {
         inv.setItem(7,item.wall());
         inv.setItem(8,item.wall());
 
-        inv.setItem(9,item.wall());
-        inv.setItem(10,item.wall());
+        inv.setItem(9,item.investmentGoal_sign());
+        inv.setItem(10,item.equalItem());
         inv.setItem(11,item.investmentGoal().add(64));
         inv.setItem(17,item.wall());
 
-        inv.setItem(18,item.wall());
-        inv.setItem(19,item.wall());
+        inv.setItem(18,item.investment_sign());
+        inv.setItem(19,item.equalItem());
         inv.setItem(20,item.investment());
         inv.setItem(26,item.wall());
 
@@ -71,7 +71,7 @@ public class PathInvestmentInventory implements Listener {
         inv.setItem(29,item.wall());
         inv.setItem(30,item.wall());
         inv.setItem(31,item.wall());
-        inv.setItem(32,item.wall());
+        inv.setItem(32,item.investment_up());
         inv.setItem(33,item.wall());
         inv.setItem(34,item.wall());
         inv.setItem(35,item.wall());
@@ -92,7 +92,7 @@ public class PathInvestmentInventory implements Listener {
         inv.setItem(47,item.wall());
         inv.setItem(48,item.wall());
         inv.setItem(49,item.wall());
-        inv.setItem(50,item.wall());
+        inv.setItem(50,item.investment_down());
         inv.setItem(51,item.wall());
         inv.setItem(52,item.wall());
         inv.setItem(53,item.exit());

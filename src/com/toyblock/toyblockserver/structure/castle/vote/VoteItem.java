@@ -71,7 +71,7 @@ public class VoteItem {
     public ItemStack wall () {
         ItemStack investCoin = new ItemStack(Material.WHITE_STAINED_GLASS);
         ItemMeta meta = investCoin.getItemMeta();
-        meta.setDisplayName("");
+        meta.setDisplayName(".");
         investCoin.setItemMeta(meta);
         return investCoin;
     }
@@ -112,17 +112,48 @@ public class VoteItem {
         investCoin.setItemMeta(meta);
         return investCoin;
     }
-    public ItemStack investmentGoalSign() {
-        ItemStack investCoin = new ItemStack(Material.BOOK);
+    public ItemStack investmentGoal_sign () {
+        ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjViYTk3ODkwODdiMDEyMzA3ZGQ0N2RlMzhjNjYyMmQ3NWQ2YmIyMWViOTcwMTZjNDlhZmU5ZDcwMDQxOTkwOSJ9fX0=");
         ItemMeta meta = investCoin.getItemMeta();
-        meta.setDisplayName("종료");
+        meta.setDisplayName("총 필요한 투자 금액");
+        // meta.addEnchant(Enchantment.DURABILITY,1,true);
+        //meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         investCoin.setItemMeta(meta);
         return investCoin;
     }
-    public ItemStack investmentSign() {
-        ItemStack investCoin = new ItemStack(Material.BOOK);
+    public ItemStack investment_sign () {
+        ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGJhNTU2NzFmOTdmZjNiZmM1YmUzMzVhZTkyY2Q5NzQ5YWJkNjE5ZTdhZmMyYTY2NzM1OTdiODBiNzU1Yzc0MSJ9fX0");
         ItemMeta meta = investCoin.getItemMeta();
-        meta.setDisplayName("종료");
+        meta.setDisplayName("지금까지 모집한 투자 금액");
+        // meta.addEnchant(Enchantment.DURABILITY,1,true);
+        //meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        investCoin.setItemMeta(meta);
+        return investCoin;
+    }
+    public ItemStack investment_up () {
+        ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzA0MGZlODM2YTZjMmZiZDJjN2E5YzhlYzZiZTUxNzRmZGRmMWFjMjBmNTVlMzY2MTU2ZmE1ZjcxMmUxMCJ9fX0=");
+        ItemMeta meta = investCoin.getItemMeta();
+        meta.setDisplayName("금액 투자하기");
+        // meta.addEnchant(Enchantment.DURABILITY,1,true);
+        //meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        investCoin.setItemMeta(meta);
+        return investCoin;
+    }
+    public ItemStack investment_down () {
+        ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzQzNzM0NmQ4YmRhNzhkNTI1ZDE5ZjU0MGE5NWU0ZTc5ZGFlZGE3OTVjYmM1YTEzMjU2MjM2MzEyY2YifX19");
+        ItemMeta meta = investCoin.getItemMeta();
+        meta.setDisplayName("투자금 설정 되돌리기");
+        // meta.addEnchant(Enchantment.DURABILITY,1,true);
+        //meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        investCoin.setItemMeta(meta);
+        return investCoin;
+    }
+    public ItemStack equalItem () {
+        ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3Njg5ZjgzMzQzNmFhNzExYWJiZDQ1MTY4ODU2Nzc1YTJiMTE0NjU2Y2RmNGRjNWE2YzZmMWFmYWU1MjAifX19");
+        ItemMeta meta = investCoin.getItemMeta();
+        meta.setDisplayName(".");
+        // meta.addEnchant(Enchantment.DURABILITY,1,true);
+        //meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         investCoin.setItemMeta(meta);
         return investCoin;
     }
