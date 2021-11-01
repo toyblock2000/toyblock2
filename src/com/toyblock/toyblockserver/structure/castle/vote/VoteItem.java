@@ -157,6 +157,15 @@ public class VoteItem {
         investCoin.setItemMeta(meta);
         return investCoin;
     }
+    public ItemStack logsItem () {
+        ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODg4YzQ3MzllMjI4M2FhYTYyODE5NTk0ODZkMTQ5ZjMwNmI2ZTY3MjlhNmExYjNiZjljODUzYTIyYTkifX19");
+        ItemMeta meta = investCoin.getItemMeta();
+        meta.setDisplayName(".");
+        // meta.addEnchant(Enchantment.DURABILITY,1,true);
+        //meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        investCoin.setItemMeta(meta);
+        return investCoin;
+    }
 
 
 
