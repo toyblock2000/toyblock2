@@ -67,7 +67,7 @@ public class castle_manager_class implements Listener{
 			event.setCancelled(true);
 			this.UUID = event.getEntity().getUniqueId();
 		}
-	   @EventHandler
+	  // @EventHandler
 	   public void  strictrue_center_build_save_frame_manager_click (PlayerInteractAtEntityEvent event) {
 		   event.getPlayer().chat("??");
 		  if (! 	 event.getPlayer().getTargetEntity(10).getCustomName().equals("frame_castle_manager")) {

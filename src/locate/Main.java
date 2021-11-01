@@ -55,6 +55,7 @@ import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
 import com.toyblock.toyblockserver.structure.castle.PlayerHouseBuild;
 import com.toyblock.toyblockserver.structure.castle.item.ItemUse;
+import com.toyblock.toyblockserver.structure.castle.vote.InvestmentNpc;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import hashmap.MapSaveTool;
 import natural_spawn.natural_spawn;
@@ -144,6 +145,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new villager_test(),this);
 		getServer().getPluginManager().registerEvents(new PlayerHouseBuild(),this);
 		getServer().getPluginManager().registerEvents(new ItemUse(),this);
+		getServer().getPluginManager().registerEvents(new InvestmentNpc(),this);
 		   consol.sendMessage("청크");
 		data.loadConfig();
 		MapSaveTool.makeFile(f_protect);

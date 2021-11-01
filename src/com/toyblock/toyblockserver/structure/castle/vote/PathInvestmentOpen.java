@@ -14,7 +14,8 @@ public class PathInvestmentOpen implements Listener {
     public void InvestmentOpen (PlayerInteractEvent event) {
 
     }
-    public void openInv (Player player , UUID UUID) {
+    public static void openInv (Player player , UUID UUID) {
         player.openInventory(PathInvestment.Inv.get(UUID));
     }
+
 }
