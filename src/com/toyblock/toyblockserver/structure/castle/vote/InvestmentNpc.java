@@ -28,9 +28,8 @@ import java.util.UUID;
 
 public class InvestmentNpc implements Listener {
     public void pathInvestment(ItemStack vote, Location loc,String view) {
-        Location setloc = new Location(loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY()+0.1,loc.getBlockZ()+0.5);
-        setloc.setYaw(getYaw(view));
-        Location newloc = more(setloc,view);
+        Location newloc = new Location(loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY()+0.1,loc.getBlockZ()+0.5);
+        newloc.setYaw(getYaw(view));
         LivingEntity mob = (LivingEntity) newloc.getWorld().spawnEntity(newloc, EntityType.ARMOR_STAND);
         ArmorStand stand = (ArmorStand) mob;
         stand.getEquipment().setHelmet(vote);

@@ -4,6 +4,7 @@ import com.toyblock.toyblockserver.structure.castle.vote.InvestmentNpc;
 import com.toyblock.toyblockserver.structure.castle.vote.PathInvestment;
 import com.toyblock.toyblockserver.structure.castle.vote.VoteItem;
 import net.minecraft.world.inventory.InventoryClickType;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,62 +18,96 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryClick implements Listener {
+    Player player = Bukkit.getPlayer("Devil");
     @EventHandler
     public void invClick(InventoryClickEvent event) {
-        Player player = (Player)event.getWhoClicked();
+        Player player = (Player) event.getWhoClicked();
         Inventory inv = event.getInventory();
         ItemStack emerald = new ItemStack(Material.EMERALD);
-        if(!PathInvestment.Inv.containsKey(event.getInventory())) {
+        if (!PathInvestment.Inv_amount.containsKey(event.getInventory())) {
+            player.chat("미등록");
             return;
         }
-        if(event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+        if (event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
             event.setCancelled(true);
+            player.chat("노플레이어");
             return;
         }
-        if(event.getRawSlot()==37) {
+        if (event.getRawSlot() == 37) {
             event.setCancelled(true);
-            if(!removeItem_LageChest(inv,emerald,1)) {
-                return;
-            }
+            player.chat("실행 딱 직전");
+            removeItem_LageChest(player, emerald, 1);
+            addInvestment(inv);
+            player.chat("성공 한 거니?");
         }
-
     }
-    public boolean removeItem_LageChest(Inventory inv ,ItemStack find_item,int find_amount) {
+
+    public void removeItem_LageChest(Player player ,ItemStack find_item,int find_amount) {
         int amount;
+        Inventory inv = player.getInventory();
         ArrayList<Integer> slot = new ArrayList<>();
-        for (int i = 54;i<89;i++) {
+        Material find_mate = find_item.getType();
+        for (int i = 0;i<35;i++) {
             ItemStack item = inv.getItem(i);
-            if(item.equals(find_item)) {
-                amount = item.getAmount();
-                if(amount >= find_amount) {
-                    for(int i1 = 0;i1 < slot.size();i1++) {
-                        int a = slot.get(i1);
-                        inv.clear(a);
-                    }
-                    if(find_amount-amount == 0) {
-                        inv.clear(i);
+            if(item == null) {
+                player.chat("!");
+                continue;
+            }
+            else if(!item.getType().equals(find_item.getType())) {
+                player.chat("2");
+                continue;
 
-                    }
-                    else {
-                        inv.getItem(i).setAmount(find_amount-amount);
+            }
+            player.chat("3에메");
+            amount = item.getAmount();
 
-                    }
-                    return true;
-                }
+
+            if(!(amount >= find_amount)) {
                 slot.add(i);
 
+                player.chat("3");
+                continue;
             }
+            if(slot.isEmpty()) {
+
+                inv.getItem(i).setAmount(amount-find_amount);
+                player.chat("4");
+                return ;
+            }
+            for (int ii : slot) {
+                inv.clear(ii);
+                player.chat("5");
+            }
+
+            if(find_amount-amount == 0) {
+                inv.clear(i);
+                player.chat("6");
+                return ;
+
+            }
+            else if(find_amount-amount > 0) {
+                inv.getItem(i).setAmount(amount-find_amount);
+                player.chat("7");
+                return ;
+            }
+
+
         }
-        return false;
 
     }
+
     public void addInvestment(Inventory inv) {
         VoteItem item = new VoteItem();
-        int box = inv.getItem(41).getAmount();
-        if(box==0) {
+        int box;
+        player.chat("머지??");
+        if(inv.getItem(41) == null) {
+            player.chat("머지??왜안댐?");
             inv.setItem(41,item.investment_put());
+            return;
         }
-        else {
+        box = inv.getItem(41).getAmount();
+        if(!(inv.getItem(41) == null)) {
+            player.chat("오잉?");
             inv.getItem(41).setAmount(box+1);
         }
         return;

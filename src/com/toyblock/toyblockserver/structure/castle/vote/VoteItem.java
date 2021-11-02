@@ -61,6 +61,15 @@ public class VoteItem {
         investCoin.setItemMeta(meta);
         return investCoin;
     }
+    public ItemStack investment_put_null () {
+        ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNiM2FjZGMxMWNhNzQ3YmY3MTBlNTlmNGM4ZTliM2Q5NDlmZGQzNjRjNjg2OTgzMWNhODc4ZjA3NjNkMTc4NyJ9fX0=");
+        ItemMeta meta = investCoin.getItemMeta();
+        meta.setDisplayName("내가 투자할 액수 : 현재 0");
+        // meta.addEnchant(Enchantment.DURABILITY,1,true);
+        //meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        investCoin.setItemMeta(meta);
+        return investCoin;
+    }
     public ItemStack investmentGoal () {
         ItemStack investCoin = new ItemStack(Material.EMERALD);
         ItemMeta meta = investCoin.getItemMeta();
