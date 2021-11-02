@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.util.EulerAngle;
@@ -27,8 +28,9 @@ import java.util.UUID;
 
 public class InvestmentNpc implements Listener {
     public void pathInvestment(ItemStack vote, Location loc,String view) {
-        Location newloc = new Location(loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY()+0.1,loc.getBlockZ()+0.5);
-        newloc.setYaw(getYaw(view));
+        Location setloc = new Location(loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY()+0.1,loc.getBlockZ()+0.5);
+        setloc.setYaw(getYaw(view));
+        Location newloc = more(setloc,view);
         LivingEntity mob = (LivingEntity) newloc.getWorld().spawnEntity(newloc, EntityType.ARMOR_STAND);
         ArmorStand stand = (ArmorStand) mob;
         stand.getEquipment().setHelmet(vote);
@@ -146,7 +148,7 @@ public class InvestmentNpc implements Listener {
         if(PathInvestment.OpenInv.containsKey(PathInvestment.Inv.get(event.getRightClicked().getUniqueId()))) {
             return;
         }
-        PathInvestment.OpenInv.put(PathInvestment.Inv.get(event.getRightClicked().getUniqueId()),"on");
+        PathInvestment.OpenInv.put(PathInvestment.Inv.get(event.getRightClicked().getUniqueId()),0);
         openInv(player,event.getRightClicked().getUniqueId());
     }
     @EventHandler
@@ -156,6 +158,13 @@ public class InvestmentNpc implements Listener {
             player.chat("인벤종료");
             PathInvestment.OpenInv.remove(event.getInventory());
         }
+    }
+    public static int setFullInvestment(Inventory inv) {
+        int amount = 0;
+        for (int i =11; i<=16 ; i++) {
+            amount = amount + inv.getItem(i).getAmount();
+        }
+        return amount;
     }
 
 }

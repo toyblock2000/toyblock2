@@ -17,7 +17,9 @@ import java.util.UUID;
 public class PathInvestment {
     public static HashMap<UUID, Integer > InvestmentInv = new HashMap<UUID,Integer > () ;
     public static HashMap<UUID, Inventory > Inv = new HashMap<UUID, Inventory>() ;
-    public static HashMap<Inventory, String > OpenInv = new HashMap<Inventory, String>() ;
+    public static HashMap<Inventory, Integer > Inv_amount= new HashMap<Inventory, Integer>() ;
+
+    public static HashMap<Inventory, Integer > OpenInv = new HashMap<Inventory, Integer>() ;
 
     // LivingEntity mob = (LivingEntity)world.spawnEntity(p.getLocation(), EntityType.ZOMBIE);
 
