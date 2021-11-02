@@ -43,7 +43,7 @@ public class PathInvestmentInventory implements Listener {
         }
 
     }
-    public void createInv (UUID UUID,int max_investment) {
+    public void createInv (UUID UUID,int goal) {
         VoteItem item = new VoteItem();
         Inventory inv = Bukkit.createInventory(null,54);
         inv.setItem(0,item.wall());
@@ -97,17 +97,28 @@ public class PathInvestmentInventory implements Listener {
         inv.setItem(52,item.wall());
         inv.setItem(53,item.exit());
 
-        int max = max_investment/64;
-        int min = max_investment%64;
+        if(!setInvestmentGoal(inv,goal)) {
+            return;
+        }
+        PathInvestment.Inv.put(UUID,inv); //인벤등록
+        PathInvestment.Inv_amount.put(inv,goal); //투자금 등록
+    }
+    public boolean setInvestmentGoal (Inventory inv, int goal) {
+        int fullGoal = 64*6; //384
+        if (goal>fullGoal) {
+            return false;
+        }
+        VoteItem item = new VoteItem();
+
+        int max = goal/64;
+        int min = goal%64;
         int start = 11;
         for (int i = 1; i <= max ; i++) {
             inv.setItem(start,item.investmentGoal().add(64));
             start ++;
         }
         inv.setItem(start,item.investmentGoal().add(min));
-
-        PathInvestment.Inv.put(UUID,inv);
-        PathInvestment.Inv_amount.put(inv,InvestmentNpc.setFullInvestment(inv));
+        return true;
     }
 
 }

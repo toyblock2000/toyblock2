@@ -42,7 +42,7 @@ public class InvestmentNpc implements Listener {
         stand.setCanPickupItems(false);
         stand.setAI(false);
         PathInvestmentInventory inv = new PathInvestmentInventory();
-        inv.createInv(stand.getUniqueId());
+        inv.createInv(stand.getUniqueId(),100);
         stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING);
         stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING);
         stand.setHeadPose(new EulerAngle(199.5,0,0));
