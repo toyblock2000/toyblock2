@@ -81,7 +81,7 @@ public class PathInvestmentInventory implements Listener {
         inv.setItem(38,item.investment_5give());
         inv.setItem(39,item.investment_10give());
         inv.setItem(40,item.wall());
-        inv.setItem(41,item.investment_put());
+       // inv.setItem(41,item.investment_put());
         inv.setItem(42,item.wall());
         inv.setItem(43,item.wall());
         inv.setItem(44,item.wall());
