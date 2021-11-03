@@ -106,6 +106,8 @@ public class PathInvestmentInventory implements Listener {
         PathInvestment.Inv.put(UUID,inv); //인벤등록
         PathInvestment.Inv_amount.put(inv,goal); //투자금 등록
         PathInvestment.InvestmentLink.put(loc,inv);
+        PathInvestment.InvestmentGorundLink.put(UUID,loc);
+        PathInvestment.InvestmentUUIDLink.put(inv,UUID);
     }
     public boolean invLinkCheck(Location loc) {
         for (int i = 0; i < 10; i++) {

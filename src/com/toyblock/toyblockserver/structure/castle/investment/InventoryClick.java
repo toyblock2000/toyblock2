@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.structure.castle.investment;
 
+import com.toyblock.toyblockserver.structure.castle.Castle_Path;
 import com.toyblock.toyblockserver.structure.castle.vote.InvestmentNpc;
 import com.toyblock.toyblockserver.structure.castle.vote.PathInvestment;
 import com.toyblock.toyblockserver.structure.castle.vote.VoteItem;
@@ -18,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class InventoryClick implements Listener {
     Player player = Bukkit.getPlayer("Devil");
@@ -61,7 +63,13 @@ public class InventoryClick implements Listener {
             }
             int investment = inv.getItem(41).getAmount();
             giveInvestment(player,inv,investment);
-
+            if(remnantCount(inv)==0) {
+                UUID UUID = PathInvestment.InvestmentUUIDLink.get(inv);
+                Location loc = PathInvestment.InvestmentGorundLink.get(UUID);
+                Location make = loc.getWorld().getHighestBlockAt(loc).getLocation();
+                Castle_Path path = new Castle_Path(make);
+                path.build();
+            }
 
         }
     }
