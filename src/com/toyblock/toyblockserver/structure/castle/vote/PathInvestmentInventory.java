@@ -1,5 +1,7 @@
 package com.toyblock.toyblockserver.structure.castle.vote;
 
+import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.tool.consol;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,6 +15,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -43,7 +46,7 @@ public class PathInvestmentInventory implements Listener {
         }
 
     }
-    public void createInv (UUID UUID ,int goal) {
+    public void createInv (UUID UUID ,Location loc ,int goal) {
         VoteItem item = new VoteItem();
         Inventory inv = Bukkit.createInventory(null,54);
         inv.setItem(0,item.wall());
@@ -102,6 +105,20 @@ public class PathInvestmentInventory implements Listener {
         }
         PathInvestment.Inv.put(UUID,inv); //인벤등록
         PathInvestment.Inv_amount.put(inv,goal); //투자금 등록
+        PathInvestment.InvestmentLink.put(loc,inv);
+    }
+    public boolean invLinkCheck(Location loc) {
+        for (int i = 0; i < 10; i++) {
+            Location downloc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 5 + i, loc.getBlockZ());
+            consol.send("로케이션");
+            if (PathInvestment.InvestmentLink.containsKey(downloc)) {
+                return true;
+            }
+
+
+        }
+        return false;
+
     }
     public boolean setInvestmentGoal (Inventory inv, int goal) {
         int fullGoal = 64*6; //384

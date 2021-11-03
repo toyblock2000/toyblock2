@@ -28,6 +28,12 @@ import java.util.UUID;
 
 public class InvestmentNpc implements Listener {
     public void pathInvestment(ItemStack vote, Location loc,String view) {
+        LocBalance bal = new LocBalance();
+        Location balance = bal.balance(more(loc,view));
+        PathInvestmentInventory inv = new PathInvestmentInventory();
+        if(!inv.invLinkCheck(balance)) {
+            return;
+        }
         Location newloc = new Location(loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY()+0.1,loc.getBlockZ()+0.5);
         newloc.setYaw(getYaw(view));
         LivingEntity mob = (LivingEntity) newloc.getWorld().spawnEntity(newloc, EntityType.ARMOR_STAND);
@@ -40,11 +46,12 @@ public class InvestmentNpc implements Listener {
         stand.setCanMove(false);
         stand.setCanPickupItems(false);
         stand.setAI(false);
-        PathInvestmentInventory inv = new PathInvestmentInventory();
-        inv.createInv(stand.getUniqueId(),100);
+
         stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING);
         stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING);
         stand.setHeadPose(new EulerAngle(199.5,0,0));
+
+        inv.createInv(stand.getUniqueId(),balance,100);
     }
     public int getYaw(String view) {
         if (view == "E") {
@@ -130,7 +137,6 @@ public class InvestmentNpc implements Listener {
         }
     }
     public static void openInv (Player player , UUID UUID) {
-
         Inventory inven = PathInvestment.Inv.get(UUID);
         player.openInventory(inven);
     }
