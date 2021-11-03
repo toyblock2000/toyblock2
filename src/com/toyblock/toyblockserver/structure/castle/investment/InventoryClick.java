@@ -5,6 +5,7 @@ import com.toyblock.toyblockserver.structure.castle.vote.PathInvestment;
 import com.toyblock.toyblockserver.structure.castle.vote.VoteItem;
 import net.minecraft.world.inventory.InventoryClickType;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +15,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +81,19 @@ public class InventoryClick implements Listener {
 
             }
         }
+    }
+    public void addInvestmentList(Inventory inv,Player player) {
+
+        for(int i = 1;i <= 384 ; i++) {
+            if(PathInvestment.InvestmentList.containsKey(inv+"i")) {
+                continue;
+            }
+            PathInvestment.InvestmentList.put(inv+"i",player);
+            return;
+
+        }
+
+
     }
     public int goalCount(Inventory inv) {
         int count = 0;
