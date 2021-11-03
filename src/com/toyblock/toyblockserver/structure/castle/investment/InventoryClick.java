@@ -36,6 +36,9 @@ public class InventoryClick implements Listener {
         if (event.getRawSlot() == 37) {
             event.setCancelled(true);
             player.chat("실행 딱 직전");
+            if(event.getInventory().getItem(37).getAmount() == 64) {
+                return;
+            }
             removeItem_LageChest(player, emerald, 1);
             addInvestment(inv);
             player.chat("성공 한 거니?");
@@ -46,6 +49,17 @@ public class InventoryClick implements Listener {
             returnInvestment(player,pay);
             inv.clear(41);
         }
+        if (event.getRawSlot() == 32) {
+            event.setCancelled(true);
+            if(inv.getItem(41).equals(null)) {
+                return;
+            }
+            int investment = inv.getItem(41).getAmount();
+
+        }
+    }
+    public void giveInvestment (Inventory inv , int investment) {
+
     }
 
     public void removeItem_LageChest(Player player ,ItemStack find_item,int find_amount) {
