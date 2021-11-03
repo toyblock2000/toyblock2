@@ -36,6 +36,9 @@ public class InventoryClick implements Listener {
         if (event.getRawSlot() == 37) {
             event.setCancelled(true);
             player.chat("실행 딱 직전");
+            if(!addCountTest(inv,1)) {
+                return;
+            }
             if(event.getInventory().getItem(37).getAmount() == 64) {
                 return;
             }
@@ -55,11 +58,52 @@ public class InventoryClick implements Listener {
                 return;
             }
             int investment = inv.getItem(41).getAmount();
+            giveInvestment(player,inv,investment);
+
 
         }
     }
-    public void giveInvestment (Inventory inv , int investment) {
+    public void giveInvestment (Player player,Inventory inv , int investment) {
+        int nomber = 20;
+        for(int i = 1; i < investment+1;i++) {
+            if(inv.getItem(nomber).getAmount()< 64) {
+                inv.getItem(nomber).setAmount(inv.getItem(nomber).getAmount()+1);
+                continue;
+            }
+            else {
+                nomber++;
+                if(inv.getItem(nomber).getAmount()< 64) {
+                    inv.getItem(nomber).setAmount(inv.getItem(nomber).getAmount()+1);
+                    continue;
+                }
 
+            }
+        }
+    }
+    public int goalCount(Inventory inv) {
+        int count = 0;
+        for (int i = 11;i <= 16; i++) {
+            count = count+inv.getItem(i).getAmount();
+        }
+        return count;
+    }
+    public int nowCount(Inventory inv) {
+        int count = 0;
+        for (int i = 20;i <= 25; i++) {
+            count = count+inv.getItem(i).getAmount();
+        }
+        return count;
+    }
+    public int remnantCount(Inventory inv) {
+        int count = goalCount(inv) - nowCount(inv);
+        return count;
+    }
+    public boolean addCountTest (Inventory inv,int pay) {
+        int remnant = remnantCount(inv);
+        if(remnant >= pay) {
+            return true;
+        }
+        return false;
     }
 
     public void removeItem_LageChest(Player player ,ItemStack find_item,int find_amount) {
