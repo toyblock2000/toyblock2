@@ -40,6 +40,12 @@ public class InventoryClick implements Listener {
             addInvestment(inv);
             player.chat("성공 한 거니?");
         }
+        if (event.getRawSlot() == 50) {
+            event.setCancelled(true);
+            int pay =InvestmentPay(inv);
+            returnInvestment(player,pay);
+            inv.clear(41);
+        }
     }
 
     public void removeItem_LageChest(Player player ,ItemStack find_item,int find_amount) {
@@ -111,6 +117,20 @@ public class InventoryClick implements Listener {
             inv.getItem(41).setAmount(box+1);
         }
         return;
+    }
+    public int InvestmentPay (Inventory inv ) {
+        int pay = inv.getItem(41).getAmount();
+        return pay;
+    }
+    public void returnInvestment (Player player , int pay) {
+        int pay_64 = pay/64;
+        int pay_min= pay%64;
+        ItemStack emerald_64 = new ItemStack(Material.EMERALD,64);
+        ItemStack emerald = new ItemStack(Material.EMERALD,pay_min);
+        for(int i = 0 ; i <pay_64;i++) {
+            player.getInventory().addItem(emerald_64);
+        }
+        player.getInventory().addItem(emerald);
     }
 
 }
