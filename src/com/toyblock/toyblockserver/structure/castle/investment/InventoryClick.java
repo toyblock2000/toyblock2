@@ -40,12 +40,18 @@ public class InventoryClick implements Listener {
         if (event.getRawSlot() == 37) {
             event.setCancelled(true);
             player.chat("실행 딱 직전");
+
             if(!addCountTest(inv,1)) {
+                player.chat("어디야");
                 return;
             }
-            if(event.getInventory().getItem(37).getAmount() == 64) {
-                return;
+            if(!(event.getInventory().getItem(41) == null)) {
+                if (event.getInventory().getItem(41).getAmount() == 64) {
+                    player.chat("도대체");
+                    return;
+                }
             }
+            player.chat(" 오잉 ㅇ?");
             removeItem_LageChest(player, emerald, 1);
             addInvestment(inv);
             player.chat("성공 한 거니?");
@@ -63,6 +69,7 @@ public class InventoryClick implements Listener {
             }
             int investment = inv.getItem(41).getAmount();
             giveInvestment(player,inv,investment);
+            inv.clear(41);
             if(remnantCount(inv)==0) {
                 UUID UUID = PathInvestment.InvestmentUUIDLink.get(inv);
                 Location loc = PathInvestment.InvestmentGorundLink.get(UUID);
@@ -74,19 +81,24 @@ public class InventoryClick implements Listener {
         }
     }
     public void giveInvestment (Player player,Inventory inv , int investment) {
+        VoteItem item = new VoteItem();
         int nomber = 20;
-        for(int i = 1; i < investment+1;i++) {
+        for(int i = 0; i < investment;i++) {
+            if(inv.getItem(nomber) == null) {
+                inv.setItem(nomber,item.investment());
+                continue;
+            }
             if(inv.getItem(nomber).getAmount()< 64) {
                 inv.getItem(nomber).setAmount(inv.getItem(nomber).getAmount()+1);
-                continue;
             }
             else {
                 nomber++;
-                if(inv.getItem(nomber).getAmount()< 64) {
-                    inv.getItem(nomber).setAmount(inv.getItem(nomber).getAmount()+1);
-                    continue;
+                if(inv.getItem(nomber) == null) {
+                    inv.setItem(nomber,item.investment());
                 }
-
+                else {
+                    inv.getItem(nomber).setAmount(inv.getItem(nomber).getAmount() + 1);
+                }
             }
         }
     }
@@ -112,13 +124,22 @@ public class InventoryClick implements Listener {
     public int goalCount(Inventory inv) {
         int count = 0;
         for (int i = 11;i <= 16; i++) {
+            if (inv.getItem(i) == null ) {
+                return count;
+            }
             count = count+inv.getItem(i).getAmount();
         }
         return count;
     }
     public int nowCount(Inventory inv) {
         int count = 0;
+        if(!(inv.getItem(41) == null)) {
+            count = count+inv.getItem(41).getAmount();
+        }
         for (int i = 20;i <= 25; i++) {
+            if (inv.getItem(i) == null ) {
+                return count;
+            }
             count = count+inv.getItem(i).getAmount();
         }
         return count;
@@ -130,6 +151,7 @@ public class InventoryClick implements Listener {
     public boolean addCountTest (Inventory inv,int pay) {
         int remnant = remnantCount(inv);
         if(remnant >= pay) {
+            Bukkit.getPlayer("Devil").chat("남은수"+remnant+"페이"+pay);
             return true;
         }
         return false;
