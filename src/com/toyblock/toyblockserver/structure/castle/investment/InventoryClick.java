@@ -123,13 +123,7 @@ public class InventoryClick implements Listener {
         return pay;
     }
     public void returnInvestment (Player player , int pay) {
-        int pay_64 = pay/64;
-        int pay_min= pay%64;
-        ItemStack emerald_64 = new ItemStack(Material.EMERALD,64);
-        ItemStack emerald = new ItemStack(Material.EMERALD,pay_min);
-        for(int i = 0 ; i <pay_64;i++) {
-            player.getInventory().addItem(emerald_64);
-        }
+        ItemStack emerald = new ItemStack(Material.EMERALD,pay);
         player.getInventory().addItem(emerald);
     }
 
