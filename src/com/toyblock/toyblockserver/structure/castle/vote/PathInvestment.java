@@ -21,6 +21,8 @@ public class PathInvestment {
 
     public static HashMap<Inventory, Integer > OpenInv = new HashMap<Inventory, Integer>() ;
     public static HashMap<String , Player > InvestmentList = new HashMap<String, Player>() ;
+    public static HashMap<Location , Inventory > InvestmentLink = new HashMap<Location, Inventory>() ;
+
 
     // LivingEntity mob = (LivingEntity)world.spawnEntity(p.getLocation(), EntityType.ZOMBIE);
 

@@ -70,22 +70,22 @@ public class InvestmentNpc implements Listener {
         if (view.equals("S")) {
             y=(loc.getBlockY());
             x=(loc.getBlockX());
-            z=(loc.getBlockZ()+0.5);
+            z=(loc.getBlockZ()+3);
         }
         if (view.equals("E")) {
             y=(loc.getBlockY());
-            x=(loc.getBlockX()+0.5);
+            x=(loc.getBlockX()+3);
             z=(loc.getBlockZ());
         }
         if (view.equals("W")) {
             y=(loc.getBlockY());
-            x=(loc.getBlockX()-0.5);
+            x=(loc.getBlockX()-3);
             z=(loc.getBlockZ());
         }
         if (view.equals("N")) {
             y=(loc.getBlockY());
             x=(loc.getBlockX());
-            z=(loc.getBlockZ()-0.5);
+            z=(loc.getBlockZ()-3);
         }
         return new Location(loc.getWorld(),x,y,z);
 
@@ -130,7 +130,9 @@ public class InvestmentNpc implements Listener {
         }
     }
     public static void openInv (Player player , UUID UUID) {
-        player.openInventory(PathInvestment.Inv.get(UUID));
+
+        Inventory inven = PathInvestment.Inv.get(UUID);
+        player.openInventory(inven);
     }
 
     @EventHandler

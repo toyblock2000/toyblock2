@@ -43,7 +43,7 @@ public class PathInvestmentInventory implements Listener {
         }
 
     }
-    public void createInv (UUID UUID,int goal) {
+    public void createInv (UUID UUID ,int goal) {
         VoteItem item = new VoteItem();
         Inventory inv = Bukkit.createInventory(null,54);
         inv.setItem(0,item.wall());
