@@ -39,6 +39,7 @@ public class PathInvestment {
 
     }
 
+
     public void Investment(Location loc, String view) {
         Location vote_loc = new Location (loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY(),loc.getBlockZ()+0.5);
         LivingEntity mob = (LivingEntity) loc.getWorld().spawnEntity(vote_loc, EntityType.ARMOR_STAND);
