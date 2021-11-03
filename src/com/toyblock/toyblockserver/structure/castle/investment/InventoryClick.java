@@ -52,8 +52,28 @@ public class InventoryClick implements Listener {
                 }
             }
             player.chat(" 오잉 ㅇ?");
-            removeItem_LageChest(player, emerald, 1);
-            addInvestment(inv);
+            removeItem_LageChest(player, emerald, 1, event.getInventory());
+            player.chat("성공 한 거니?");
+        }
+        if (event.getRawSlot() == 38) {
+            event.setCancelled(true);
+            player.chat("실행 딱 직전");
+
+            if(!addCountTest(inv,5)) {
+                player.chat("어디야");
+                return;
+            }
+            if(!(event.getInventory().getItem(41) == null)) {
+                if (event.getInventory().getItem(41).getAmount() == 64) {
+                    player.chat("도대체");
+                    return;
+                }
+                if(event.getInventory().getItem(41).getAmount() >59) {
+                    return;
+                }
+            }
+            player.chat(" 오잉 ㅇ?");
+            removeItem_LageChest(player, emerald, 5, event.getInventory());
             player.chat("성공 한 거니?");
         }
         if (event.getRawSlot() == 50) {
@@ -76,6 +96,8 @@ public class InventoryClick implements Listener {
                 Location make = loc.getWorld().getHighestBlockAt(loc).getLocation();
                 Castle_Path path = new Castle_Path(make);
                 path.build();
+                Bukkit.getEntity(UUID).remove();
+                player.closeInventory();
             }
 
         }
@@ -157,7 +179,7 @@ public class InventoryClick implements Listener {
         return false;
     }
 
-    public void removeItem_LageChest(Player player ,ItemStack find_item,int find_amount) {
+    public void removeItem_LageChest(Player player ,ItemStack find_item,int find_amount,Inventory inven) {
         int amount;
         Inventory inv = player.getInventory();
         ArrayList<Integer> slot = new ArrayList<>();
@@ -187,6 +209,9 @@ public class InventoryClick implements Listener {
 
                 inv.getItem(i).setAmount(amount-find_amount);
                 player.chat("4");
+                for(int ii = 0 ; ii <find_amount ; ii++) {
+                    addInvestment(inven);
+                }
                 return ;
             }
             for (int ii : slot) {
@@ -197,12 +222,18 @@ public class InventoryClick implements Listener {
             if(find_amount-amount == 0) {
                 inv.clear(i);
                 player.chat("6");
+                for(int ii = 0 ; ii <find_amount ; ii++) {
+                    addInvestment(inven);
+                }
                 return ;
 
             }
             else if(find_amount-amount > 0) {
                 inv.getItem(i).setAmount(amount-find_amount);
                 player.chat("7");
+                for(int ii = 0 ; i <find_amount ; i++) {
+                    addInvestment(inven);
+                }
                 return ;
             }
 
