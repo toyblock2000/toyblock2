@@ -84,11 +84,21 @@ public class InventoryClick implements Listener {
     }
     public void addInvestmentList(Inventory inv,Player player) {
         for(int i = 1;i <= 384 ; i++) {
-            if(PathInvestment.InvestmentList.containsKey(inv+"i")) {
+            if(PathInvestment.InvestmentList.containsKey(inv+"and"+i)) {
                 continue;
             }
             PathInvestment.InvestmentList.put(inv+"i",player);
             return;
+        }
+    }
+    public void returnInvestmentList(Inventory inv) {
+        for(int i = 1;i <= 384 ; i++) {
+            if(PathInvestment.InvestmentList.containsKey(inv+"and"+i)) {
+
+            }
+            else {
+                return;
+            }
         }
     }
     public int goalCount(Inventory inv) {
