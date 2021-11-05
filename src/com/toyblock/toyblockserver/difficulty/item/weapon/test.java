@@ -24,7 +24,7 @@ public class test implements Listener {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;
         }
-        event.getPlayer().chat("길 실행중");
+        event.getPlayer().chat("물건 실행중");
         Player player = event.getPlayer();
 
         List castleBuildLore = new ArrayList();
@@ -34,6 +34,7 @@ public class test implements Listener {
         if (castleBuildLore.get(0).equals(checkLore.get(0))) {
             StoneSword ston = new StoneSword();
             WoodenSword wood = new WoodenSword();
+            player.chat("물건");
             player.getInventory().addItem(ston.StoneSword_Lv1());
             player.getInventory().addItem(ston.StoneSword_Lv2());
             player.getInventory().addItem(ston.StoneSword_Lv3());
@@ -44,7 +45,7 @@ public class test implements Listener {
             player.getInventory().addItem(ston.StoneSword_Lv8());
             player.getInventory().addItem(ston.StoneSword_Lv9());
             player.getInventory().addItem(ston.StoneSword_Lv10());
-
+            player.chat("물건2");
             player.getInventory().addItem(wood.woodenSword_Lv1());
             player.getInventory().addItem(wood.woodenSword_Lv2());
             player.getInventory().addItem(wood.woodenSword_Lv3());
@@ -60,6 +61,7 @@ public class test implements Listener {
 
         }
         else {
+            player.chat("실패?");
             return;
 
         }
