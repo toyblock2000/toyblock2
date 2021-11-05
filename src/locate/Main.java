@@ -51,6 +51,7 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.session.ClipboardHolder;
 
+import com.toyblock.toyblockserver.difficulty.item.weapon.test;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
 import com.toyblock.toyblockserver.structure.castle.PlayerHouseBuild;
@@ -148,6 +149,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new ItemUse(),this);
 		getServer().getPluginManager().registerEvents(new InvestmentNpc(),this);
 		getServer().getPluginManager().registerEvents(new InventoryClick(),this);
+		getServer().getPluginManager().registerEvents(new test(),this);
 		   consol.sendMessage("청크");
 		data.loadConfig();
 		MapSaveTool.makeFile(f_protect);
