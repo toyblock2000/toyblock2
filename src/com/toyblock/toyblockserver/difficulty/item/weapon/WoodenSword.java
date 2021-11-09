@@ -15,6 +15,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 1");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 2, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.5, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -27,6 +29,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 2");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 2, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.6, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -39,6 +43,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 3");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 2.5, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.6, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -51,6 +57,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 4");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 2.5, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.7, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -63,6 +71,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 5");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 3, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.7, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -75,6 +85,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 6");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 3, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.8, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -87,6 +99,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 7");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 3.5, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.8, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -99,6 +113,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 8");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 3.5, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.9, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -111,6 +127,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 9");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 4, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.9, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
@@ -123,6 +141,8 @@ public class WoodenSword {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 10");
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_SPEED).clear();
+        meta.getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).clear();
         AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 4, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
         AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 1, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);

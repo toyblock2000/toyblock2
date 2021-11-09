@@ -70,5 +70,16 @@
     <orderEntry type="library" name="worldedit-bukkit-7.2.6-beta-02" level="project" />
     <orderEntry type="library" name="worldedit-bukkit-7.2.6-beta-021" level="project" />
     <orderEntry type="library" name="patched_1.17.1" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/API/CrazyAdvancementsAPI.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/Desktop/API/CrazyAdvancementsAPI.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
