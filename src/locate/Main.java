@@ -51,6 +51,7 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.session.ClipboardHolder;
 
+import com.toyblock.toyblockserver.advancements.TestAdvancements;
 import com.toyblock.toyblockserver.difficulty.item.weapon.test;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
@@ -68,6 +69,7 @@ import net.minecraft.world.entity.monster.EntitySkeletonWither;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.trading.MerchantRecipe;
 import net.minecraft.world.level.storage.WorldData;
+import org.bukkit.scheduler.BukkitTask;
 import village.villager_test;
 
 import org.bukkit.Bukkit;
@@ -135,28 +137,27 @@ public class Main extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		super.onEnable();
-		
+
 		getServer().getPluginManager().registerEvents(this, this);
 		this.getCommand("contract").setExecutor(new contract());
 		this.getCommand("log").setExecutor(new log());
 		this.getCommand("manager_spawn").setExecutor(new manager_spawn());
-		getServer().getPluginManager().registerEvents(new castle_manager_class(),this);
-		getServer().getPluginManager().registerEvents(new CastleBuildPlayer(),this);
-		getServer().getPluginManager().registerEvents(new PlayerCastlePath(),this);
-		getServer().getPluginManager().registerEvents(new natural_spawn (),this);
-		getServer().getPluginManager().registerEvents(new villager_test(),this);
-		getServer().getPluginManager().registerEvents(new PlayerHouseBuild(),this);
-		getServer().getPluginManager().registerEvents(new ItemUse(),this);
-		getServer().getPluginManager().registerEvents(new InvestmentNpc(),this);
-		getServer().getPluginManager().registerEvents(new InventoryClick(),this);
-		getServer().getPluginManager().registerEvents(new test(),this);
-		   consol.sendMessage("청크");
+		getServer().getPluginManager().registerEvents(new castle_manager_class(), this);
+		getServer().getPluginManager().registerEvents(new CastleBuildPlayer(), this);
+		getServer().getPluginManager().registerEvents(new PlayerCastlePath(), this);
+		getServer().getPluginManager().registerEvents(new natural_spawn(), this);
+		getServer().getPluginManager().registerEvents(new villager_test(), this);
+		getServer().getPluginManager().registerEvents(new PlayerHouseBuild(), this);
+		getServer().getPluginManager().registerEvents(new ItemUse(), this);
+		getServer().getPluginManager().registerEvents(new InvestmentNpc(), this);
+		getServer().getPluginManager().registerEvents(new InventoryClick(), this);
+		getServer().getPluginManager().registerEvents(new test(), this);
+		consol.sendMessage("청크");
 		data.loadConfig();
 		MapSaveTool.makeFile(f_protect);
 		MapSaveTool.makeFile(f_link);
-		MapSaveTool.Protect_fileToMap(f_protect,structureHashMap.protect);
-		MapSaveTool.Protect_fileToMap(f_link,structureHashMap.Link);
-
+		MapSaveTool.Protect_fileToMap(f_protect, structureHashMap.protect);
+		MapSaveTool.Protect_fileToMap(f_link, structureHashMap.Link);
 	}
 	@Override
 	public void onDisable() {
