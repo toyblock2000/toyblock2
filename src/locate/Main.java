@@ -69,6 +69,7 @@ import net.minecraft.world.entity.monster.EntitySkeletonWither;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.trading.MerchantRecipe;
 import net.minecraft.world.level.storage.WorldData;
+import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitTask;
 import village.villager_test;
 
@@ -108,10 +109,6 @@ import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import org.bukkit.event.entity.VillagerReplenishTradeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -152,6 +149,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new InvestmentNpc(), this);
 		getServer().getPluginManager().registerEvents(new InventoryClick(), this);
 		getServer().getPluginManager().registerEvents(new test(), this);
+		getServer().getPluginManager().registerEvents(new TestAdvancements(), this);
 		consol.sendMessage("청크");
 		data.loadConfig();
 		MapSaveTool.makeFile(f_protect);
@@ -190,6 +188,18 @@ public class Main extends JavaPlugin implements Listener {
 	Block block;
 	Block b;
 
+	@EventHandler
+	public void testAdvancements(PlayerJoinEvent event) {
+		Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+			@Override
+			public void run() {
+				TestAdvancements test = new TestAdvancements();
+				test.testjoin(event.getPlayer());
+				player.chat("반복스");
+			}
+		},10,10);
+		
+	}
   //@EventHandler
 	public void build(PlayerInteractEvent event) {
 	  if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
