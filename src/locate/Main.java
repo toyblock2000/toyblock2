@@ -1,19 +1,7 @@
 package locate;
 
-import java.io.BufferedReader;
-
-
-
-
-
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -23,35 +11,13 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 
-import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLib;
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 
 import com.github.shynixn.structureblocklib.api.bukkit.block.StructureBlockLoad;
-import com.github.shynixn.structureblocklib.api.bukkit.block.StructureBlockSave;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
-import com.github.shynixn.structureblocklib.api.enumeration.StructureRestriction;
-import com.github.shynixn.structureblocklib.api.enumeration.StructureRotation;
-import com.github.shynixn.structureblocklib.lib.org.jetbrains.annotations.NotNull;
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.command.WorldEditCommands;
-import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
-import com.sk89q.worldedit.extent.clipboard.Clipboard;
-import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardWriter;
-import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
-import com.sk89q.worldedit.function.operation.Operation;
-import com.sk89q.worldedit.function.operation.Operations;
-import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.session.ClipboardHolder;
 
 import com.toyblock.toyblockserver.advancements.TestAdvancements;
+import com.toyblock.toyblockserver.advancements.list.Adventurer;
 import com.toyblock.toyblockserver.difficulty.item.weapon.test;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
@@ -62,15 +28,7 @@ import com.toyblock.toyblockserver.structure.castle.vote.InvestmentNpc;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import hashmap.MapSaveTool;
 import natural_spawn.natural_spawn;
-import net.kyori.adventure.text.Component;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.minecraft.commands.arguments.ArgumentScoreholder.c;
-import net.minecraft.world.entity.monster.EntitySkeletonWither;
-import net.minecraft.world.entity.npc.VillagerType;
-import net.minecraft.world.item.trading.MerchantRecipe;
-import net.minecraft.world.level.storage.WorldData;
 import org.bukkit.event.player.*;
-import org.bukkit.scheduler.BukkitTask;
 import village.villager_test;
 
 import org.bukkit.Bukkit;
@@ -84,12 +42,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -97,38 +50,27 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
-import org.bukkit.event.EventException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.VillagerCareerChangeEvent;
-import org.bukkit.event.entity.VillagerReplenishTradeEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
-import org.bukkit.inventory.MerchantInventory;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.MaterialData;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
 
 
 public class Main extends JavaPlugin implements Listener {
 	ConsoleCommandSender consol = Bukkit.getConsoleSender();
+
 	private final File f_protect = new File(getDataFolder(), "/ProtectData.txt");
 	private final File f_link = new File(getDataFolder(), "/Link.txt");
 	@Override
@@ -149,13 +91,14 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new InvestmentNpc(), this);
 		getServer().getPluginManager().registerEvents(new InventoryClick(), this);
 		getServer().getPluginManager().registerEvents(new test(), this);
-		getServer().getPluginManager().registerEvents(new TestAdvancements(), this);
+		getServer().getPluginManager().registerEvents(new Adventurer(), this);
 		consol.sendMessage("청크");
 		data.loadConfig();
 		MapSaveTool.makeFile(f_protect);
 		MapSaveTool.makeFile(f_link);
 		MapSaveTool.Protect_fileToMap(f_protect, structureHashMap.protect);
 		MapSaveTool.Protect_fileToMap(f_link, structureHashMap.Link);
+
 	}
 	@Override
 	public void onDisable() {
@@ -190,15 +133,16 @@ public class Main extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void testAdvancements(PlayerJoinEvent event) {
-		Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+		BukkitRunnable task = new BukkitRunnable() {
 			@Override
 			public void run() {
-				TestAdvancements test = new TestAdvancements();
-				test.testjoin(event.getPlayer());
-				player.chat("반복스");
+				Adventurer.createAdventurer();
+				Adventurer.addPlayer(event.getPlayer());
+				this.cancel();
 			}
-		},10,10);
-		
+		};
+		task.runTaskTimer(this, 5,5);
+
 	}
   //@EventHandler
 	public void build(PlayerInteractEvent event) {
