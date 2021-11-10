@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="serverpro">
-    <output-path>$USER_HOME$/Desktop/paper 1.17.1/plugins</output-path>
-    <root id="archive" name="serverpro.jar">
-      <element id="module-output" name="worldedit" />
-      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
-    </root>
-  </artifact>
-</component>
