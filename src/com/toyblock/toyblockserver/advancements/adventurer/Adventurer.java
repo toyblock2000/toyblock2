@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.advancements.list;
+package com.toyblock.toyblockserver.advancements.adventurer;
 
 import eu.endercentral.crazy_advancements.Advancement;
 import eu.endercentral.crazy_advancements.AdvancementDisplay;

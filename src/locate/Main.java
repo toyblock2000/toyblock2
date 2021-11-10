@@ -16,8 +16,8 @@ import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 import com.github.shynixn.structureblocklib.api.bukkit.block.StructureBlockLoad;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
 
-import com.toyblock.toyblockserver.advancements.TestAdvancements;
-import com.toyblock.toyblockserver.advancements.list.Adventurer;
+import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
+import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
 import com.toyblock.toyblockserver.difficulty.item.weapon.test;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
@@ -92,6 +92,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new InventoryClick(), this);
 		getServer().getPluginManager().registerEvents(new test(), this);
 		getServer().getPluginManager().registerEvents(new Adventurer(), this);
+		getServer().getPluginManager().registerEvents(new AdventurerLevelUp(), this);
 		consol.sendMessage("청크");
 		data.loadConfig();
 		MapSaveTool.makeFile(f_protect);
