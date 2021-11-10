@@ -30,7 +30,7 @@ public class AdventurerLevelUp implements Listener {
         advancement = Adventurer.manager.getAdvancement(new NameKey("adventurer","move2"));
         Advancement advancementup;
         advancementup = Adventurer.manager.getAdvancement(new NameKey("adventurer","move1"));
-        if(!(Adventurer.manager.getCriteriaProgress(event.getPlayer(),advancementup)>=100)) {
+        if(!advancement.isDone(event.getPlayer())) {
             event.getPlayer().chat(""+Adventurer.manager.getCriteriaProgress(event.getPlayer(),advancementup));
             return;
         }
