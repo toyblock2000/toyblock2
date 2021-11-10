@@ -13,12 +13,10 @@ public class natural_spawn implements Listener {
 
 	@EventHandler
 	public void village_spawn(EntitySpawnEvent event) {
-		if (!(event.getEntityType().equals(EntityType.VILLAGER))) {
-			return;
-		}
-		LivingEntity npc = (LivingEntity) event.getEntity();
-        AttributeInstance healthAttribute = npc.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-        healthAttribute.setBaseValue(100);
-        npc.setHealth(100);
+	if(!event.getEntityType().equals(EntityType.ZOMBIE)) {
+		return;
+	}
+	LivingEntity entity = (LivingEntity) event.getEntity();
+	entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()+2);
 	}
 }
