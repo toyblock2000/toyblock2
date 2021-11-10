@@ -9,6 +9,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class dropchance {
@@ -22,16 +24,31 @@ public class dropchance {
         return Math.random()*100 >= 100 - probabilityTrue;
     }
     public void drop(Inventory inv) {
-        int nomber =0;
-        for (int i = 0;i<=35;i++) {
-            int chance = itemChance(inv.getItem(i));
-            if(chance(chance)) {
-                inv.(i);
-            }
-        }
+
     }
-    EventHandler
+   @EventHandler
     public void death(PlayerDeathEvent event) {
-        event.get
+        Inventory inv =event.getEntity().getInventory();
+       List<Integer> arr = new ArrayList<>();
+       for(int i = 0;i<=35;i++) {
+           arr.add(i);
+       }
+       int nomber =0;
+       int hard = 10;
+       int nomal = 20;
+       int easy = 30;
+       Collections.shuffle(Arrays.asList(arr));
+       for (int i = 0;i<=35;i++) {
+           int pass = arr.get(i);
+           int chance = itemChance(inv.getItem(pass));
+           if(nomber == 10) {
+               return;
+           }
+           if (chance(chance)) {
+               nomber++;
+               continue;
+           }
+           event.getItemsToKeep().add(inv.getItem(pass));
+       }
     }
 }
