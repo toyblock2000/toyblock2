@@ -13,5 +13,6 @@ public class MakeRegion {
         BlockVector3 max = BlockVector3.at(loc.getBlockX()-2,loc.getBlockY()-4,loc.getBlockZ()-2);
         ProtectedRegion region = new ProtectedCuboidRegion(name,min,max);
         region.setFlag(Flags.BLOCK_BREAK, StateFlag.State.DENY);
+        region.setow
     }
 }
