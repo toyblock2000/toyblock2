@@ -14,6 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
@@ -60,6 +61,12 @@ public class Adventurer implements Listener {
             Advancement advancement;
             advancement = manager.getAdvancement(new NameKey("adventurer","move1"));
             manager.setCriteriaProgress(event.getPlayer(),advancement,manager.getCriteriaProgress(event.getPlayer(),advancement)+1);
+            Player player = event.getPlayer();
+            ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
+            ItemMeta meta = item.getItemMeta();
+            meta.setCustomModelData(1);
+            item.setItemMeta(meta);
+            player.getInventory().setItem(0,item);
 
 
 
