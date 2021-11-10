@@ -32,19 +32,19 @@ public class test implements Listener {
 
         List checkLore = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
         if (castleBuildLore.get(0).equals(checkLore.get(0))) {
-            StoneSword ston = new StoneSword();
+            StoneSword stone = new StoneSword();
             WoodenSword wood = new WoodenSword();
             player.chat("물건");
-            player.getInventory().addItem(ston.StoneSword_Lv1());
-            player.getInventory().addItem(ston.StoneSword_Lv2());
-            player.getInventory().addItem(ston.StoneSword_Lv3());
-            player.getInventory().addItem(ston.StoneSword_Lv4());
-            player.getInventory().addItem(ston.StoneSword_Lv5());
-            player.getInventory().addItem(ston.StoneSword_Lv6());
-            player.getInventory().addItem(ston.StoneSword_Lv7());
-            player.getInventory().addItem(ston.StoneSword_Lv8());
-            player.getInventory().addItem(ston.StoneSword_Lv9());
-            player.getInventory().addItem(ston.StoneSword_Lv10());
+            player.getInventory().addItem(stone.StoneSword_Lv1());
+            player.getInventory().addItem(stone.StoneSword_Lv2());
+            player.getInventory().addItem(stone.StoneSword_Lv3());
+            player.getInventory().addItem(stone.StoneSword_Lv4());
+            player.getInventory().addItem(stone.StoneSword_Lv5());
+            player.getInventory().addItem(stone.StoneSword_Lv6());
+            player.getInventory().addItem(stone.StoneSword_Lv7());
+            player.getInventory().addItem(stone.StoneSword_Lv8());
+            player.getInventory().addItem(stone.StoneSword_Lv9());
+            player.getInventory().addItem(stone.StoneSword_Lv10());
             player.chat("물건2");
             player.getInventory().addItem(wood.woodenSword_Lv1());
             player.getInventory().addItem(wood.woodenSword_Lv2());
