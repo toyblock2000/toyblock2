@@ -1,5 +1,7 @@
 package com.toyblock.toyblockserver.difficulty.item.weapon;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
@@ -14,11 +16,12 @@ import java.util.UUID;
 
 public class WeaponLore {
     public void setAttributeLore(ItemStack item,int level, double damage, double speed) {
-        List<String> lore = item.getLore();
-        lore.add("");
+        List lore = new ArrayList();
+        lore.add(" ");
         lore.add("무기 레벨 : "+level);
         lore.add("무기 데미지 : "+damage);
         lore.add("무기 공격속도 : "+speed);
+        item.setLore(lore);
     }
     public void addEnchantLore(ItemStack item) {
         int level = item.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
@@ -30,7 +33,9 @@ public class WeaponLore {
             add = add+0.5;
         }
         List<String> lore = item.getLore();
-        item.setLore(addEnchantDamageLore(lore,"+ "+add));
+        ItemMeta meta = item.getItemMeta();
+        meta.setLore(addEnchantDamageLore(lore,"+ "+add));
+        item.setItemMeta(meta);
 
     }
 
@@ -43,22 +48,43 @@ public class WeaponLore {
             }
         }
     }
-    public List<String> addEnchantDamageLore(List<String> lore,String damage) {
+    public List addEnchantDamageLore(List<String> setlore,String damage) {
+        List lore = setlore;
         for(int i = 0;i<lore.size();i++){
-            String str = lore.get(i);
-            if(str.contains("무기 데미지 :")) {
+            String str = (String)lore.get(i);
+            if(str.contains("무기 데미지")) {
+                Bukkit.getPlayer("toy_block").chat("무기데미지찾음");
+                String newstr;
                 if(str.contains("+")) {
-                    str = str.substring(0,str.indexOf("+"));
+                    newstr = str.substring(0,str.indexOf("+"));
                 }
-                str = str+damage;
+                newstr = str+damage;
                 lore.remove(i);
-                lore.add(i,str);
+                lore.add(i,newstr);
+                Bukkit.getPlayer("toy_block").chat("무기데미지찾음"+newstr);
                 return  lore;
             }
         }
         return lore;
     }
-    public void setAttribute(ItemStack item,double damage,double attack_speed) {
+    public ItemStack upgradeTear(ItemStack item) {
+        List<String>lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++) {
+            String str = lore.get(i);
+            if (str.contains("무기 레벨 :")) {
+                str = str.replaceAll("[^0-9]","");
+                int gettear = Integer.parseInt(str);
+                if(item.getType().equals(Material.WOODEN_SWORD)) {
+                    TearSpawn tear = new TearSpawn();
+                    return tear.woodenTearSpawn(item,gettear+1);
+                }
+
+
+            }
+        }
+        return item;
+    }
+    public void setAttribute(ItemStack item,int level,double damage,double attack_speed) {
         double set_damage = damage - 1;
         double set_speed = attack_speed - 1;
         ItemMeta meta = item.getItemMeta();
@@ -70,6 +96,7 @@ public class WeaponLore {
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_SPEED, attackspeed);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
+        setAttributeLore(item,level,damage,attack_speed);
     }
 
 }

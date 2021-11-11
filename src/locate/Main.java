@@ -18,6 +18,8 @@ import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
 
 import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
+import com.toyblock.toyblockserver.difficulty.item.weapon.AnvilIUpgrade;
+import com.toyblock.toyblockserver.difficulty.item.weapon.EnchantUpgrade;
 import com.toyblock.toyblockserver.difficulty.item.weapon.test;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
@@ -93,6 +95,8 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new test(), this);
 		getServer().getPluginManager().registerEvents(new Adventurer(), this);
 		getServer().getPluginManager().registerEvents(new AdventurerLevelUp(), this);
+		getServer().getPluginManager().registerEvents(new AnvilIUpgrade(), this);
+		getServer().getPluginManager().registerEvents(new EnchantUpgrade(), this);
 		consol.sendMessage("청크");
 		data.loadConfig();
 		MapSaveTool.makeFile(f_protect);
