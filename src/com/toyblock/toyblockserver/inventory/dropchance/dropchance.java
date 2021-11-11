@@ -20,7 +20,7 @@ public class dropchance {
         int chance = Integer.parseInt(lore);
         return chance;
     }
-    public boolean chance(double probabilityTrue) {
+    public boolean doordie(double probabilityTrue) {
         return Math.random()*100 >= 100 - probabilityTrue;
     }
     public void drop(Inventory inv) {
@@ -44,7 +44,7 @@ public class dropchance {
            if(nomber == 10) {
                return;
            }
-           if (chance(chance)) {
+           if (doordie(chance)) {
                nomber++;
                continue;
            }
