@@ -56,7 +56,8 @@ public class WeaponLore {
                 Bukkit.getPlayer("toy_block").chat("무기데미지찾음");
                 String newstr = str;
                 if(str.contains("+")) {
-                    newstr = str.substring(0,str.indexOf("+"));
+                    newstr = newstr.substring(0,str.indexOf("+"));
+                    Bukkit.getPlayer("toy_block").chat("플러스 제거");
                 }
                 newstr = newstr+damage;
                 lore.remove(i);
