@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.difficulty.item.weapon;
 
 import org.bukkit.Material;
+import org.bukkit.Warning;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
@@ -11,17 +12,12 @@ import java.util.UUID;
 
 public class WoodenSword {
     public ItemStack woodenSword_Lv1() {
-        UUID uuid = new UUID(000102, 2344);
+        //공격력 2
+        //공속 0.5
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("무기레벨 1");
-        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
-        AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 2, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
-        meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
-        AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.5, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
-        meta.addAttributeModifier (Attribute.GENERIC_ATTACK_SPEED, attackspeed);
-        item.setItemMeta(meta);
+        WeaponLore setting = new WeaponLore();
+        setting.setAttribute(item,2,0.5);
+        setting.setAttributeLore(item,1,2,0.5);
         return item;
     }
     public ItemStack woodenSword_Lv2() {

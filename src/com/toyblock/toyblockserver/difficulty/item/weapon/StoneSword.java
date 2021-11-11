@@ -3,25 +3,35 @@ package com.toyblock.toyblockserver.difficulty.item.weapon;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class StoneSword {
     public ItemStack StoneSword_Lv1() {
+        //공격력 3
+        //공속 1.5
         UUID uuid = new UUID(000102, 2344);
         ItemStack item = new ItemStack(Material.STONE_SWORD);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("무기레벨 1");
         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-        AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 3, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
+        AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", 2, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
-        AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 1.5, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
+        AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", 0.5, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_SPEED, attackspeed);
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
+        WeaponLore setlore = new WeaponLore();
+        setlore.setAttributeLore(item,3,1.5,3);
         return item;
     }
     public ItemStack StoneSword_Lv2() {
