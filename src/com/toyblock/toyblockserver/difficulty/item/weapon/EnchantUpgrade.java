@@ -21,12 +21,9 @@ public class EnchantUpgrade implements Listener {
         if(!(event.getClickedInventory().getType().equals(InventoryType.ENCHANTING))) {
             return;
         }
-        if(event.getSlot() == 0) {
             WeaponLore lore = new WeaponLore();
 
-            ItemStack item = event.getInventory().getItem(0);
-            lore.addEnchantLore(item);
-            event.getInventory().setItem(0,item);
-        }
+            lore.addEnchantLore(event.getCurrentItem());
+        Bukkit.getPlayer("toy_block").chat("설정세팅");
     }
 }
