@@ -14,17 +14,13 @@ import java.util.Objects;
 public class CastleBuildPlayer implements Listener {
     @EventHandler
     public void playerItemUse(PlayerInteractEvent event) {
-        event.getPlayer().chat("성 실행중");
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;
         }
-        event.getPlayer().chat("실행중");
         List castleBuildLore = new ArrayList();
         castleBuildLore.add(0,"성 건설");
         List checkLore = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
         if (castleBuildLore.get(0).equals(checkLore.get(0))) {
-
-            event.getPlayer().chat("생성가능여부확인시작..");
            Location point = event.getPlayer().getTargetBlock(100).getLocation();
             new CastleBuildCheckUi().checkOn(event.getPlayer(),point);
 
@@ -32,8 +28,5 @@ public class CastleBuildPlayer implements Listener {
 
 
         }
-        else {
-        }
-
     }
 }

@@ -16,9 +16,12 @@ import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 import com.github.shynixn.structureblocklib.api.bukkit.block.StructureBlockLoad;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
 
+import com.sk89q.worldguard.bukkit.listener.RegionProtectionListener;
 import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
+import com.toyblock.toyblockserver.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;
+import com.toyblock.toyblockserver.randomchest.RandomChest;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
 import com.toyblock.toyblockserver.structure.castle.PlayerHouseBuild;
@@ -26,6 +29,7 @@ import com.toyblock.toyblockserver.structure.castle.investment.InventoryClick;
 import com.toyblock.toyblockserver.structure.castle.item.ItemUse;
 import com.toyblock.toyblockserver.structure.castle.vote.InvestmentNpc;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.village.Repute;
 import hashmap.MapSaveTool;
 import natural_spawn.natural_spawn;
 import org.bukkit.*;
@@ -87,6 +91,11 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new AdventurerLevelUp(), this);
 		getServer().getPluginManager().registerEvents(new AnvilIUpgrade(), this);
 		getServer().getPluginManager().registerEvents(new EnchantUpgrade(), this);
+		getServer().getPluginManager().registerEvents(new HouseBuildFrame(), this);
+		getServer().getPluginManager().registerEvents(new NaturalSpawnChest(), this);
+		getServer().getPluginManager().registerEvents(new RandomChest(), this);
+		getServer().getPluginManager().registerEvents(new Repute(), this);
+
 		consol.sendMessage("청크");
 		data.loadConfig();
 		MapSaveTool.makeFile(f_protect);
@@ -629,7 +638,7 @@ public class Main extends JavaPlugin implements Listener {
 		player.chat("길과 연결 됌");
 		return true;
 	}
-	@EventHandler
+	//@EventHandler
 	public void Structure_build (PlayerInteractEvent event) {
 
 	
@@ -1548,7 +1557,7 @@ Villager v;
 						   
 						   
 				   }
-						   @EventHandler
+					//	   @EventHandler
 				   public void entity_name (EntitySpawnEvent event ) {
 					   player.chat(event.getEntity().getCustomName());
 				   }

@@ -53,7 +53,7 @@ public class Adventurer implements Listener {
 
         manager.grantAdvancement(player,advancement);
     }
-    @EventHandler
+ //   @EventHandler
     public static void move1up(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             return;
@@ -62,16 +62,12 @@ public class Adventurer implements Listener {
             advancement = manager.getAdvancement(new NameKey("adventurer","move1"));
             manager.setCriteriaProgress(event.getPlayer(),advancement,manager.getCriteriaProgress(event.getPlayer(),advancement)+1);
             Player player = event.getPlayer();
-            ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
-            ItemMeta meta = item.getItemMeta();
-            meta.setCustomModelData(1);
-            item.setItemMeta(meta);
-            player.getInventory().setItem(0,item);
+
 
 
 
     }
-    @EventHandler
+ //   @EventHandler
     public static void move2up(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;

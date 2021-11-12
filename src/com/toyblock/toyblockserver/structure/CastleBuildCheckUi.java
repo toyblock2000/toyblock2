@@ -67,9 +67,6 @@ public class CastleBuildCheckUi {
 
 
         }
-        else {
-            player.chat("실패");
-        }
 
 
 
