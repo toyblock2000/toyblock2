@@ -10,9 +10,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class WeaponLore {
     public void setAttributeLore(ItemStack item,int level, double damage, double speed) {
@@ -53,16 +51,16 @@ public class WeaponLore {
         for(int i = 0;i<lore.size();i++){
             String str = (String)lore.get(i);
             if(str.contains("무기 데미지")) {
-                Bukkit.getPlayer("toy_block").chat("무기데미지찾음");
+                Bukkit.getPlayer("Devil").chat("무기데미지찾음");
                 String newstr = str;
                 if(str.contains("+")) {
                     newstr = newstr.substring(0,str.indexOf("+"));
-                    Bukkit.getPlayer("toy_block").chat("플러스 제거");
+                    Bukkit.getPlayer("Devil").chat("플러스 제거");
                 }
                 newstr = newstr+damage;
                 lore.remove(i);
                 lore.add(i,newstr);
-                Bukkit.getPlayer("toy_block").chat("무기데미지찾음"+newstr);
+                Bukkit.getPlayer("Devil").chat("무기데미지찾음"+newstr);
                 return  lore;
             }
         }
@@ -77,13 +75,53 @@ public class WeaponLore {
                 int gettear = Integer.parseInt(str);
                 if(item.getType().equals(Material.WOODEN_SWORD)) {
                     TearSpawn tear = new TearSpawn();
-                    return tear.woodenTearSpawn(item,gettear+1);
+                    ItemStack newItem = tear.woodenTearSpawn(item,gettear+1);
+                    Map<Enchantment,Integer> map = item.getItemMeta().getEnchants();
+                    for(Enchantment key : map.keySet()) {
+                        Integer value = map.get(key);
+                        newItem.addEnchantment(key,value);
+                    }
+                    return newItem;
                 }
 
 
             }
         }
         return item;
+    }
+    public ItemStack setUpgradeTear(ItemStack item1, ItemStack item2) {
+       // List<String>lore = item.getItemMeta().getLore();
+        int tear = getTear(item1);
+
+
+                if(item2.getType().equals(Material.WOODEN_SWORD)) {
+                    TearSpawn tearspawn = new TearSpawn();
+                    ItemStack newItem = tearspawn.woodenTearSpawn(item2,tear);
+                    Map<Enchantment,Integer> map = item2.getItemMeta().getEnchants();
+                    for(Enchantment key : map.keySet()) {
+                        Integer value = map.get(key);
+                        newItem.addEnchantment(key,value);
+                    }
+                    return newItem;
+                }
+
+        return item2;
+            }
+    public int getTear(ItemStack item) {
+        if(item.getType().isEmpty()) {
+            return 0;
+        }
+        List<String>lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++) {
+            String str = lore.get(i);
+            if (str.contains("무기 레벨 :")) {
+                str = str.replaceAll("[^0-9]","");
+                int gettear = Integer.parseInt(str);
+                return gettear;
+            }
+        }
+        int a = 0;
+        return a;
     }
     public void setAttribute(ItemStack item,int level,double damage,double attack_speed) {
         double set_damage = damage - 1;
