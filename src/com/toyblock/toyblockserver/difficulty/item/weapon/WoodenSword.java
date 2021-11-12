@@ -16,7 +16,7 @@ public class WoodenSword {
         //공속 0.5
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,1,2,0.5);
+        setting.setAttribute(item,1,2,1.1);
         return item;
     }
     public ItemStack woodenSword_Lv2() {
@@ -24,7 +24,7 @@ public class WoodenSword {
         //0.6
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,2,2,0.6);
+        setting.setAttribute(item,2,2,1.2);
         return item;
     }
     public ItemStack woodenSword_Lv3() {
@@ -32,7 +32,7 @@ public class WoodenSword {
         //0.6
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,3,2.5,0.6);
+        setting.setAttribute(item,3,2.5,1.2);
         return item;
     }
     public ItemStack woodenSword_Lv4() {
@@ -40,7 +40,7 @@ public class WoodenSword {
         //0.7
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,4,2.5,0.7);
+        setting.setAttribute(item,4,2.5,1.3);
         return item;
     }
     public ItemStack woodenSword_Lv5() {
@@ -48,7 +48,7 @@ public class WoodenSword {
         //0.7
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,5,3,0.7);
+        setting.setAttribute(item,5,3,1.3);
         return item;
     }
     public ItemStack woodenSword_Lv6() { //특수능력 1
@@ -56,7 +56,7 @@ public class WoodenSword {
         //0.8
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,6,3,0.8);
+        setting.setAttribute(item,6,3,1.4);
         return item;
     }
     public ItemStack woodenSword_Lv7() {
@@ -64,7 +64,7 @@ public class WoodenSword {
         //0.8
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,7,3.5,0.8);
+        setting.setAttribute(item,7,3.5,1.4);
         return item;
     }
     public ItemStack woodenSword_Lv8() { //특수능력 2
@@ -72,7 +72,7 @@ public class WoodenSword {
         //0.9
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,8,3.5,0.9);
+        setting.setAttribute(item,8,3.5,1.5);
         return item;
     }
     public ItemStack woodenSword_Lv9() {
@@ -80,7 +80,7 @@ public class WoodenSword {
         //0.9
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,9,4,0.9);
+        setting.setAttribute(item,9,4,1.5);
         return item;
     }
     public ItemStack woodenSword_Lv10() { //특수능력 3
@@ -88,7 +88,7 @@ public class WoodenSword {
         //1
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
         WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,10,4,1);
+        setting.setAttribute(item,10,4,1.6);
         return item;
     }
 

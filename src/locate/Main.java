@@ -18,9 +18,7 @@ import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
 
 import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
-import com.toyblock.toyblockserver.difficulty.item.weapon.AnvilIUpgrade;
-import com.toyblock.toyblockserver.difficulty.item.weapon.EnchantUpgrade;
-import com.toyblock.toyblockserver.difficulty.item.weapon.test;
+import com.toyblock.toyblockserver.difficulty.item.weapon.*;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
 import com.toyblock.toyblockserver.structure.castle.PlayerHouseBuild;
@@ -30,19 +28,12 @@ import com.toyblock.toyblockserver.structure.castle.vote.InvestmentNpc;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import hashmap.MapSaveTool;
 import natural_spawn.natural_spawn;
+import org.bukkit.*;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ShapedRecipe;
 import village.villager_test;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
@@ -78,7 +69,6 @@ public class Main extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		super.onEnable();
-
 		getServer().getPluginManager().registerEvents(this, this);
 		this.getCommand("contract").setExecutor(new contract());
 		this.getCommand("log").setExecutor(new log());
@@ -103,7 +93,7 @@ public class Main extends JavaPlugin implements Listener {
 		MapSaveTool.makeFile(f_link);
 		MapSaveTool.Protect_fileToMap(f_protect, structureHashMap.protect);
 		MapSaveTool.Protect_fileToMap(f_link, structureHashMap.Link);
-
+		Bukkit.addRecipe(getRecipe());
 	}
 	@Override
 	public void onDisable() {
@@ -113,6 +103,22 @@ public class Main extends JavaPlugin implements Listener {
 
 
 	//	data.mapToFile(data.file, villageindex);
+	}
+	public  ShapedRecipe getRecipe() {
+		WoodenSword sword = new WoodenSword();
+		ItemStack item = sword.woodenSword_Lv1();
+
+		NamespacedKey Key = new NamespacedKey(this,"Wooden_Sword");
+
+		ShapedRecipe recipe = new ShapedRecipe(Key,item);
+
+		recipe.shape(" W "," W "," S ");
+
+		recipe.setIngredient('W', Material.OAK_PLANKS);
+		recipe.setIngredient('S',Material.STICK);
+
+		return recipe;
+
 	}
 	//
 	static HashMap<String , Integer > buildname = new HashMap<String , Integer > () ;

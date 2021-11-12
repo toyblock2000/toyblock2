@@ -20,6 +20,7 @@ import java.util.List;
 public class PlayerCastlePath implements Listener {
     @EventHandler
     public void playerPathBuild(PlayerInteractEvent event) {
+        event.getPlayer().chat("길 실행중");
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;
         }

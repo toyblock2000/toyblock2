@@ -125,7 +125,7 @@ public class WeaponLore {
     }
     public void setAttribute(ItemStack item,int level,double damage,double attack_speed) {
         double set_damage = damage - 1;
-        double set_speed = attack_speed - 1;
+        double set_speed = attack_speed - 4;
         ItemMeta meta = item.getItemMeta();
         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);

@@ -14,6 +14,7 @@ import java.util.Objects;
 public class CastleBuildPlayer implements Listener {
     @EventHandler
     public void playerItemUse(PlayerInteractEvent event) {
+        event.getPlayer().chat("성 실행중");
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;
         }
