@@ -128,7 +128,6 @@ public class WorldEditAPIController {
 			hold.setTransform(hold.getTransform().combine(transform.rotateY(rotate)));
 			Operation operation = hold.createPaste(editSession).to(pos)
 					.copyEntities(true)
-					
 					// configure here
 					.build();
 			try {

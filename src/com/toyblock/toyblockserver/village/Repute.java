@@ -10,14 +10,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Repute implements Listener {
-    @EventHandler
+  //  @EventHandler
     public void getRepute(PlayerInteractEvent event) {
-        event.getPlayer().sendMessage("실행");
+
         if(!(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("평판"))) {
-            event.getPlayer().sendMessage("노평판");
+
             return;
         }
-        event.getPlayer().sendMessage("평통");
+
         Villager npc = (Villager) event.getPlayer().getTargetEntity(100);
         npc.shakeHead();
         int a = 0;
