@@ -3,6 +3,7 @@ package com.toyblock.toyblockserver.randomchest;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.*;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -15,7 +16,7 @@ import org.bukkit.inventory.meta.BlockStateMeta;
 import java.util.*;
 
 public class RandomChest implements Listener {
-  //  @EventHandler
+   @EventHandler
     public void setReplace(PlayerInteractEvent event ) {
         if(!(event.getClickedBlock().getType().equals(Material.CHEST))) {
             return;
@@ -46,14 +47,18 @@ public class RandomChest implements Listener {
             if(!(inv.getItem(random)).getType().equals(Material.SHULKER_BOX)) {
                 continue;
             }
+            String name = inv.getItem(random).getItemMeta().getDisplayName();
             ItemStack shulker = inv.getItem(random);
             BlockStateMeta bsm = (BlockStateMeta) shulker.getItemMeta();
             ShulkerBox box = (ShulkerBox) bsm.getBlockState();
             if((box instanceof ShulkerBox)) {
                 ItemStack[] items = box.getInventory().getContents();
+                chest.setCustomName(name);
+                chest.update();
                 inv.setContents(items);
-
+                Bukkit.getPlayer("Devil").sendMessage("name:"+name);
                 return;
+
 
             }
 
