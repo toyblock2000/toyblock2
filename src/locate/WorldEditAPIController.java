@@ -138,6 +138,25 @@ public class WorldEditAPIController {
 			}
 		}
 	}
+	public void noairPaste(Location loc,int rotate) {
+		BlockVector3 pos = BlockVector3.at(loc.getX(), loc.getY(), loc.getZ());
+		try (EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(w, -1)) {
+			ClipboardHolder hold = new ClipboardHolder(this.clipboard);
+			AffineTransform transform = new AffineTransform();
+			hold.setTransform(hold.getTransform().combine(transform.rotateY(rotate)));
+			Operation operation = hold.createPaste(editSession).to(pos)
+					.copyEntities(true)
+					.ignoreAirBlocks(false)
+					// configure here
+					.build();
+			try {
+				Operations.complete(operation);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public void save(String fileTitle) {
 		File baseDirFile = new File(this.baseDir);

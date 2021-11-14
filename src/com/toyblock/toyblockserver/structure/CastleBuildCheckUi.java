@@ -67,6 +67,20 @@ public class CastleBuildCheckUi {
 
 
         }
+        else {
+            player.chat(" 성공완료 "
+            );
+            com.toyblock.toyblockserver.structure.castle.CastleBuild build = new CastleBuild("castle_test",point_main);
+            build.setRotate("S");
+            build.Build();
+
+            player.chat(" 생성완료 "
+            );
+
+
+
+        }
+
 
 
 

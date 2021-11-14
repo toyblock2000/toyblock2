@@ -65,10 +65,10 @@ public class Castle_Path {
             structureHashMap.Link.put(loc,"path");
             structureHashMap.Chunk.put(loc.getChunk(),"path");
             consol.send(""+loc);
-            world.getBlockAt(loc).setType(Material.GOLD_BLOCK);
-            Castle_Info npc = new Castle_Info();
-            npc.
-                    vote_1(loc,"S");
+   //         world.getBlockAt(loc).setType(Material.GOLD_BLOCK);
+   //         Castle_Info npc = new Castle_Info();
+   //         npc.
+   //                 vote_1(loc,"S");
 
 
         } else {

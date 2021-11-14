@@ -1,5 +1,8 @@
 package com.toyblock.toyblockserver.structure.protect;
 
+import com.toyblock.toyblockserver.structure.smooth.SideSmooth;
+import locate.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -39,6 +42,23 @@ public class protect {
                             structureHashMap.protect.put(pointLoc,"Castle");
 
                         }
+                    }
+                }
+            }
+            Bukkit.getPlayer("Devil").sendMessage("실행전??");
+            for (int x = -110; x < 1; x = x + 5) {
+
+                for (int z = -110; z < 1; z = z + 5) {
+
+                    Location loc = new Location(endLoc.getWorld(), endLoc.getX() + x+5, endLoc.getY(), endLoc.getZ() + z+5);
+                    if(structureHashMap.Link.containsKey(loc)) {
+                        Bukkit.getPlayer("Devil").sendMessage("성안임");
+                        continue;
+                    }
+                    else {
+                        Bukkit.getPlayer("Devil").sendMessage("성밖");
+                        SideSmooth side = new SideSmooth();
+                        side.setSideSmooth(loc);
                     }
                 }
             }

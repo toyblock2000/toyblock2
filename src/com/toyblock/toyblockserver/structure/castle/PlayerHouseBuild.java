@@ -46,8 +46,8 @@ public class PlayerHouseBuild implements Listener {
 
 
             if (new ExtendedHouse().houseCheck2x2(loc,view)) {
-                WorldEditAPIController houseedit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle/house", "world");
-                houseedit.load("house_test.schem");
+                WorldEditAPIController houseedit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/House", "world");
+                houseedit.load("2x2house_test.schem");
                 houseedit.paste(loc, new ExtendedHouse().viewInt(view));
                 new ExtendedHouse().houseMapPut(loc,view);
                 structureHashMap.Chunk.put(loc.getChunk(),"castle");
