@@ -2,11 +2,13 @@ package com.toyblock.toyblockserver.structure.protect;
 
 import com.toyblock.toyblockserver.structure.smooth.SideSmooth;
 import locate.Main;
+import locate.WorldEditAPIController;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.util.BoundingBox;
 
 public class protect {
     Location structureLoc;
@@ -45,8 +47,10 @@ public class protect {
                     }
                 }
             }
-
-
+            Location pointLoc1 = new Location(this.world, endLoc.getX() -100, endLoc.getY() -10 , endLoc.getZ() -100);
+            Location pointLoc2 = new Location(this.world, endLoc.getX() , endLoc.getY() +20 , endLoc.getZ() );
+            BoundingBox box = new BoundingBox(pointLoc1.getX(),pointLoc1.getBlockY(),pointLoc1.getBlockZ(),pointLoc2.getX(),pointLoc2.getBlockY(),pointLoc2.getBlockZ());
+            box.
         }
         if(size=="Dungeon") { //200x200
             Location endLoc = new Location(this.world, this.structureLoc.getX()+100, this.structureLoc.getY(), this.structureLoc.getZ()+100);
