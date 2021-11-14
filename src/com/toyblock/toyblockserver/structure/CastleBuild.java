@@ -80,22 +80,6 @@ public class CastleBuild {
             }
         }
         Bukkit.getPlayer("Devil").sendMessage("실행전??");
-        for (int x = -105; x < 1; x = x + 10) {
-
-            for (int z = -105; z < 1; z = z + 10) {
-
-                Location loc = new Location(castleLoc.getWorld(), x_start + x, y_start, z_start + z);
-                if(Main.villge_index_loc.containsKey(loc)) {
-                    Bukkit.getPlayer("Devil").sendMessage("성안임");
-                    continue;
-                }
-                else {
-                    Bukkit.getPlayer("Devil").sendMessage("성밖");
-                    SideSmooth side = new SideSmooth();
-                    side.setSideSmooth(loc);
-                }
-            }
-        }
 
 
     }

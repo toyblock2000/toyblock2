@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.structure.smooth;
 
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.tool.View;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.Main;
 import locate.WorldEditAPIController;
@@ -10,8 +11,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 
+import javax.swing.*;
+
 public class SideSmooth {
-    public void setSideSmooth(Location loc) {
+    public void setSideSmooth(Location loc,String view) {
 
         Location setloc = loc;
         int up = 0;
@@ -50,5 +53,48 @@ public class SideSmooth {
             setloc.getBlock().setType(Material.IRON_BLOCK);
             Bukkit.getPlayer("Devil").teleport(setloc);
         }
+    }
+    public void setSideSmoothS(Location loc,String view,int side) {
+        WorldEditAPIController edit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle/path/smooth", "world");
+        Location set1 = new Location(loc.getWorld(),loc.getBlockX()+2,loc.getBlockY()+1,loc.getBlockZ()+2);
+        Location set2 = new Location(loc.getWorld(),loc.getBlockX()-2,loc.getBlockY()+5,loc.getBlockZ()-2);
+        edit.copy(set1,set2,set2);
+        int air = edit.airCheck();
+        int swne = View.view(view);
+        WorldEditAPIController edittree = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle/path/smooth", "world");
+        Location set1t = new Location(loc.getWorld(),loc.getBlockX()+2,loc.getBlockY()-4,loc.getBlockZ()+2);
+        Location set2t = new Location(loc.getWorld(),loc.getBlockX()-2,loc.getBlockY()+10,loc.getBlockZ()-2);
+        edittree.copy(set1t,set2t,set2t);
+        if(edittree.treeCheck()>0) {
+            return;
+        }
+        Bukkit.getPlayer("Devil").sendMessage("성공사이드"+swne);
+        //5x5x5 블럭 125
+        if(air<25) {
+            if(side==1) {
+                edit.load("upside.schem");
+                edit.paste(loc,swne);
+                Bukkit.getPlayer("Devil").sendMessage("성공사이드"+swne);
+
+                return;
+            }
+            edit.load("up.schem");
+            edit.paste(loc,swne);
+            Bukkit.getPlayer("Devil").sendMessage("성공"+swne);
+        }
+        else if(air<80) {
+            if(side==1) {
+                edit.load("up_small_side.schem");
+                edit.paste(loc,swne);
+                Bukkit.getPlayer("Devil").sendMessage("성공사이드"+swne);
+                Bukkit.getPlayer("Devil").sendMessage("성공사이드트리수도 확인"+edit.treeCheck());
+                return;
+            }
+            edit.load("up_small.schem");
+            edit.paste(loc,swne);
+            Bukkit.getPlayer("Devil").sendMessage("성공"+swne);
+            Bukkit.getPlayer("Devil").sendMessage("성공사이드트리수도 확인"+edit.treeCheck());
+        }
+
     }
 }

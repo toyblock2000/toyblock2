@@ -209,7 +209,7 @@ public class WorldEditAPIController {
 		
 		
 	}
-	public void airCheck() {
+	public int airCheck() {
 		
 		EditSession edit = WorldEdit.getInstance().newEditSession(w);
 		Set<BaseBlock> air = new HashSet<>();
@@ -217,8 +217,22 @@ public class WorldEditAPIController {
 		BlockState waterState = water.getDefaultState();
 		air.add(waterState.toBaseBlock());
 		int count = edit.countBlocks(clipboard.getRegion(), air);
-		this.count = count;
+		return count;
 		
+	}
+	public int treeCheck() {
+
+		EditSession edit = WorldEdit.getInstance().newEditSession(w);
+		Set<BaseBlock> air = new HashSet<>();
+		BlockType birch = BlockTypes.BIRCH_LOG;
+		BlockState birchState = birch.getDefaultState();
+		air.add(birchState.toBaseBlock());
+		BlockType oak = BlockTypes.OAK_LOG;
+		BlockState oakState = oak.getDefaultState();
+		air.add(oakState.toBaseBlock());
+		int count = edit.countBlocks(clipboard.getRegion(), air);
+		return count;
+
 	}
 	public void tester() {
 	}
