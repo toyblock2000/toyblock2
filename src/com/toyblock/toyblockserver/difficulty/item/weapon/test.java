@@ -9,13 +9,16 @@ import com.toyblock.toyblockserver.structure.tool.LocBalance;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import com.toyblock.toyblockserver.testclass.zombieAttack;
 import locate.tool;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -36,9 +39,25 @@ public class test implements Listener {
         if (entity.getType().equals(EntityType.ZOMBIE)) {
             zombieAttack zombie = new zombieAttack();
             zombie.zombieRiding(entity,creeper);
-            zombie.zombieCreeper(entity);
+            zombie.zombieCreeper(entity,creeper);
             }
         }
+    @EventHandler
+    public void boom(EntityDamageEvent event) {
+        Bukkit.getPlayer("toy_block").sendMessage("데미지"+event.getCause()+"엔티티"+event.getEntity().getType());
+        if(event.getEntity().getCustomName().equals("이야")) {
+            event.setCancelled(true);
+            return;
+        }
+        if(event.getEntity().getCustomName().equals("boom")) {
+            if(event.getCause().equals(EntityDamageEvent.DamageCause.BLOCK_EXPLOSION)) {
+                Creeper creeper = (Creeper) event.getEntity();
+                creeper.explode();
+                return;
+            }
+        }
+    }
+
     @EventHandler
     public void itemgive(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
