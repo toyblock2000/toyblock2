@@ -1,5 +1,7 @@
 package com.toyblock.toyblockserver.structure.protect;
 
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.CuboidRegion;
 import com.toyblock.toyblockserver.structure.smooth.SideSmooth;
 import locate.Main;
 import locate.WorldEditAPIController;
@@ -47,11 +49,14 @@ public class protect {
                     }
                 }
             }
-            Location pointLoc1 = new Location(this.world, endLoc.getX() -100, endLoc.getY() -10 , endLoc.getZ() -100);
-            Location pointLoc2 = new Location(this.world, endLoc.getX() , endLoc.getY() +20 , endLoc.getZ() );
-            BoundingBox box = new BoundingBox(pointLoc1.getX(),pointLoc1.getBlockY(),pointLoc1.getBlockZ(),pointLoc2.getX(),pointLoc2.getBlockY(),pointLoc2.getBlockZ());
-            box.
+            Location loc1 = new Location(this.world, endLoc.getX() -100, endLoc.getY() -10 , endLoc.getZ() -100);
+            Location loc2 = new Location(this.world, endLoc.getX() , endLoc.getY() +20 , endLoc.getZ() );
+            BlockVector3 pos1 = BlockVector3.at(loc1.getX(), loc1.getY(), loc1.getZ());
+            BlockVector3 pos2 = BlockVector3.at(loc2.getX(), loc2.getY(), loc2.getZ());
+            CuboidRegion region = new CuboidRegion  ((com.sk89q.worldedit.world.World) Bukkit.getWorld("World"), pos1, pos2);
+            region.getBoundingBox();
         }
+
         if(size=="Dungeon") { //200x200
             Location endLoc = new Location(this.world, this.structureLoc.getX()+100, this.structureLoc.getY(), this.structureLoc.getZ()+100);
             for(int x=-200; x<1; x=x+5) {
