@@ -7,18 +7,38 @@ import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
 import com.toyblock.toyblockserver.structure.tool.consol;
+import com.toyblock.toyblockserver.testclass.zombieAttack;
 import locate.tool;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class test implements Listener {
+    @EventHandler
+    public void zombietuch(PlayerInteractAtEntityEvent event) {
+        event.getPlayer().sendMessage("실행 박살");
+        if(!(event.getRightClicked().getType().equals(EntityType.ZOMBIE))) {
+            event.getPlayer().sendMessage("노좀비");
+            return;
+        }
+        event.getPlayer().sendMessage("좀비");
+        LivingEntity entity = (LivingEntity) event.getRightClicked();
+        LivingEntity creeper = (LivingEntity) event.getPlayer().getWorld().spawnEntity(event.getPlayer().getLocation(), EntityType.CREEPER);
+        if (entity.getType().equals(EntityType.ZOMBIE)) {
+            zombieAttack zombie = new zombieAttack();
+            zombie.zombieRiding(entity,creeper);
+            zombie.zombieCreeper(entity);
+            }
+        }
     @EventHandler
     public void itemgive(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
