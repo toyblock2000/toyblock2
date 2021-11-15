@@ -97,4 +97,40 @@ public class SideSmooth {
         }
 
     }
+    public void setSideSmooth_Down(Location loc,String view,int side) {
+        WorldEditAPIController edit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle/path/smooth", "world");
+        Location set1 = new Location(loc.getWorld(),loc.getBlockX()+2,loc.getBlockY()+1,loc.getBlockZ()+2);
+        Location set2 = new Location(loc.getWorld(),loc.getBlockX()-2,loc.getBlockY()+5,loc.getBlockZ()-2);
+        edit.copy(set1,set2,set2);
+        int air = edit.airCheck();
+        int swne = View.view(view);
+        Bukkit.getPlayer("Devil").sendMessage("성공사이드"+swne);
+        //5x5x5 블럭 125
+        if(air>80) {
+            if(side==1) {
+                edit.load("downside.schem");
+                edit.paste(loc,swne);
+                Bukkit.getPlayer("Devil").sendMessage("성공사이드"+swne);
+
+                return;
+            }
+            edit.load("down.schem");
+            edit.paste(loc,swne);
+            Bukkit.getPlayer("Devil").sendMessage("성공"+swne);
+        }
+        else if(air>25) {
+            if(side==1) {
+                edit.load("downside_small.schem");
+                edit.paste(loc,swne);
+                Bukkit.getPlayer("Devil").sendMessage("성공사이드"+swne);
+                Bukkit.getPlayer("Devil").sendMessage("성공사이드트리수도 확인"+edit.treeCheck());
+                return;
+            }
+            edit.load("down_small.schem");
+            edit.paste(loc,swne);
+            Bukkit.getPlayer("Devil").sendMessage("성공"+swne);
+            Bukkit.getPlayer("Devil").sendMessage("성공사이드트리수도 확인"+edit.treeCheck());
+        }
+
+    }
 }
