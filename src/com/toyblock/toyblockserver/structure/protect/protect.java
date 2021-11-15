@@ -51,12 +51,6 @@ public class protect {
                     }
                 }
             }
-            Location loc1 = new Location(this.world, endLoc.getX() -100, endLoc.getY() -10 , endLoc.getZ() -100);
-            Location loc2 = new Location(this.world, endLoc.getX() , endLoc.getY() +20 , endLoc.getZ() );
-            BlockVector3 pos1 = BlockVector3.at(loc1.getX(), loc1.getY(), loc1.getZ());
-            BlockVector3 pos2 = BlockVector3.at(loc2.getX(), loc2.getY(), loc2.getZ());
-            CuboidRegion region = new CuboidRegion  ((com.sk89q.worldedit.world.World) Bukkit.getWorld("World"), pos1, pos2);
-            region.getBoundingBox();
         }
 
         if(size=="Dungeon") { //200x200

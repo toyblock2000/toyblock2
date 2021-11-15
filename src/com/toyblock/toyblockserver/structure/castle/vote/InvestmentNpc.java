@@ -31,13 +31,12 @@ public class InvestmentNpc implements Listener {
         LocBalance bal = new LocBalance();
         Location balance = bal.balance(more(loc,view));
         PathInvestmentInventory inv = new PathInvestmentInventory();
-        Bukkit.getPlayer("Devil").chat("실행시료샣ㅇ");
         if(inv.invLinkCheck(balance)) {
-            Bukkit.getPlayer("Devil").chat("실행시료샣ㅇ? 얘가ㅣ왜?");
+
             return;
         }
-        Bukkit.getPlayer("Devil").chat("되니????");
-        Location newloc = new Location(loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY()+0.1,loc.getBlockZ()+0.5);
+
+        Location newloc = new Location(loc.getWorld(),loc.getBlockX()+0.5,loc.getBlockY()+0.4,loc.getBlockZ()+0.5);
         newloc.setYaw(getYaw(view));
         LivingEntity mob = (LivingEntity) newloc.getWorld().spawnEntity(newloc, EntityType.ARMOR_STAND);
         ArmorStand stand = (ArmorStand) mob;

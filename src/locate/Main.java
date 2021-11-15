@@ -11,16 +11,20 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 
+import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 
 import com.github.shynixn.structureblocklib.api.bukkit.block.StructureBlockLoad;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
 
+import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 import com.sk89q.worldguard.bukkit.listener.RegionProtectionListener;
 import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
 import com.toyblock.toyblockserver.buildframe.HouseBuildFrame;
+import com.toyblock.toyblockserver.developer.bug;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;
+import com.toyblock.toyblockserver.entity.ZombieDunkShot;
 import com.toyblock.toyblockserver.randomchest.RandomChest;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
@@ -33,6 +37,8 @@ import com.toyblock.toyblockserver.village.Repute;
 import hashmap.MapSaveTool;
 import natural_spawn.natural_spawn;
 import org.bukkit.*;
+import org.bukkit.entity.*;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ShapedRecipe;
 import village.villager_test;
@@ -40,20 +46,11 @@ import village.villager_test;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.block.Block;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Firework;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -95,6 +92,8 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new NaturalSpawnChest(), this);
 		getServer().getPluginManager().registerEvents(new RandomChest(), this);
 		getServer().getPluginManager().registerEvents(new Repute(), this);
+		getServer().getPluginManager().registerEvents(new bug(), this);
+		getServer().getPluginManager().registerEvents(new ZombieDunkShot(), this);
 
 		consol.sendMessage("청크");
 		data.loadConfig();
@@ -112,6 +111,69 @@ public class Main extends JavaPlugin implements Listener {
 
 
 	//	data.mapToFile(data.file, villageindex);
+	}
+	@EventHandler
+	public void zombietuch(DamageEntityEvent event) {
+		bug.chat("좀비 실행 디버그");
+		if(!(event.getEntity().getType().equals(EntityType.ZOMBIE))) {
+			return;
+		}
+		LivingEntity entity = (LivingEntity) event.getEntity();
+		LivingEntity creeper = (LivingEntity) event.getEntity().getWorld().spawnEntity(event.getEntity().getLocation(), EntityType.CREEPER);
+		if (entity.getType().equals(EntityType.ZOMBIE)) {
+			entity.addPassenger(creeper);
+			zombieCreeper(entity);
+		}
+	}
+	@EventHandler
+	public void boom(EntityDamageEvent event) {
+		bug.chat("엔티티"+event.getEntity()+"원인"+event.getCause());
+		if(event.getCause().equals(EntityDamageEvent.DamageCause.SUFFOCATION)) {
+			event.getEntity().remove();
+		}
+		if(event.getEntity().getCustomName().equals("이야")) {
+			event.setCancelled(true);
+			return;
+		}
+		if(event.getEntity().getCustomName().equals("boom")) {
+			if(event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_EXPLOSION)) {
+				Creeper creeper = (Creeper) event.getEntity();
+				creeper.explode();
+				return;
+			}
+		}
+
+		if(event.getEntity().getType().equals(EntityType.ARMOR_STAND)) {
+			event.getEntity().teleport(event.getEntity().getWorld().getHighestBlockAt(event.getEntity().getLocation()).getLocation());
+		}
+	}
+	@EventHandler
+	public void boomer(CreeperIgniteEvent event) {
+		bug.chat("이그나이트");
+			event.getEntity().explode();
+	}
+	public void zombieCreeper(LivingEntity zombie) {
+		zombie.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 5, 5));
+		zombie.setJumping(true);
+		BukkitRunnable task = new BukkitRunnable() {
+			@Override
+			public void run() {
+				zombie.swingMainHand();
+
+				Location loc = zombie.getEyeLocation().toVector().add(zombie.getLocation().getDirection().multiply(2)).
+						toLocation(zombie.getWorld(), zombie.getLocation().getYaw(), zombie.getLocation().getPitch());
+				Fireball fireball = zombie.getWorld().spawn(loc, Fireball.class);
+				fireball.setGravity(false);
+				fireball.setCustomName("이야");
+				zombie.getPassengers().get(0).setCustomName("boom");
+				fireball.addPassenger(zombie.getPassengers().get(0));
+				fireball.setVisualFire(false);
+				fireball.setGlowing(false);
+				fireball.setSilent(true);
+				this.cancel();
+			}
+		};
+		task.runTaskTimer(this,8,0);
 	}
 	public  ShapedRecipe getRecipe() {
 		WoodenSword sword = new WoodenSword();
