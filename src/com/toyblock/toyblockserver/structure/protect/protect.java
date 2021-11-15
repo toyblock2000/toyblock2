@@ -1,5 +1,7 @@
 package com.toyblock.toyblockserver.structure.protect;
 
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.toyblock.toyblockserver.structure.smooth.SideSmooth;
