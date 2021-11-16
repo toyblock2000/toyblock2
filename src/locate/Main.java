@@ -120,13 +120,26 @@ public class Main extends JavaPlugin implements Listener {
 			return;
 		}
 		LivingEntity zombie = (LivingEntity) event.getEntity();
+		if(((LivingEntity) event.getEntity()).getTargetBlock(1).getType().equals(Material.AIR)) {
+			return;
+		}
 		BukkitRunnable task = new BukkitRunnable() {
 			@Override
 			public void run() {
-				buildOn(zombie);
+				Block block =zombie.getTargetBlock(1);
+				Location loc = zombie.getLocation();
+				Location uploc = new Location(zombie.getWorld(),loc.getBlockX(),loc.getBlockY()+2,loc.getBlockZ());
+				if(uploc.getBlock().getType().equals(Material.AIR)) {
+					zombie.getLocation().getBlock().setType(Material.DIRT);
+					zombie.setJumping(true);
+					zombie.swingMainHand();
+				}
+				else {
+					this.cancel();
+				}
 			}
 		};
-		task.runTaskTimer(this,2,3);
+		task.runTaskTimer(this,1,1);
 	}
 	public void buildOn(LivingEntity entity) {
 		Block block = entity.getTargetBlock(2);
