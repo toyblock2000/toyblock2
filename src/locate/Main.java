@@ -4,19 +4,20 @@ package locate;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 
 
+import com.destroystokyo.paper.entity.PaperPathfinder;
+import com.destroystokyo.paper.entity.Pathfinder;
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
+import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 
 import com.github.shynixn.structureblocklib.api.bukkit.block.StructureBlockLoad;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
 
+import com.sk89q.worldedit.world.block.BlockTypes;
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
@@ -35,11 +36,15 @@ import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.village.Repute;
 import hashmap.MapSaveTool;
 import natural_spawn.natural_spawn;
+import net.minecraft.world.level.block.DoubleBlockFinder;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.libs.org.eclipse.aether.version.VersionRange;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.util.BoundingBox;
+import org.jetbrains.annotations.NotNull;
 import village.villager_test;
 
 import org.bukkit.plugin.Plugin;
@@ -113,33 +118,165 @@ public class Main extends JavaPlugin implements Listener {
 
 		//	data.mapToFile(data.file, villageindex);
 	}
-
 	@EventHandler
+	public void player_tuch(PlayerInteractEvent event) {
+		List castleBuildLore = new ArrayList();
+		castleBuildLore.add(0,"엔피시");
+		List checkLore = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
+		if (castleBuildLore.get(0).equals(checkLore.get(0))) {
+			Location loc = event.getPlayer().getLocation();
+		}
+	}
+	public void enderspawn(Location loc,LivingEntity zombie) {
+		Enderman ender = (Enderman) loc.getWorld().spawnEntity(loc,EntityType.ENDERMAN);
+
+		ender.setAI(false);
+		ender.setCarriedBlock(Material.DIRT.createBlockData());
+		ender.swingMainHand();
+		loc.getBlock().setType(Material.DIRT);
+		ender.setJumping(true);
+		BukkitRunnable task = new BukkitRunnable() {
+			@Override
+			public void run() {
+				zombie.setJumping(true);
+				ender.remove();
+				this.cancel();
+			}
+		};
+		task.runTaskTimer(this,20,20);
+	}
+	@EventHandler
+	public void entityloc(EntityPathfindEvent event) {
+		if(event.getEntity().getType().equals(EntityType.ENDERMAN)) {
+			return;
+		}
+		if(event.getEntity().getCustomName()==null) {
+			return;
+		}
+		if (!(event.getEntity().getCustomName().equals("빌더"))) {
+			return;
+		}
+		Location loc = event.getLoc();
+		Block block = loc.getBlock();
+//		event.getLoc().getWorld().spawnParticle(Particle.ASH,loc.getBlockX(),loc.getBlockY(),loc.getBlockY(),100);
+		bug.chat("빌더맞음");
+		bug.chat("타겟도있는데");
+		Location target = event.getLoc();
+		BukkitRunnable task = new BukkitRunnable() {
+			Location loc =  event.getEntity().getLocation().getBlock().getLocation();
+			@Override
+			public void run() {
+				if(loc.equals(target)) {
+					this.cancel();
+				}
+				Mob mob = (Mob) event.getEntity();
+				mob.getPathfinder().moveTo(target);
+				bug.chat(""+loc);
+				if(loc.equals(event.getEntity().getLocation().getBlock().getLocation())) {
+					bug.chat("멈췄다");
+					enderspawn(loc,(LivingEntity) event.getEntity());
+					this.cancel();
+					//loc.getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
+				}
+				bug.chat("움직이는중");
+				loc = event.getEntity().getLocation().getBlock().getLocation();
+				bug.chat(""+loc);
+			}
+		};
+
+		task.runTaskTimer(this,40,40);
+	}
+	@EventHandler
+	public void builder(EntityTargetLivingEntityEvent event){
+		if (!(event.getEntity().getCustomName().equals("빌더"))) {
+			return;
+		}
+		bug.chat("빌더맞음");
+		bug.chat("타겟도있는데");
+		event.getEntity().setCustomName("빌더.");
+		BukkitRunnable task = new BukkitRunnable() {
+			Location loc =  event.getEntity().getLocation().getBlock().getLocation();
+			@Override
+			public void run() {
+				bug.chat(""+loc);
+				if(loc.equals(event.getEntity().getLocation().getBlock().getLocation())) {
+					bug.chat("멈췄다");
+					Location loc = event.getEntity().getLocation().getBlock().getLocation();
+					event.getEntity().remove();
+					loc.getBlock().setType(Material.DIRT);
+
+					//loc.getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
+					this.cancel();
+				}
+				bug.chat("움직이는중");
+				loc = event.getEntity().getLocation().getBlock().getLocation();
+				bug.chat(""+loc);
+			}
+		};
+
+		task.runTaskTimer(this,40,40);
+	}
+	@EventHandler
+	public void zombieshoot(EntityTargetLivingEntityEvent event) {
+		if (!(event.getEntity().getCustomName().equals("빌더"))) {
+			return;
+		}
+		bug.chat("슛실행");
+		LivingEntity zombies = (LivingEntity) event.getEntity();
+		Location loc = zombies.getLocation();
+		BoundingBox box = new BoundingBox(loc.getX()-1,loc.getBlockY(),loc.getBlockZ()-1,loc.getX()+1,loc.getBlockY()+1,loc.getBlockZ()+1);
+		List<Entity> mobs = (List<Entity>) loc.getWorld().getNearbyEntities(loc,2,2,2);
+		bug.chat("슛실행1");
+		 if(mobs.isEmpty()) {
+			 bug.chat("슛실행2");
+			 return;
+		 }
+		 if(mobs.size()>1) {
+			 bug.chat("슛실행3");
+			 LivingEntity mob1 =(LivingEntity) mobs.get(0);
+			 LivingEntity mob2 =(LivingEntity) mobs.get(1);
+			 mob1.addPassenger(mob2);
+			 mob1.swingMainHand();
+			 LivingEntity zombie = mob1;
+			 Location locs = zombie.getEyeLocation().toVector().add(zombie.getLocation().getDirection().multiply(2)).
+					 toLocation(zombie.getWorld(), zombie.getLocation().getYaw(), zombie.getLocation().getPitch());
+			 Fireball fireball = zombie.getWorld().spawn(locs, Fireball.class);
+			 fireball.setGravity(false);
+			 fireball.setCustomName("이야");
+			 zombie.getPassengers().get(0).setCustomName("boom");
+			 fireball.addPassenger(zombie.getPassengers().get(0));
+			 fireball.setVisualFire(false);
+			 fireball.setGlowing(false);
+			 fireball.setSilent(true);
+		 }
+
+	}
+//	@EventHandler
 	public void zombieBuild(EntityTargetLivingEntityEvent event) {
+		bug.chat("좀타겟");
 		if (!(event.getEntity().getCustomName().equals("빌더"))) {
 			return;
 		}
 		LivingEntity zombie = (LivingEntity) event.getEntity();
-		if(((LivingEntity) event.getEntity()).getTargetBlock(1).getType().equals(Material.AIR)) {
-			return;
-		}
 		BukkitRunnable task = new BukkitRunnable() {
 			@Override
 			public void run() {
-				Block block =zombie.getTargetBlock(1);
-				Location loc = zombie.getLocation();
-				Location uploc = new Location(zombie.getWorld(),loc.getBlockX(),loc.getBlockY()+2,loc.getBlockZ());
-				if(uploc.getBlock().getType().equals(Material.AIR)) {
 					zombie.getLocation().getBlock().setType(Material.DIRT);
 					zombie.setJumping(true);
 					zombie.swingMainHand();
 				}
-				else {
-					this.cancel();
-				}
-			}
-		};
-		task.runTaskTimer(this,1,1);
+			};
+		task.runTaskTimer(this,5,5);
+	}
+	//@EventHandler
+	public void target(EntityPathfindEvent event) {
+		bug.chat("이벤트 발생");
+		LivingEntity zombie = (LivingEntity) event.getEntity();
+		if(event.getEntity().getCustomName().equals("빌더")) {
+			zombie.getLocation().getBlock().setType(Material.DIRT);
+			zombie.setJumping(true);
+			zombie.swingMainHand();
+		}
 	}
 	public void buildOn(LivingEntity entity) {
 		Block block = entity.getTargetBlock(2);
@@ -151,7 +288,7 @@ public class Main extends JavaPlugin implements Listener {
 		world.spawnFallingBlock(block.getLocation(),Material.DIRT.createBlockData());
 
 	}
-	@EventHandler
+//	@EventHandler
 	public void zombietuch(DamageEntityEvent event) {
 		bug.chat("좀비 실행 디버그");
 		if(!(event.getEntity().getType().equals(EntityType.ZOMBIE))) {
@@ -168,6 +305,9 @@ public class Main extends JavaPlugin implements Listener {
 	public void boom(EntityDamageEvent event) {
 		bug.chat("엔티티"+event.getEntity()+"원인"+event.getCause());
 		if(event.getCause().equals(EntityDamageEvent.DamageCause.SUFFOCATION)) {
+			event.getEntity().remove();
+		}
+		if(event.getEntity().getType().equals(EntityType.ENDERMAN)) {
 			event.getEntity().remove();
 		}
 		if(event.getEntity().getCustomName().equals("이야")) {
