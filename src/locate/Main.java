@@ -66,6 +66,7 @@ public class Main extends JavaPlugin implements Listener {
 
 	private final File f_protect = new File(getDataFolder(), "/ProtectData.txt");
 	private final File f_link = new File(getDataFolder(), "/Link.txt");
+
 	@Override
 	public void onEnable() {
 		super.onEnable();
@@ -102,14 +103,40 @@ public class Main extends JavaPlugin implements Listener {
 		MapSaveTool.Protect_fileToMap(f_link, structureHashMap.Link);
 		Bukkit.addRecipe(getRecipe());
 	}
+
 	@Override
 	public void onDisable() {
 		super.onDisable();
-		MapSaveTool.Protect_mapToFile(f_protect,structureHashMap.protect);
-		MapSaveTool.Protect_mapToFile(f_link,structureHashMap.Link);
+		MapSaveTool.Protect_mapToFile(f_protect, structureHashMap.protect);
+		MapSaveTool.Protect_mapToFile(f_link, structureHashMap.Link);
 
 
-	//	data.mapToFile(data.file, villageindex);
+		//	data.mapToFile(data.file, villageindex);
+	}
+
+	@EventHandler
+	public void zombieBuild(EntityTargetLivingEntityEvent event) {
+		if (!(event.getEntity().getCustomName().equals("빌더"))) {
+			return;
+		}
+		LivingEntity zombie = (LivingEntity) event.getEntity();
+		BukkitRunnable task = new BukkitRunnable() {
+			@Override
+			public void run() {
+				buildOn(zombie);
+			}
+		};
+		task.runTaskTimer(this,2,3);
+	}
+	public void buildOn(LivingEntity entity) {
+		Block block = entity.getTargetBlock(2);
+		if(!(block.getType().equals(Material.AIR))) {
+			return;
+		}
+		World world = block.getWorld();
+		Location loc = block.getLocation();
+		world.spawnFallingBlock(block.getLocation(),Material.DIRT.createBlockData());
+
 	}
 	@EventHandler
 	public void zombietuch(DamageEntityEvent event) {
