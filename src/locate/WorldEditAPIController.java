@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.sk89q.worldedit.command.RegionCommands;
+import com.sk89q.worldedit.extension.platform.Actor;
+import com.sk89q.worldedit.regions.Region;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

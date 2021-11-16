@@ -18,13 +18,12 @@ import com.github.shynixn.structureblocklib.api.bukkit.block.StructureBlockLoad;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
 
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
-import com.sk89q.worldguard.bukkit.listener.RegionProtectionListener;
 import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
 import com.toyblock.toyblockserver.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.developer.bug;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;
-import com.toyblock.toyblockserver.entity.ZombieDunkShot;
+import com.toyblock.toyblockserver.entity.ai.ZombieDunkShot;
 import com.toyblock.toyblockserver.randomchest.RandomChest;
 import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
