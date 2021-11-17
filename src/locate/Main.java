@@ -160,14 +160,21 @@ public class Main extends JavaPlugin implements Listener {
 	}
 	@EventHandler
 	public void creeperloc(EntityPathfindEvent event) {
-
 		Location mobloc = event.getEntity().getLocation();
 		List<Entity> mobs = (List<Entity>) mobloc.getWorld().getNearbyEntities(mobloc,10,10,10);
 		if(mobs.isEmpty()) {
 			return;
 		}
 		for(Entity mob : mobs) {
+			if(mob.getType().equals(EntityType.OCELOT)||mob.getType().equals(EntityType.CAT)) {
+				Mob entity = (Mob)event.getEntity();
+				entity.setTarget((LivingEntity) mob);
+			}
 			if(mob.getType().equals(EntityType.CREEPER)) {
+				if(mob.getCustomName().equals("move")) {
+					return;
+				}
+				mob.setCustomName("move");
 				Mob creeper = (Mob) mob;
 				BukkitRunnable task = new BukkitRunnable() {
 					Location loc =  creeper.getLocation().getBlock().getLocation();
@@ -191,6 +198,7 @@ public class Main extends JavaPlugin implements Listener {
 						bug.chat(""+loc);
 					}
 				};
+				task.runTaskTimer(this,20,20);
 			}
 		}
 	}
