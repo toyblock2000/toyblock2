@@ -10,6 +10,9 @@ import java.util.logging.Level;
 
 import com.destroystokyo.paper.entity.PaperPathfinder;
 import com.destroystokyo.paper.entity.Pathfinder;
+import com.destroystokyo.paper.entity.ai.GoalKey;
+import com.destroystokyo.paper.entity.ai.GoalType;
+import com.destroystokyo.paper.entity.ai.MobGoals;
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
@@ -144,6 +147,52 @@ public class Main extends JavaPlugin implements Listener {
 			}
 		};
 		task.runTaskTimer(this,20,20);
+	}
+	//@EventHandler
+	public void creepercancel(EntityPathfindEvent event) {
+		Location mobloc = event.getEntity().getLocation();
+		List<Entity> mobs = (List<Entity>) mobloc.getWorld().getNearbyEntities(mobloc,10,10,10);
+		if(mobs.isEmpty()) {
+			return;
+		}
+		for(Entity mob : mobs) {
+		}
+	}
+	@EventHandler
+	public void creeperloc(EntityPathfindEvent event) {
+
+		Location mobloc = event.getEntity().getLocation();
+		List<Entity> mobs = (List<Entity>) mobloc.getWorld().getNearbyEntities(mobloc,10,10,10);
+		if(mobs.isEmpty()) {
+			return;
+		}
+		for(Entity mob : mobs) {
+			if(mob.getType().equals(EntityType.CREEPER)) {
+				Mob creeper = (Mob) mob;
+				BukkitRunnable task = new BukkitRunnable() {
+					Location loc =  creeper.getLocation().getBlock().getLocation();
+					@Override
+					public void run() {
+						if(loc.equals(event.getLoc())) {
+							this.cancel();
+						}
+
+						creeper.getPathfinder().moveTo(event.getLoc());
+						bug.chat(""+loc);
+						if(loc.equals(creeper.getLocation().getBlock().getLocation())) {
+							bug.chat("멈췄다");
+							Creeper blow = (Creeper) creeper;
+							blow.ignite();
+							this.cancel();
+							//loc.getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
+						}
+						bug.chat("움직이는중");
+						loc = creeper.getLocation().getBlock().getLocation();
+						bug.chat(""+loc);
+					}
+				};
+			}
+		}
 	}
 	@EventHandler
 	public void entityloc(EntityPathfindEvent event) {
