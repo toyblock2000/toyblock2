@@ -1,0 +1,21 @@
+internal_mobname:
+  Type:
+  Display:
+  Health:
+  Damage:
+  Armor:
+  BossBar:
+  Faction:
+  Mount:
+  Options:
+  Modules:
+  AIGoalSelectors:
+  AITargetSelectors:
+  Drops:
+  DropsPerLevel: (Below v4.4 only)
+  DamageModifiers:
+  Equipment:
+  KillMessages:
+  LevelModifiers:
+  Disguise:
+  Skills:
