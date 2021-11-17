@@ -317,6 +317,9 @@ public class Main extends JavaPlugin implements Listener {
 						if(entity.getType().equals(EntityType.VILLAGER)) {
 							village = true;
 						}
+						if(entity.getType().equals(EntityType.PLAYER)) {
+							village = true;
+						}
 					}
 					Location uploc = new Location(loc.getWorld(),loc.getX(),loc.getBlockY()+2,loc.getBlockZ());
 					if(village) {
@@ -336,7 +339,7 @@ public class Main extends JavaPlugin implements Listener {
 				bug.chat(""+loc);
 			}
 		};
-		task.runTaskTimer(this,60,60);
+		task.runTaskTimer(this,20,20);
 	}
 //	@EventHandler
 	public void builder(EntityTargetLivingEntityEvent event){
