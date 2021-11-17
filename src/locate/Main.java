@@ -175,6 +175,7 @@ public class Main extends JavaPlugin implements Listener {
 					return;
 				}
 				mob.setCustomName("move");
+				mob.setCustomNameVisible(false);
 				Mob creeper = (Mob) mob;
 				BukkitRunnable task = new BukkitRunnable() {
 					Location loc =  creeper.getLocation().getBlock().getLocation();
