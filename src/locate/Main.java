@@ -43,6 +43,7 @@ import net.minecraft.world.level.block.DoubleBlockFinder;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.eclipse.aether.version.VersionRange;
 import org.bukkit.entity.*;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ShapedRecipe;
@@ -163,6 +164,7 @@ public class Main extends JavaPlugin implements Listener {
 		Location mobloc = event.getEntity().getLocation();
 		List<Entity> mobs = (List<Entity>) mobloc.getWorld().getNearbyEntities(mobloc,10,10,10);
 		if(mobs.isEmpty()) {
+			bug.chat("값없음");
 			return;
 		}
 		for(Entity mob : mobs) {
@@ -171,12 +173,15 @@ public class Main extends JavaPlugin implements Listener {
 				entity.setTarget((LivingEntity) mob);
 			}
 			if(mob.getType().equals(EntityType.CREEPER)) {
-				if(mob.getCustomName().equals("move")) {
+				if(!(mob.getCustomName() == null)) {
 					return;
 				}
-				mob.setCustomName("move");
-				mob.setCustomNameVisible(false);
 				Mob creeper = (Mob) mob;
+				creeper.getPathfinder().moveTo(event.getLoc());
+				bug.chat("이름도없음");
+				mob.setCustomName("move");
+			//	mob.setCustomNameVisible(false);
+				bug.chat("실행 1");
 				BukkitRunnable task = new BukkitRunnable() {
 					Location loc =  creeper.getLocation().getBlock().getLocation();
 					@Override
@@ -184,7 +189,7 @@ public class Main extends JavaPlugin implements Listener {
 						if(loc.equals(event.getLoc())) {
 							this.cancel();
 						}
-
+						bug.chat("실행 2");
 						creeper.getPathfinder().moveTo(event.getLoc());
 						bug.chat(""+loc);
 						if(loc.equals(creeper.getLocation().getBlock().getLocation())) {
@@ -204,10 +209,84 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 	@EventHandler
-	public void entityloc(EntityPathfindEvent event) {
-		if(event.getEntity().getType().equals(EntityType.ENDERMAN)) {
+	public void onExplosion(ExplosionPrimeEvent e) {
+		Entity entity = e.getEntity();
+		if(entity instanceof Creeper) {
+			int radius = Math.round(e.getRadius());
+			ArrayList<Block> blocks = generateSphere(entity.getLocation(),radius,false);
+	//		ArrayList<Block> blocks = getBlocksAroundCenter(entity.getLocation(), radius);
+			for(Block b : blocks) {
+				if(b.getType().equals(Material.AIR))
+					b.setType(Material.IRON_BLOCK);
+			}
+		}
+	}
+
+	public ArrayList<Block> getNearbyBlocks(Location location, int radius) {
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		for(int x = location.getBlockX() - radius; x <= location.getBlockX() + radius; x++) {
+			for(int y = location.getBlockY() - radius; y <= location.getBlockY() + radius; y++) {
+				for(int z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++) {
+					blocks.add(location.getWorld().getBlockAt(x, y, z));
+				}
+			}
+		}
+		return blocks;
+	}
+	private static ArrayList<Block> getBlocksAroundCenter(Location loc, int radius) {
+		ArrayList<Block> blocks = new ArrayList<>();
+
+		for (int x = (loc.getBlockX()-radius); x <= (loc.getBlockX()+radius); x++) {
+			for (int z = (loc.getBlockZ()-radius); z <= (loc.getBlockZ()+radius); z++) {
+				Location l = new Location(loc.getWorld(), x, loc.getBlockY(), z);
+				if (l.distance(loc) <= radius) {
+					blocks.add(l.getBlock());
+				}
+			}
+		}
+
+		return blocks;
+	}
+	@EventHandler
+	public void explo(EntityExplodeEvent event) {
+		if(event.getEntity().getCustomName() == null ){
 			return;
 		}
+		event.setCancelled(true);
+	}
+	public static ArrayList<Block> generateSphere(Location centerBlock, int radius, boolean hollow) {
+		if (centerBlock == null) {
+			return new ArrayList<>();
+		}
+
+		ArrayList<Block> circleBlocks = new ArrayList<Block>();
+
+		int bx = centerBlock.getBlockX();
+		int by = centerBlock.getBlockY();
+		int bz = centerBlock.getBlockZ();
+
+		for(int x = bx - radius; x <= bx + radius; x++) {
+			for(int y = by - radius; y <= by + radius; y++) {
+				for(int z = bz - radius; z <= bz + radius; z++) {
+
+					double distance = ((bx-x) * (bx-x) + ((bz-z) * (bz-z)) + ((by-y) * (by-y)));
+
+					if(distance < radius * radius && !(hollow && distance < ((radius - 1) * (radius - 1)))) {
+
+						Location l = new Location(centerBlock.getWorld(), x, y, z);
+						circleBlocks.add(l.getBlock());
+
+					}
+
+				}
+			}
+		}
+
+		return circleBlocks;
+	}
+
+	@EventHandler
+	public void entityloc(EntityPathfindEvent event) {
 		if(event.getEntity().getCustomName()==null) {
 			return;
 		}
@@ -219,6 +298,7 @@ public class Main extends JavaPlugin implements Listener {
 //		event.getLoc().getWorld().spawnParticle(Particle.ASH,loc.getBlockX(),loc.getBlockY(),loc.getBlockY(),100);
 		bug.chat("빌더맞음");
 		bug.chat("타겟도있는데");
+		event.getEntity().setCustomName("빌더.");
 		Location target = event.getLoc();
 		BukkitRunnable task = new BukkitRunnable() {
 			Location loc =  event.getEntity().getLocation().getBlock().getLocation();
@@ -232,19 +312,33 @@ public class Main extends JavaPlugin implements Listener {
 				bug.chat(""+loc);
 				if(loc.equals(event.getEntity().getLocation().getBlock().getLocation())) {
 					bug.chat("멈췄다");
-					enderspawn(loc,(LivingEntity) event.getEntity());
-					this.cancel();
-					//loc.getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
+					Boolean village = false;
+					for( Entity entity : mob.getNearbyEntities(50,50,50)) {
+						if(entity.getType().equals(EntityType.VILLAGER)) {
+							village = true;
+						}
+					}
+					Location uploc = new Location(loc.getWorld(),loc.getX(),loc.getBlockY()+2,loc.getBlockZ());
+					if(village) {
+						if(uploc.getBlock().getType().equals(Material.AIR)) {
+							if(!(loc.getBlock().getType().equals(Material.AIR))) {
+								loc.getBlock().breakNaturally();
+							}
+							mob.getLocation().getBlock().setType(Material.SAND);
+							mob.setJumping(true);
+							loc = event.getEntity().getLocation().getBlock().getLocation();
+						}
+						loc = event.getEntity().getLocation().getBlock().getLocation();
+					}
 				}
 				bug.chat("움직이는중");
 				loc = event.getEntity().getLocation().getBlock().getLocation();
 				bug.chat(""+loc);
 			}
 		};
-
-		task.runTaskTimer(this,40,40);
+		task.runTaskTimer(this,60,60);
 	}
-	@EventHandler
+//	@EventHandler
 	public void builder(EntityTargetLivingEntityEvent event){
 		if (!(event.getEntity().getCustomName().equals("빌더"))) {
 			return;
@@ -274,7 +368,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		task.runTaskTimer(this,40,40);
 	}
-	@EventHandler
+//	@EventHandler
 	public void zombieshoot(EntityTargetLivingEntityEvent event) {
 		if (!(event.getEntity().getCustomName().equals("빌더"))) {
 			return;
@@ -359,7 +453,7 @@ public class Main extends JavaPlugin implements Listener {
 			zombieCreeper(entity);
 		}
 	}
-	@EventHandler
+//	@EventHandler
 	public void boom(EntityDamageEvent event) {
 		bug.chat("엔티티"+event.getEntity()+"원인"+event.getCause());
 		if(event.getCause().equals(EntityDamageEvent.DamageCause.SUFFOCATION)) {
@@ -384,7 +478,7 @@ public class Main extends JavaPlugin implements Listener {
 			event.getEntity().teleport(event.getEntity().getWorld().getHighestBlockAt(event.getEntity().getLocation()).getLocation());
 		}
 	}
-	@EventHandler
+	//@EventHandler
 	public void boomer(CreeperIgniteEvent event) {
 		bug.chat("이그나이트");
 			event.getEntity().explode();
