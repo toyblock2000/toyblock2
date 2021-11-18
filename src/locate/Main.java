@@ -566,6 +566,9 @@ public class Main extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void testAdvancements(PlayerJoinEvent event) {
+		LivingEntity pan = (LivingEntity) event.getPlayer().getWorld().spawnEntity(event.getPlayer().getLocation(),EntityType.PHANTOM);
+		LivingEntity ske = (LivingEntity) event.getPlayer().getWorld().spawnEntity(event.getPlayer().getLocation(),EntityType.SKELETON);
+		pan.addPassenger(ske);
 		BukkitRunnable task = new BukkitRunnable() {
 			@Override
 			public void run() {
