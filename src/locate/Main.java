@@ -116,7 +116,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		//	data.mapToFile(data.file, villageindex);
 	}
-	@EventHandler
+//	@EventHandler
 	public void player_tuch(PlayerInteractEvent event) {
 		List castleBuildLore = new ArrayList();
 		castleBuildLore.add(0,"엔피시");
@@ -153,7 +153,7 @@ public class Main extends JavaPlugin implements Listener {
 		for(Entity mob : mobs) {
 		}
 	}
-	@EventHandler
+//	@EventHandler
 	public void creeperloc(EntityPathfindEvent event) {
 		Location mobloc = event.getEntity().getLocation();
 		List<Entity> mobs = (List<Entity>) mobloc.getWorld().getNearbyEntities(mobloc,10,10,10);
@@ -202,7 +202,7 @@ public class Main extends JavaPlugin implements Listener {
 			}
 		}
 	}
-	@EventHandler
+//	@EventHandler
 	public void onExplosion(ExplosionPrimeEvent e) {
 		Entity entity = e.getEntity();
 		if(entity instanceof Creeper) {
@@ -241,7 +241,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		return blocks;
 	}
-	@EventHandler
+//	@EventHandler
 	public void explo(EntityExplodeEvent event) {
 		if(event.getEntity().getCustomName() == null ){
 			return;
@@ -278,7 +278,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		return circleBlocks;
 	}
-	@EventHandler
+//	@EventHandler
 	public void damagezombe(EntityDamageEvent event){
 		if(event.getEntityType().equals(EntityType.ZOMBIE)) {
 			if(event.getEntity().getLocation().getBlock().getType().equals(Material.JUNGLE_LEAVES)) {
@@ -288,7 +288,7 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 
-	@EventHandler
+//	@EventHandler
 	public void entityloc(EntityPathfindEvent event) {
 		if(event.getEntity().getCustomName()==null) {
 			return;
