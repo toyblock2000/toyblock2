@@ -12,8 +12,12 @@ import java.util.Set;
 import com.sk89q.worldedit.command.RegionCommands;
 import com.sk89q.worldedit.extension.platform.Actor;
 import com.sk89q.worldedit.regions.Region;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -244,8 +248,16 @@ public class WorldEditAPIController {
 			BlockVector3 pos2 = BlockVector3.at(loc2.getX(), loc2.getY(), loc2.getZ());
 
 			ProtectedRegion region = new ProtectedCuboidRegion("test", pos1, pos2);
-
-
+		region.setFlag(Flags.GREET_MESSAGE,"마을");
+		RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+		RegionManager manager = container.get(BukkitAdapter.adapt(loc1.getChunk().getWorld()));
+		if(!(manager.getRegion("test") == null)) {
+			manager.removeRegion("test");
+			manager.addRegion(region);
+		}
+		else{
+			manager.addRegion(region);
+		}
 	}
 
 }
