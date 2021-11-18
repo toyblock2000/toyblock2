@@ -65,8 +65,8 @@ public class Main extends JavaPlugin implements Listener {
 	ConsoleCommandSender consol = Bukkit.getConsoleSender();
 
 	 File f_protect = new File(getDataFolder(), "/ProtectData.txt");
-	 File f_link = new File(getDataFolder(), "/Link.txt");
-     File data = new File(getDataFolder(), "/data.txt");
+	 File link = new File(getDataFolder(), "/Link.txt");
+     File chunk = new File(getDataFolder(), "/chunk.txt");
 	@Override
 	public void onEnable() {
 		super.onEnable();
@@ -95,23 +95,23 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new bug(), this);
 		getServer().getPluginManager().registerEvents(new ZombieDunkShot(), this);
 		consol.sendMessage("청크");
-		MapData.makeFile(data);
-	//	MapData.makeFile(f_protect);
-	//	MapData.makeFile(f_link);
-	//	MapData.Protect_fileToMap(f_protect, StructrueMap.protect);
-	//	MapData.Protect_fileToMap(f_link, StructrueMap.Link);
+		MapData.makeFile(chunk);
+		MapData.makeFile(link);
+		MapData.Protect_fileToMap(link, StructrueMap.Link);
 		Bukkit.addRecipe(getRecipe());
 		if(getDataFolder() == null) {
 			getDataFolder().mkdir();
 		}
-		consol.sendMessage(data.toString());
+		Location loc =  new Location(Bukkit.getWorld("world"),10,10,-10);
+		consol.sendMessage(""+StructrueMap.Link.get(loc));
+		StructrueMap.Link.put( new Location(Bukkit.getWorld("world"),10,10,-10),"red");
 	}
 
 	@Override
 	public void onDisable() {
 		super.onDisable();
 	//	MapData.Protect_mapToFile(f_protect, StructrueMap.protect);
-	//	MapData.Protect_mapToFile(f_link, Structrue	Map.Link);
+		MapData.Protect_mapToFile(link, StructrueMap.Link);
 
 
 		//	data.mapToFile(data.file, villageindex);
