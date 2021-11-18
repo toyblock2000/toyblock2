@@ -308,7 +308,6 @@ public class Main extends JavaPlugin implements Listener {
 			@Override
 			public void run() {
 				if(loc.equals(target)) {
-					this.cancel();
 				}
 				Mob mob = (Mob) event.getEntity();
 				mob.getPathfinder().moveTo(target);
@@ -318,12 +317,20 @@ public class Main extends JavaPlugin implements Listener {
 					Boolean village = false;
 					for( Entity entity : mob.getNearbyEntities(50,50,50)) {
 						if(entity.getType().equals(EntityType.VILLAGER)) {
-							village = true;
-						}
-						if(!(event.getTargetEntity() == null)) {
-							if(event.getTargetEntity().getType().equals(EntityType.PLAYER)) {
+							double moby = entity.getLocation().getY()+5;
+							double zombiey=event.getEntity().getLocation().getY();
+							if(moby > zombiey) {
 								village = true;
 							}
+						}
+						if(entity.getType().equals(EntityType.PLAYER)) {
+							double moby = entity.getLocation().getY()+5;
+							double zombiey=event.getEntity().getLocation().getY();
+							if(moby > zombiey) {
+								village = true;
+							}
+						}
+						if(!(event.getTargetEntity() == null)) {
 						}
 					}
 					Location uploc = new Location(loc.getWorld(),loc.getX(),loc.getBlockY()+2,loc.getBlockZ());
@@ -332,16 +339,15 @@ public class Main extends JavaPlugin implements Listener {
 							if(!(loc.getBlock().getType().equals(Material.AIR))) {
 								loc.getBlock().breakNaturally();
 							}
-							mob.getLocation().getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
-							//mob.getLocation().getBlock().setType(Material.DIRT);
-							mob.setJumping(true);
-							loc = event.getEntity().getLocation().getBlock().getLocation();
-							return;
+							if(event.getEntity() instanceof LivingEntity ) {
+								mob.getLocation().getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
+								//mob.getLocation().getBlock().setType(Material.DIRT);
+								mob.setJumping(true);
+								loc = event.getEntity().getLocation().getBlock().getLocation();
+								return;
+							}
 						}
-						else {
 							loc.getBlock().setType(Material.JUNGLE_LEAVES);
-
-						}
 						loc = event.getEntity().getLocation().getBlock().getLocation();
 					}
 				}
