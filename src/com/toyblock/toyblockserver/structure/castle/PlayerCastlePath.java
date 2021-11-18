@@ -1,9 +1,7 @@
 package com.toyblock.toyblockserver.structure.castle;
 
-import com.toyblock.toyblockserver.structure.CastleBuildCheckUi;
-import com.toyblock.toyblockserver.structure.castle.path.rule.PathLineCheck;
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.tool;
@@ -48,7 +46,7 @@ public class PlayerCastlePath implements Listener {
 
             Castle_Path path = new Castle_Path(loc);
             path.build();
-            structureHashMap.Chunk.put(loc.getChunk(),"castle");
+            StructrueMap.Chunk.put(loc.getChunk(),"castle");
             PathRandomNpcBuild random = new PathRandomNpcBuild(loc);
             random.pathBuild();
             consol.send("랜덤 길 추가 생성");

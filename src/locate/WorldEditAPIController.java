@@ -12,6 +12,8 @@ import java.util.Set;
 import com.sk89q.worldedit.command.RegionCommands;
 import com.sk89q.worldedit.extension.platform.Actor;
 import com.sk89q.worldedit.regions.Region;
+import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -237,7 +239,13 @@ public class WorldEditAPIController {
 		return count;
 
 	}
-	public void tester() {
+	public void guard(Location loc1,Location loc2) {
+			BlockVector3 pos1 = BlockVector3.at(loc1.getX(), loc1.getY(), loc1.getZ());
+			BlockVector3 pos2 = BlockVector3.at(loc2.getX(), loc2.getY(), loc2.getZ());
+
+			ProtectedRegion region = new ProtectedCuboidRegion("test", pos1, pos2);
+
+
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.toyblock.toyblockserver.structure.castle;
 
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.WorldEditAPIController;
@@ -50,7 +50,7 @@ public class PlayerHouseBuild implements Listener {
                 houseedit.load("2x2house_test.schem");
                 houseedit.paste(loc, new ExtendedHouse().viewInt(view));
                 new ExtendedHouse().houseMapPut(loc,view);
-                structureHashMap.Chunk.put(loc.getChunk(),"castle");
+                StructrueMap.Chunk.put(loc.getChunk(),"castle");
                 consol.send("집완성");
             }
 

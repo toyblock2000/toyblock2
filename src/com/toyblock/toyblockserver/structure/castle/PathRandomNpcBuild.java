@@ -1,9 +1,8 @@
 package com.toyblock.toyblockserver.structure.castle;
 
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import org.bukkit.Location;
-import org.bukkit.Material;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,7 +69,7 @@ public class PathRandomNpcBuild {
         for (int i = 0; i < 11; i++) {
             Location downloc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 5 + i, loc.getBlockZ());
             consol.send("로케이션");
-            if (structureHashMap.protect.containsKey(downloc) || structureHashMap.Link.containsKey(downloc)) {
+            if (StructrueMap.protect.containsKey(downloc) || StructrueMap.Link.containsKey(downloc)) {
                 consol.send("리턴");
                 return false;
             }

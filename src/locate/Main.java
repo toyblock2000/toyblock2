@@ -8,11 +8,6 @@ import java.util.*;
 import java.util.logging.Level;
 
 
-import com.destroystokyo.paper.entity.PaperPathfinder;
-import com.destroystokyo.paper.entity.Pathfinder;
-import com.destroystokyo.paper.entity.ai.GoalKey;
-import com.destroystokyo.paper.entity.ai.GoalType;
-import com.destroystokyo.paper.entity.ai.MobGoals;
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
@@ -20,7 +15,6 @@ import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLibApi;
 import com.github.shynixn.structureblocklib.api.bukkit.block.StructureBlockLoad;
 import com.github.shynixn.structureblocklib.api.enumeration.StructureMode;
 
-import com.sk89q.worldedit.world.block.BlockTypes;
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
@@ -35,20 +29,17 @@ import com.toyblock.toyblockserver.structure.castle.PlayerHouseBuild;
 import com.toyblock.toyblockserver.structure.castle.investment.InventoryClick;
 import com.toyblock.toyblockserver.structure.castle.item.ItemUse;
 import com.toyblock.toyblockserver.structure.castle.vote.InvestmentNpc;
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.village.Repute;
-import hashmap.MapSaveTool;
+import hashmap.MapData;
+import hashmap.data;
 import natural_spawn.natural_spawn;
-import net.minecraft.world.level.block.DoubleBlockFinder;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.libs.org.eclipse.aether.version.VersionRange;
 import org.bukkit.entity.*;
-import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.util.BoundingBox;
-import org.jetbrains.annotations.NotNull;
 import village.villager_test;
 
 import org.bukkit.plugin.Plugin;
@@ -106,18 +97,18 @@ public class Main extends JavaPlugin implements Listener {
 
 		consol.sendMessage("청크");
 		data.loadConfig();
-		MapSaveTool.makeFile(f_protect);
-		MapSaveTool.makeFile(f_link);
-		MapSaveTool.Protect_fileToMap(f_protect, structureHashMap.protect);
-		MapSaveTool.Protect_fileToMap(f_link, structureHashMap.Link);
+		MapData.makeFile(f_protect);
+		MapData.makeFile(f_link);
+		MapData.Protect_fileToMap(f_protect, StructrueMap.protect);
+		MapData.Protect_fileToMap(f_link, StructrueMap.Link);
 		Bukkit.addRecipe(getRecipe());
 	}
 
 	@Override
 	public void onDisable() {
 		super.onDisable();
-		MapSaveTool.Protect_mapToFile(f_protect, structureHashMap.protect);
-		MapSaveTool.Protect_mapToFile(f_link, structureHashMap.Link);
+		MapData.Protect_mapToFile(f_protect, StructrueMap.protect);
+		MapData.Protect_mapToFile(f_link, StructrueMap.Link);
 
 
 		//	data.mapToFile(data.file, villageindex);

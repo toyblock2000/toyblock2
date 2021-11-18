@@ -1,4 +1,4 @@
-package locate;
+package hashmap;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,9 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class data extends JavaPlugin {
-	 static FileConfiguration config;                                   // 콘피그 정보 객체를 만듭니다.
-	 static File file = new File("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village_loc");   // 콘피그 파일이 될 파일 객체를 만듭니다.
-	FileConfiguration data = this.getConfig();
+
 	
 	public static void makeFile(File f) {
 		if (!f.exists() || !f.isFile()) {
@@ -26,17 +24,6 @@ public class data extends JavaPlugin {
 				e.printStackTrace();
 			}
 		}
-	}
-	public static void loadConfig() {
-	    config = YamlConfiguration.loadConfiguration(file);
-	    try {
-	        if (!file.exists()) {
-	            config.save(file);
-	        }
-	        config.load(file);
-	    } catch (Exception localException) {
-	        localException.printStackTrace();
-	    }
 	}
 	public static void mapToFile(File f, HashMap<String, String>  villageindex) {
 		try {

@@ -1,22 +1,16 @@
 package com.toyblock.toyblockserver.structure.castle.vote;
 
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class PathInvestmentInventory implements Listener {

@@ -1,7 +1,7 @@
 package com.toyblock.toyblockserver.structure.dungeon;
 
 import com.toyblock.toyblockserver.structure.protect.protect;
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.WorldEditAPIController;
 import org.bukkit.Bukkit;
@@ -33,7 +33,7 @@ public class DungeonBuild {
         player.chat("테스트에 진입 2");
         protect protect = new protect("Dungeon",dungeonLoc);
         protect.protect();
-        structureHashMap.Chunk.put(dungeonLoc.getChunk(),"dungeon");
+        StructrueMap.Chunk.put(dungeonLoc.getChunk(),"dungeon");
         consol consol = new consol();
         player.chat("테스트에 진입 3");
         consol.send("던전좌표"+dungeonLoc);

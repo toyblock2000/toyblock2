@@ -1,8 +1,7 @@
 package com.toyblock.toyblockserver.structure.castle;
 
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class PathLink {
@@ -44,9 +43,9 @@ public class PathLink {
         Location loc2= new Location(loc.getWorld(),x,y2,z);
         Location loc3= new Location(loc.getWorld(),x,y3,z);
 
-        if (!(structureHashMap.Link.containsKey(loc1)==true||
-                structureHashMap.Link.containsKey(loc2)==true||
-                structureHashMap.Link.containsKey(loc3)==true)) {
+        if (!(StructrueMap.Link.containsKey(loc1)==true||
+                StructrueMap.Link.containsKey(loc2)==true||
+                StructrueMap.Link.containsKey(loc3)==true)) {
             player.chat("길과 연결되어 있지 않음");
 
             return false;
@@ -93,9 +92,9 @@ public class PathLink {
         Location loc2= new Location(loc.getWorld(),x,y2,z);
         Location loc3= new Location(loc.getWorld(),x,y3,z);
 
-        if (!(structureHashMap.Link.containsKey(loc1)==true||
-                structureHashMap.Link.containsKey(loc2)==true||
-                structureHashMap.Link.containsKey(loc3)==true)) {
+        if (!(StructrueMap.Link.containsKey(loc1)==true||
+                StructrueMap.Link.containsKey(loc2)==true||
+                StructrueMap.Link.containsKey(loc3)==true)) {
 
 
             return null;
@@ -131,13 +130,13 @@ public class PathLink {
         Location buildloc1= new Location(loc.getWorld(),x,y1,z);
         Location buildloc2= new Location(loc.getWorld(),x,y2,z);
         Location buildloc3= new Location(loc.getWorld(),x,y3,z);
-        if(structureHashMap.Link.containsKey(loc1)) {
+        if(StructrueMap.Link.containsKey(loc1)) {
             return buildloc1;
         }
-        if(structureHashMap.Link.containsKey(loc2)) {
+        if(StructrueMap.Link.containsKey(loc2)) {
             return buildloc2;
         }
-        if(structureHashMap.Link.containsKey(loc3)) {
+        if(StructrueMap.Link.containsKey(loc3)) {
             return buildloc3;
         }
         return null;

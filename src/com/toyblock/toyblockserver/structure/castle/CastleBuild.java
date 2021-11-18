@@ -2,13 +2,11 @@ package com.toyblock.toyblockserver.structure.castle;
 
 import com.toyblock.toyblockserver.structure.dungeon.AutoDungeonBuild;
 import com.toyblock.toyblockserver.structure.protect.protect;
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
+import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.structure.smooth.SideSmooth;
-import com.toyblock.toyblockserver.structure.tool.consol;
 import locate.WorldEditAPIController;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class CastleBuild {
@@ -36,7 +34,7 @@ public class CastleBuild {
         protect protect = new protect("Castle",castleLoc);
         protect.protect();
         castleSmooth();
-        structureHashMap.Chunk.put(castleLoc.getChunk(),"castle");
+        StructrueMap.Chunk.put(castleLoc.getChunk(),"castle");
         AutoDungeonBuild dungeon = new AutoDungeonBuild();
         dungeon.AutoBuild(castleLoc.getChunk());
 

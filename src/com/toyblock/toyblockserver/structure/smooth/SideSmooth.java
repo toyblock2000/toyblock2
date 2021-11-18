@@ -1,17 +1,10 @@
 package com.toyblock.toyblockserver.structure.smooth;
 
-import com.toyblock.toyblockserver.structure.protect.structureHashMap;
 import com.toyblock.toyblockserver.structure.tool.View;
-import com.toyblock.toyblockserver.structure.tool.consol;
-import locate.Main;
 import locate.WorldEditAPIController;
-import net.minecraft.network.protocol.game.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.event.EventHandler;
-
-import javax.swing.*;
 
 public class SideSmooth {
     public void setSideSmooth(Location loc,String view) {

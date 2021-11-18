@@ -1,18 +1,8 @@
 package com.toyblock.toyblockserver.structure.protect;
 
-import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.regions.CuboidRegion;
-import com.toyblock.toyblockserver.structure.smooth.SideSmooth;
-import locate.Main;
-import locate.WorldEditAPIController;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.util.BoundingBox;
 
 public class protect {
     Location structureLoc;
@@ -30,7 +20,7 @@ public class protect {
                 for (int y=-400; y<401; y=y+5) {
                     for (int z=-100; z<1; z=z+5) {
                         Location pointLoc = new Location(this.world, endLoc.getX()+x, endLoc.getY()+y, endLoc.getZ()+z);
-                        if(structureHashMap.protect.containsKey(pointLoc)) {
+                        if(com.toyblock.toyblockserver.structure.protect.StructrueMap.protect.containsKey(pointLoc)) {
                             return;
                         }
                     }
@@ -41,11 +31,11 @@ public class protect {
                     for (int z = -100; z < 1; z = z + 5) {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
                         if(pointLoc.getY()==endLoc.getY()) {
-                            structureHashMap.Link.put(pointLoc,"Castle_connect");
+                            com.toyblock.toyblockserver.structure.protect.StructrueMap.Link.put(pointLoc,"Castle_connect");
 
                         }
                         else {
-                            structureHashMap.protect.put(pointLoc,"Castle");
+                            com.toyblock.toyblockserver.structure.protect.StructrueMap.protect.put(pointLoc,"Castle");
 
                         }
                     }
@@ -59,7 +49,7 @@ public class protect {
                 for (int y=-400; y<401; y=y+5) {
                     for (int z=-200; z<1; z=z+5) {
                         Location pointLoc = new Location(this.world, endLoc.getX()+x, endLoc.getY()+y, endLoc.getZ()+z);
-                        if(structureHashMap.protect.containsKey(pointLoc)) {
+                        if(com.toyblock.toyblockserver.structure.protect.StructrueMap.protect.containsKey(pointLoc)) {
                            return;
                         }
                     }
@@ -71,7 +61,7 @@ public class protect {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
 
                         Block blockadd = world.getBlockAt(pointLoc);
-                            structureHashMap.protect.put(pointLoc,"Dungeon");
+                            com.toyblock.toyblockserver.structure.protect.StructrueMap.protect.put(pointLoc,"Dungeon");
 
                     }
                 }
