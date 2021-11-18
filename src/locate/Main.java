@@ -278,6 +278,15 @@ public class Main extends JavaPlugin implements Listener {
 
 		return circleBlocks;
 	}
+	@EventHandler
+	public void damagezombe(EntityDamageEvent event){
+		if(event.getEntityType().equals(EntityType.ZOMBIE)) {
+			if(event.getEntity().getLocation().getBlock().getType().equals(Material.JUNGLE_LEAVES)) {
+				event.getEntity().getLocation().getBlock().breakNaturally();
+
+			}
+		}
+	}
 
 	@EventHandler
 	public void entityloc(EntityPathfindEvent event) {
@@ -327,6 +336,11 @@ public class Main extends JavaPlugin implements Listener {
 							//mob.getLocation().getBlock().setType(Material.DIRT);
 							mob.setJumping(true);
 							loc = event.getEntity().getLocation().getBlock().getLocation();
+							return;
+						}
+						else {
+							loc.getBlock().setType(Material.JUNGLE_LEAVES);
+
 						}
 						loc = event.getEntity().getLocation().getBlock().getLocation();
 					}
