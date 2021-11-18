@@ -317,8 +317,10 @@ public class Main extends JavaPlugin implements Listener {
 						if(entity.getType().equals(EntityType.VILLAGER)) {
 							village = true;
 						}
-						if(entity.getType().equals(EntityType.PLAYER)) {
-							village = true;
+						if(!(event.getTargetEntity() == null)) {
+							if(event.getTargetEntity().getType().equals(EntityType.PLAYER)) {
+								village = true;
+							}
 						}
 					}
 					Location uploc = new Location(loc.getWorld(),loc.getX(),loc.getBlockY()+2,loc.getBlockZ());
@@ -327,7 +329,8 @@ public class Main extends JavaPlugin implements Listener {
 							if(!(loc.getBlock().getType().equals(Material.AIR))) {
 								loc.getBlock().breakNaturally();
 							}
-							mob.getLocation().getBlock().setType(Material.SAND);
+							mob.getLocation().getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
+							//mob.getLocation().getBlock().setType(Material.DIRT);
 							mob.setJumping(true);
 							loc = event.getEntity().getLocation().getBlock().getLocation();
 						}
