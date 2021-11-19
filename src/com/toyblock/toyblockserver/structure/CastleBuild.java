@@ -2,15 +2,12 @@ package com.toyblock.toyblockserver.structure;
 
 import com.sk89q.worldedit.math.BlockVector3;
 
-import com.toyblock.toyblockserver.structure.smooth.SideSmooth;
-import locate.Main;
-import locate.WorldEditAPIController;
-import locate.tool;
+import com.toyblock.toyblockserver.Main;
+import com.toyblock.toyblockserver.tool.WorldEditAPIController;
+import com.toyblock.toyblockserver.tool.tool;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-
-import javax.annotation.Nullable;
 
 public class CastleBuild {
     Location castleLoc;
@@ -65,7 +62,7 @@ public class CastleBuild {
                 for (int z = -100; z < 1; z = z + 5) {
 
                     Location loc = new Location(castleLoc.getWorld(), x_start + x, y_start + y, z_start + z);
-                    locate.Main.villge_index_loc.put(loc, "Castle_part");
+                    Main.villge_index_loc.put(loc, "Castle_part");
                     	loc.getBlock().setType(Material.WHITE_WOOL);
                 }
             }

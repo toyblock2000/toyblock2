@@ -4,7 +4,7 @@ import com.toyblock.toyblockserver.structure.dungeon.AutoDungeonBuild;
 import com.toyblock.toyblockserver.structure.protect.protect;
 import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.structure.smooth.SideSmooth;
-import locate.WorldEditAPIController;
+import com.toyblock.toyblockserver.tool.WorldEditAPIController;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

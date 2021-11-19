@@ -2,8 +2,7 @@ package com.toyblock.toyblockserver.structure.castle.vote;
 
 import com.toyblock.toyblockserver.structure.castle.PathLink;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
-import locate.tool;
-import org.bukkit.Bukkit;
+import com.toyblock.toyblockserver.tool.tool;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -18,10 +17,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.util.EulerAngle;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

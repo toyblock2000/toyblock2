@@ -12,7 +12,7 @@ import com.sk89q.worldedit.world.block.BlockTypes;
 import com.toyblock.toyblockserver.structure.castle.path.rule.PathLineCheck;
 import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.structure.tool.consol;
-import locate.WorldEditAPIController;
+import com.toyblock.toyblockserver.tool.WorldEditAPIController;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 

@@ -1,26 +1,15 @@
 package com.toyblock.toyblockserver.advancements;
 
-import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import eu.endercentral.crazy_advancements.*;
 import eu.endercentral.crazy_advancements.manager.AdvancementManager;
-import locate.Main;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
+import com.toyblock.toyblockserver.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
-
-import javax.swing.text.JTextComponent;
-import java.awt.*;
 
 public class TestAdvancements  implements Listener {
     int a = 0;

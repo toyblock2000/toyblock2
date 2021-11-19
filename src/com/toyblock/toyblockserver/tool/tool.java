@@ -1,4 +1,4 @@
-package locate;
+package com.toyblock.toyblockserver.tool;
 
 
 

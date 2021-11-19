@@ -1,4 +1,4 @@
-package locate;
+package com.toyblock.toyblockserver.tool;
 
 import java.io.File;
 import java.io.FileInputStream;

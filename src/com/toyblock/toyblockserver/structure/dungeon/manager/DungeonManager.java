@@ -1,6 +1,6 @@
 package com.toyblock.toyblockserver.structure.dungeon.manager;
 
-import locate.WorldEditAPIController;
+import com.toyblock.toyblockserver.tool.WorldEditAPIController;
 import org.bukkit.Location;
 import org.bukkit.World;
 

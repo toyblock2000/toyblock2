@@ -4,7 +4,7 @@ import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.protect.StructrueMap;
 import com.toyblock.toyblockserver.structure.tool.LocBalance;
 import com.toyblock.toyblockserver.structure.tool.consol;
-import locate.tool;
+import com.toyblock.toyblockserver.tool.tool;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

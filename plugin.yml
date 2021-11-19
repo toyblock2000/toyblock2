@@ -1,4 +1,4 @@
-main : locate.Main
+main : com.toyblock.toyblockserver.Main
 name : world
 version : 1.0.4
 author : toy_block
@@ -8,9 +8,3 @@ commands:
   contract:
     description: Your description
     usage: /contract
-  log:
-    description: Your description
-    usage: /log
-  manager_spawn:
-    description: Your description
-    usage: /manager_spawn

@@ -1,6 +1,6 @@
 package com.toyblock.toyblockserver.structure.tool;
 
-import locate.tool;
+import com.toyblock.toyblockserver.tool.tool;
 import org.bukkit.Location;
 
 public class LocBalance {

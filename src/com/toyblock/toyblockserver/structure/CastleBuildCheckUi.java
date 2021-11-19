@@ -11,7 +11,7 @@ import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
 import com.toyblock.toyblockserver.structure.castle.CastleBuild;
-import locate.tool;
+import com.toyblock.toyblockserver.tool.tool;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
