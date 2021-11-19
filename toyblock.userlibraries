@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="plugins">
+    <archive path="C:/Users/근원/Desktop/paper 1.17.1/plugins/world.jar" />
+    <archive path="C:/Users/근원/Desktop/paper 1.17.1/plugins/serverpro.jar" />
+    <archive path="C:/Users/근원/Desktop/paper 1.17.1/plugins/world - 복사본.jar" />
+  </library>
+  <library name="worldedit-bukkit-7.2.6-beta-02">
+    <archive path="C:/Users/근원/Desktop/API/worldedit-bukkit-7.2.6-beta-02.jar" />
+  </library>
+  <library name="worldedit-bukkit-7.2.6-beta-021">
+    <archive path="C:/Users/근원/Desktop/API/worldedit-bukkit-7.2.6-beta-02.jar" />
+  </library>
+  <library name="patched_1.17.1">
+    <archive path="C:/Users/근원/Desktop/API/patched_1.17.1.jar" />
+  </library>
+</eclipse-userlibraries>
+

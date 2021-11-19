@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component jdk="JavaSE-15" jdk_type="JavaSDK">
+<component jdk="openjdk-16" jdk_type="JavaSDK">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="CrazyAdvancementsAPI.jar" scope="COMPILE">
+		<srcroot url="jar://$USER_HOME$/Desktop/API/CrazyAdvancementsAPI.jar!/"/>
+	</lib>
+	<levels>
+		<level name="plugins" value="project"/>
+		<level name="worldedit-bukkit-7.2.6-beta-02" value="project"/>
+		<level name="worldedit-bukkit-7.2.6-beta-021" value="project"/>
+		<level name="patched_1.17.1" value="project"/>
+	</levels>
 </component>
