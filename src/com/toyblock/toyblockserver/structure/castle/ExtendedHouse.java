@@ -79,10 +79,10 @@ public class ExtendedHouse {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
-            StructrueMap.protect.put(loc,"House");
-            StructrueMap.protect.put(loc10,"House");
-            StructrueMap.protect.put(loc01,"House");
-            StructrueMap.protect.put(loc11,"House");
+            StructrueMap.Link.put(loc,"House");
+            StructrueMap.Link.put(loc10,"House");
+            StructrueMap.Link.put(loc01,"House");
+            StructrueMap.Link.put(loc11,"House");
 
         }
         if (view == "W") {

@@ -23,7 +23,7 @@ public class protect {
         this.structureLoc=structureLoc;
         this.world = structureLoc.getWorld();
     };
-    public void protect() {
+    public void protect(String name) {
         if(size=="Castle") { //100x100
             Location endLoc = new Location(this.world, this.structureLoc.getX()+50, this.structureLoc.getY(), this.structureLoc.getZ()+50);
             Location loc1 = new Location(this.world, this.structureLoc.getX()+52+20, this.structureLoc.getY()+300, this.structureLoc.getZ()+52+20);
@@ -34,7 +34,7 @@ public class protect {
                     for (int z = -100; z < 1; z = z + 5) {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
                         if(pointLoc.getY()==endLoc.getY()) {
-                            com.toyblock.toyblockserver.structure.protect.StructrueMap.Link.put(pointLoc,"Castle_connect");
+                            com.toyblock.toyblockserver.structure.protect.StructrueMap.Link.put(pointLoc,name);
 
                         }
 
@@ -85,6 +85,13 @@ public class protect {
         else{
             manager.addRegion(region);
         }
+    }
+    public void connect(Location loc,ProtectedRegion build) {
+        String name = StructrueMap.Link.get(loc);
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionManager manager = container.get(BukkitAdapter.adapt(Bukkit.getWorld("world")));
+        ProtectedRegion castle = manager.getRegion(name);
+        pugen(castle,build,name);
     }
     public void pugen(ProtectedRegion castle,ProtectedRegion build,String name) {
         BlockVector3 castle1 = castle.getMinimumPoint();

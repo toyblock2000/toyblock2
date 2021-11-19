@@ -13,7 +13,7 @@ public class CastleBuild {
     String castleName;
     Location castleLoc;
     int rotate;
-    Player player = Bukkit.getPlayer("Devil");
+
     public CastleBuild(String castleName, Location castleLoc) {
         this.castleName = castleName;
         this.castleLoc= castleLoc;
@@ -32,7 +32,7 @@ public class CastleBuild {
         buildTool.paste(castleLoc,rotate);
         //보호
         protect protect = new protect("Castle",castleLoc);
-        protect.protect();
+        protect.protect("castle");
         castleSmooth();
         StructrueMap.Chunk.put(castleLoc.getChunk(),"castle");
         AutoDungeonBuild dungeon = new AutoDungeonBuild();
