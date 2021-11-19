@@ -34,10 +34,7 @@ public class protect {
                             com.toyblock.toyblockserver.structure.protect.StructrueMap.Link.put(pointLoc,"Castle_connect");
 
                         }
-                        else {
-                            com.toyblock.toyblockserver.structure.protect.StructrueMap.protect.put(pointLoc,"Castle");
 
-                        }
                     }
                 }
             }
