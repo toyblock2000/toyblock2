@@ -8,6 +8,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -110,5 +111,6 @@ public class protect {
         manager.removeRegion(name+"side");
         manager.addRegion(region);
         manager.addRegion(regionside);
-        }
+        manager.getApplicableRegionsIDs(castle1);
+    }
 }
