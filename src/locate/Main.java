@@ -585,6 +585,7 @@ public class Main extends JavaPlugin implements Listener {
 	  if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 		  return;
 	  }
+	  //tagtag 1110
 		ItemStack build = new ItemStack(Material.WRITABLE_BOOK);
 		ItemMeta Meta = build.getItemMeta();
 		Meta.setDisplayName("계약서");
