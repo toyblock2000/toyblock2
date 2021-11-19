@@ -28,7 +28,7 @@ public class protect {
             Location endLoc = new Location(this.world, this.structureLoc.getX()+50, this.structureLoc.getY(), this.structureLoc.getZ()+50);
             Location loc1 = new Location(this.world, this.structureLoc.getX()+52+20, this.structureLoc.getY()+300, this.structureLoc.getZ()+52+20);
             Location loc2 = new Location(this.world, this.structureLoc.getX()-104, this.structureLoc.getY()-300, this.structureLoc.getZ()-104);
-            guard(loc1,loc2,"test");
+            castleguard(loc1,loc2,"test");
             for(int x=-100; x<1; x=x+5) {
                 for (int y = -400; y < 401; y = y + 5) {
                     for (int z = -100; z < 1; z = z + 5) {
@@ -70,7 +70,7 @@ public class protect {
 
         }
     }
-    public void guard(Location loc1,Location loc2,String name) {
+    public void castleguard(Location loc1,Location loc2,String name) {
         BlockVector3 pos1 = BlockVector3.at(loc1.getX(), loc1.getY(), loc1.getZ());
         BlockVector3 pos2 = BlockVector3.at(loc2.getX(), loc2.getY(), loc2.getZ());
 
@@ -103,6 +103,5 @@ public class protect {
         manager.removeRegion(name+"side");
         manager.addRegion(region);
         manager.addRegion(regionside);
-
         }
 }
