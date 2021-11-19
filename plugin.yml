@@ -1,5 +1,5 @@
 main : com.toyblock.toyblockserver.Main
-name : world
+name : toy_block
 version : 1.0.4
 author : toy_block
 description : testing

@@ -26,7 +26,6 @@ public class test implements Listener {
         if (castleBuildLore.get(0).equals(checkLore.get(0))) {
             StoneSword stone = new StoneSword();
             WoodenSword wood = new WoodenSword();
-            player.chat("물건");
             player.getInventory().addItem(stone.StoneSword_Lv1());
             player.getInventory().addItem(stone.StoneSword_Lv2());
             player.getInventory().addItem(stone.StoneSword_Lv3());
@@ -37,7 +36,6 @@ public class test implements Listener {
             player.getInventory().addItem(stone.StoneSword_Lv8());
             player.getInventory().addItem(stone.StoneSword_Lv9());
             player.getInventory().addItem(stone.StoneSword_Lv10());
-            player.chat("물건2");
             player.getInventory().addItem(wood.woodenSword_Lv1());
             player.getInventory().addItem(wood.woodenSword_Lv2());
             player.getInventory().addItem(wood.woodenSword_Lv3());

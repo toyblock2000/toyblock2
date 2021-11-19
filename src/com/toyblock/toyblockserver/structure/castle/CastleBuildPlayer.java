@@ -1,6 +1,6 @@
-package com.toyblock.toyblockserver.structure;
+package com.toyblock.toyblockserver.structure.castle;
 
-import net.kyori.adventure.text.Component;
+import com.toyblock.toyblockserver.structure.castle.CastleBuildCheckUi;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CastleBuildPlayer implements Listener {
     @EventHandler

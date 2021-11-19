@@ -243,21 +243,6 @@ public class WorldEditAPIController {
 		return count;
 
 	}
-	public void guard(Location loc1,Location loc2) {
-			BlockVector3 pos1 = BlockVector3.at(loc1.getX(), loc1.getY(), loc1.getZ());
-			BlockVector3 pos2 = BlockVector3.at(loc2.getX(), loc2.getY(), loc2.getZ());
 
-			ProtectedRegion region = new ProtectedCuboidRegion("test", pos1, pos2);
-		region.setFlag(Flags.GREET_MESSAGE,"마을");
-		RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-		RegionManager manager = container.get(BukkitAdapter.adapt(loc1.getChunk().getWorld()));
-		if(!(manager.getRegion("test") == null)) {
-			manager.removeRegion("test");
-			manager.addRegion(region);
-		}
-		else{
-			manager.addRegion(region);
-		}
-	}
 
 }

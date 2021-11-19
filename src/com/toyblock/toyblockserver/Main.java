@@ -16,7 +16,7 @@ import com.toyblock.toyblockserver.developer.bug;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;
 import com.toyblock.toyblockserver.entity.ai.ZombieDunkShot;
 import com.toyblock.toyblockserver.randomchest.RandomChest;
-import com.toyblock.toyblockserver.structure.CastleBuildPlayer;
+import com.toyblock.toyblockserver.structure.castle.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
 import com.toyblock.toyblockserver.structure.castle.PlayerHouseBuild;
 import com.toyblock.toyblockserver.structure.castle.investment.InventoryClick;

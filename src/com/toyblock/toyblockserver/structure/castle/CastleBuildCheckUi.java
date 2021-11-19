@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.structure;
+package com.toyblock.toyblockserver.structure.castle;
 
 
 import com.sk89q.worldedit.EditSession;
