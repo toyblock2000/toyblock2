@@ -85,4 +85,13 @@ public class protect {
             manager.addRegion(region);
         }
     }
+    public void pugen(ProtectedRegion castle,ProtectedRegion build) {
+        BlockVector3 castle1 = castle.getMinimumPoint();
+        BlockVector3 castle2 = castle.getMaximumPoint();
+        BlockVector3 build1 = build.getMinimumPoint();
+        BlockVector3 build2 = build.getMaximumPoint();
+        BlockVector3 newcastle1 = BlockVector3.at(Math.min(castle1.getBlockX(),build1.getBlockX()),-64, Math.min(castle1.getBlockZ(),build1.getBlockZ()));
+        BlockVector3 newcastle2 = BlockVector3.at(Math.max(castle2.getBlockX(),build2.getBlockX()),300, Math.max(castle2.getBlockZ(),build2.getBlockZ()));
+        
+        }
 }
