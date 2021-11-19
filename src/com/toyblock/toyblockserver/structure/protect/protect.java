@@ -9,6 +9,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -85,13 +86,23 @@ public class protect {
             manager.addRegion(region);
         }
     }
-    public void pugen(ProtectedRegion castle,ProtectedRegion build) {
+    public void pugen(ProtectedRegion castle,ProtectedRegion build,String name) {
         BlockVector3 castle1 = castle.getMinimumPoint();
         BlockVector3 castle2 = castle.getMaximumPoint();
         BlockVector3 build1 = build.getMinimumPoint();
         BlockVector3 build2 = build.getMaximumPoint();
         BlockVector3 newcastle1 = BlockVector3.at(Math.min(castle1.getBlockX(),build1.getBlockX()),-64, Math.min(castle1.getBlockZ(),build1.getBlockZ()));
         BlockVector3 newcastle2 = BlockVector3.at(Math.max(castle2.getBlockX(),build2.getBlockX()),300, Math.max(castle2.getBlockZ(),build2.getBlockZ()));
-        
+        ProtectedRegion region = new ProtectedCuboidRegion(name, newcastle1, newcastle2);
+        BlockVector3 newcastle1side = BlockVector3.at(Math.min(castle1.getBlockX(),build1.getBlockX())-20,-64, Math.min(castle1.getBlockZ(),build1.getBlockZ())-20);
+        BlockVector3 newcastle2side = BlockVector3.at(Math.max(castle2.getBlockX(),build2.getBlockX())+20,300, Math.max(castle2.getBlockZ(),build2.getBlockZ())+20);
+        ProtectedRegion regionside = new ProtectedCuboidRegion(name, newcastle1side, newcastle2side);
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionManager manager = container.get(BukkitAdapter.adapt(Bukkit.getWorld("world")));
+        manager.removeRegion(name);
+        manager.removeRegion(name+"side");
+        manager.addRegion(region);
+        manager.addRegion(regionside);
+
         }
 }
