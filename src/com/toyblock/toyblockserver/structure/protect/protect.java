@@ -63,6 +63,7 @@ public class protect {
             }
         }
     public void VILLAGE_PATH() {
+        StructureMap.Link.put(structureLoc,"true");
     }
     public void castleguard(Location loc1,Location loc2,String name) {
         BlockVector3 pos1 = BlockVector3.at(loc1.getX(), loc1.getY(), loc1.getZ());
