@@ -81,14 +81,14 @@ public class protect {
             manager.addRegion(region);
         }
     }
-    public void connect(Location loc,ProtectedRegion build) {
-        String name = StructureMap.Link.get(loc);
+    public void connect(ProtectedRegion build) {
+        String name = "aa";
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         RegionManager manager = container.get(BukkitAdapter.adapt(Bukkit.getWorld("world")));
         ProtectedRegion castle = manager.getRegion(name);
-        pugen(castle,build,name);
+        addWorldGuard(castle,build,name);
     }
-    public void pugen(ProtectedRegion castle,ProtectedRegion build,String name) {
+    public void addWorldGuard(ProtectedRegion castle,ProtectedRegion build,String name) {
         BlockVector3 castle1 = castle.getMinimumPoint();
         BlockVector3 castle2 = castle.getMaximumPoint();
         BlockVector3 build1 = build.getMinimumPoint();

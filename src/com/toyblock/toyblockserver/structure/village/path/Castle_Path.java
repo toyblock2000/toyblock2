@@ -63,17 +63,7 @@ public class Castle_Path {
             WorldEditAPIController pathedit = new WorldEditAPIController(structureType.VILLAGE_PATH.name(), "world");
             pathedit.load("path_test.schem");
             pathedit.paste(loc, 0);
-            StructureMap.Link.put(loc,"path");
+            StructureMap.Link.put(loc,"true");
             StructureMap.Chunk.put(loc.getChunk(),"path");
-            consol.send(""+loc);
-   //         world.getBlockAt(loc).setType(Material.GOLD_BLOCK);
-   //         Castle_Info npc = new Castle_Info();
-   //         npc.
-   //                 vote_1(loc,"S");
-
-
-        } else {
-
-        }
     }
 }
