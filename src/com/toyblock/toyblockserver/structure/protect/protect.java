@@ -8,8 +8,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
-import com.sk89q.worldguard.protection.regions.RegionQuery;
-import com.toyblock.toyblockserver.tool.WorldEditAPIController;
+import com.toyblock.toyblockserver.structure.StructrueMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -24,7 +23,7 @@ public class protect {
         this.structureLoc=structureLoc;
         this.world = structureLoc.getWorld();
     };
-    public void protect(String name) {
+    public void protect() {
         if(size=="Castle") { //100x100
             Location endLoc = new Location(this.world, this.structureLoc.getX()+50, this.structureLoc.getY(), this.structureLoc.getZ()+50);
             Location loc1 = new Location(this.world, this.structureLoc.getX()+52+20, this.structureLoc.getY()+300, this.structureLoc.getZ()+52+20);
@@ -35,7 +34,7 @@ public class protect {
                     for (int z = -100; z < 1; z = z + 5) {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
                         if(pointLoc.getY()==endLoc.getY()) {
-                            com.toyblock.toyblockserver.structure.protect.StructrueMap.Link.put(pointLoc,name);
+                            StructrueMap.Link.put(pointLoc,size);
 
                         }
 
@@ -50,7 +49,7 @@ public class protect {
                 for (int y=-400; y<401; y=y+5) {
                     for (int z=-200; z<1; z=z+5) {
                         Location pointLoc = new Location(this.world, endLoc.getX()+x, endLoc.getY()+y, endLoc.getZ()+z);
-                        if(com.toyblock.toyblockserver.structure.protect.StructrueMap.protect.containsKey(pointLoc)) {
+                        if(StructrueMap.protect.containsKey(pointLoc)) {
                            return;
                         }
                     }
@@ -62,7 +61,7 @@ public class protect {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
 
                         Block blockadd = world.getBlockAt(pointLoc);
-                            com.toyblock.toyblockserver.structure.protect.StructrueMap.protect.put(pointLoc,"Dungeon");
+                            StructrueMap.protect.put(pointLoc,"Dungeon");
 
                     }
                 }

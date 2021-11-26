@@ -1,6 +1,6 @@
 package com.toyblock.toyblockserver.structure.smooth;
 
-import com.toyblock.toyblockserver.structure.tool.View;
+import com.toyblock.toyblockserver.tool.View;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

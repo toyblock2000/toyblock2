@@ -1,8 +1,8 @@
 package com.toyblock.toyblockserver.structure.dungeon;
 
 import com.toyblock.toyblockserver.structure.protect.protect;
-import com.toyblock.toyblockserver.structure.protect.StructrueMap;
-import com.toyblock.toyblockserver.structure.tool.consol;
+import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.tool.consol;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

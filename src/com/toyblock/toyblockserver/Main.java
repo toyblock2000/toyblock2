@@ -9,31 +9,31 @@ import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
-import com.toyblock.toyblockserver.advancements.adventurer.Adventurer;
-import com.toyblock.toyblockserver.advancements.adventurer.AdventurerLevelUp;
-import com.toyblock.toyblockserver.buildframe.HouseBuildFrame;
-import com.toyblock.toyblockserver.developer.bug;
+import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer;
+import com.toyblock.toyblockserver.difficulty.advancements.adventurer.AdventurerLevelUp;
+import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
+import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;
-import com.toyblock.toyblockserver.entity.ai.ZombieDunkShot;
-import com.toyblock.toyblockserver.randomchest.RandomChest;
-import com.toyblock.toyblockserver.structure.castle.CastleBuildPlayer;
-import com.toyblock.toyblockserver.structure.castle.PlayerCastlePath;
-import com.toyblock.toyblockserver.structure.castle.PlayerHouseBuild;
-import com.toyblock.toyblockserver.structure.castle.investment.InventoryClick;
-import com.toyblock.toyblockserver.structure.castle.item.ItemUse;
-import com.toyblock.toyblockserver.structure.castle.vote.InvestmentNpc;
-import com.toyblock.toyblockserver.structure.protect.StructrueMap;
-import com.toyblock.toyblockserver.village.Repute;
-import hashmap.MapData;
-import locate.contract;
-import natural_spawn.natural_spawn;
+import com.toyblock.toyblockserver.difficulty.entity.ai.ZombieDunkShot;
+import com.toyblock.toyblockserver.tool.RandomChest;
+import com.toyblock.toyblockserver.structure.village.castle.CastleBuildPlayer;
+import com.toyblock.toyblockserver.structure.village.path.PlayerCastlePath;
+import com.toyblock.toyblockserver.structure.village.castle.PlayerHouseBuild;
+import com.toyblock.toyblockserver.structure.village.castle.investment.InventoryClick;
+import com.toyblock.toyblockserver.structure.village.castle.item.ItemUse;
+import com.toyblock.toyblockserver.structure.village.castle.vote.InvestmentNpc;
+import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.structure.village.info.Repute;
+import com.toyblock.toyblockserver.tool.hashmap.MapData;
+import com.toyblock.toyblockserver.structure.village.path.contract;
+import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.util.BoundingBox;
-import village.villager_test;
+import com.toyblock.toyblockserver.structure.village.npc.villager_test;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.block.Block;
@@ -49,10 +49,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Main extends JavaPlugin implements Listener {
 	ConsoleCommandSender consol = Bukkit.getConsoleSender();
-
+	public static HashMap<String, File > structureFile = new HashMap<String, File > () ;
 	 File f_protect = new File(getDataFolder(), "/ProtectData.txt");
 	 File link = new File(getDataFolder(), "/Link.txt");
      File chunk = new File(getDataFolder(), "/chunk.txt");
+
 	@Override
 	public void onEnable() {
 		super.onEnable();
@@ -85,6 +86,12 @@ public class Main extends JavaPlugin implements Listener {
 		if(getDataFolder() == null) {
 			getDataFolder().mkdir();
 		}
+		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
+		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
+		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
+		structureFile.put("VILLAGE_2X2HOUSE",new File(getDataFolder(),"/structure/village/1x1house"));
+		structureFile.put("DUNGEON_MOB",new File(getDataFolder(),"/structure/Dungeon/Mob"));
+
 		Location loc =  new Location(Bukkit.getWorld("world"),10,10,-10);
 		consol.sendMessage(""+StructrueMap.Link.get(loc));
 		StructrueMap.Link.put( new Location(Bukkit.getWorld("world"),10,10,-10),"red");
@@ -148,7 +155,7 @@ public class Main extends JavaPlugin implements Listener {
 							Creeper blow = (Creeper) creeper;
 							blow.ignite();
 							this.cancel();
-							//loc.getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
+							loc.getWorld().spawnFallingBlock(loc,Material.DIRT.createBlockData());
 						}
 						bug.chat("움직이는중");
 						loc = creeper.getLocation().getBlock().getLocation();
