@@ -11,9 +11,8 @@ import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
 import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.structure.structureType;
-import com.toyblock.toyblockserver.tool.consol;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
-import com.toyblock.toyblockserver.structure.village.castle.path.rule.PathLineCheck;
+import com.toyblock.toyblockserver.structure.village.path.rule.PathLineCheck;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 
@@ -55,7 +54,7 @@ public class Castle_Path {
 
         if (count >= 80) {
 
-            com.toyblock.toyblockserver.structure.village.castle.path.rule.PathLineCheck pathline = new PathLineCheck();
+            PathLineCheck pathline = new PathLineCheck();
             if (pathline.pathLineCheck(loc)) {
                 return;
             }

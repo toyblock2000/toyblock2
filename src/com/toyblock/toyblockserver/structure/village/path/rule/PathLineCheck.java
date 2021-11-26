@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.structure.village.castle.path.rule;
+package com.toyblock.toyblockserver.structure.village.path.rule;
 
 import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.tool.consol;
@@ -15,18 +15,18 @@ public class PathLineCheck {
         Location neloc = new Location(loc.getWorld(), loc.getBlockX()-5, loc.getBlockY(), loc.getBlockZ()-5);
         Location eloc = new Location(loc.getWorld(), loc.getBlockX()+5, loc.getBlockY(), loc.getBlockZ()-5);
         Location seloc = new Location(loc.getWorld(), loc.getBlockX()-5, loc.getBlockY(), loc.getBlockZ()+5);
-        if(!heightCheck(sloc)||heightCheck(swloc)||heightCheck(wloc)||heightCheck(nwloc)||heightCheck(nloc)||heightCheck(neloc)||heightCheck(eloc)||heightCheck(seloc)) {
+        if(!canHeightCheck(sloc)||canHeightCheck(swloc)||canHeightCheck(wloc)||canHeightCheck(nwloc)||canHeightCheck(nloc)||canHeightCheck(neloc)||canHeightCheck(eloc)||canHeightCheck(seloc)) {
             return false;
         }
         return true;
     }
 
-    public boolean heightCheck(Location loc) {
+    public boolean canHeightCheck(Location loc) {
             consol.send("하이첵뜨루");
             for (int i = 0; i < 11; i++) {
                 Location downloc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 5 + i, loc.getBlockZ());
                 consol.send("로케이션");
-                if (StructureMap.protect.containsKey(downloc) || StructureMap.Link.containsKey(downloc)) {
+                if (StructureMap.Link.containsKey(downloc)) {
                     consol.send("리턴");
                     return false;
                 }
