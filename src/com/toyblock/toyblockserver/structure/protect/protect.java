@@ -8,7 +8,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
-import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.structure.StructureMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -16,42 +16,37 @@ import org.bukkit.block.Block;
 
 public class protect {
     Location structureLoc;
-    String size;
     World world;
-    public protect (String size, Location structureLoc){
-        this.size = size;
+    public protect (Location structureLoc){
         this.structureLoc=structureLoc;
         this.world = structureLoc.getWorld();
-    };
-    public void protect() {
-        if(size=="Castle") { //100x100
-            Location endLoc = new Location(this.world, this.structureLoc.getX()+50, this.structureLoc.getY(), this.structureLoc.getZ()+50);
-            Location loc1 = new Location(this.world, this.structureLoc.getX()+52+20, this.structureLoc.getY()+300, this.structureLoc.getZ()+52+20);
-            Location loc2 = new Location(this.world, this.structureLoc.getX()-104, this.structureLoc.getY()-300, this.structureLoc.getZ()-104);
-            castleguard(loc1,loc2,"test");
-            for(int x=-100; x<1; x=x+5) {
+    }
+    public void VILLAGE_CASTLE() { //100X100
+
+            Location endLoc = new Location(this.world, this.structureLoc.getX() + 50, this.structureLoc.getY(), this.structureLoc.getZ() + 50);
+            Location loc1 = new Location(this.world, this.structureLoc.getX() + 52 + 20, this.structureLoc.getY() + 300, this.structureLoc.getZ() + 52 + 20);
+            Location loc2 = new Location(this.world, this.structureLoc.getX() - 104, this.structureLoc.getY() - 300, this.structureLoc.getZ() - 104);
+            castleguard(loc1, loc2, "test");
+            for (int x = -100; x < 1; x = x + 5) {
                 for (int y = -400; y < 401; y = y + 5) {
                     for (int z = -100; z < 1; z = z + 5) {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
-                        if(pointLoc.getY()==endLoc.getY()) {
-                            StructrueMap.Link.put(pointLoc,size);
+                        if (pointLoc.getY() == endLoc.getY()) {
+                            StructureMap.Link.put(pointLoc, "VILLAGE_CASTLE");
 
                         }
 
                     }
                 }
             }
-        }
 
-        if(size=="Dungeon") { //200x200
+    }
+    public void DUNGEON_MOB() { //200X200
             Location endLoc = new Location(this.world, this.structureLoc.getX()+100, this.structureLoc.getY(), this.structureLoc.getZ()+100);
             for(int x=-200; x<1; x=x+5) {
                 for (int y=-400; y<401; y=y+5) {
                     for (int z=-200; z<1; z=z+5) {
                         Location pointLoc = new Location(this.world, endLoc.getX()+x, endLoc.getY()+y, endLoc.getZ()+z);
-                        if(StructrueMap.protect.containsKey(pointLoc)) {
-                           return;
-                        }
                     }
                 }
             }
@@ -61,14 +56,13 @@ public class protect {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
 
                         Block blockadd = world.getBlockAt(pointLoc);
-                            StructrueMap.protect.put(pointLoc,"Dungeon");
+                            StructureMap.Link.put(pointLoc,"Dungeon");
 
                     }
                 }
             }
-
-
         }
+    public void VILLAGE_PATH() {
     }
     public void castleguard(Location loc1,Location loc2,String name) {
         BlockVector3 pos1 = BlockVector3.at(loc1.getX(), loc1.getY(), loc1.getZ());
@@ -87,7 +81,7 @@ public class protect {
         }
     }
     public void connect(Location loc,ProtectedRegion build) {
-        String name = StructrueMap.Link.get(loc);
+        String name = StructureMap.Link.get(loc);
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         RegionManager manager = container.get(BukkitAdapter.adapt(Bukkit.getWorld("world")));
         ProtectedRegion castle = manager.getRegion(name);

@@ -2,7 +2,7 @@ package com.toyblock.toyblockserver.structure.village.castle;
 
 import com.toyblock.toyblockserver.structure.dungeon.AutoDungeonBuild;
 import com.toyblock.toyblockserver.structure.protect.protect;
-import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.structure.structureType;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
 import org.bukkit.Location;
@@ -29,13 +29,12 @@ public class CastleBuild {
         buildTool.load(castleName+".schem");
         buildTool.paste(castleLoc,rotate);
         //보호
-        protect protect = new protect("Castle",castleLoc);
-        protect.protect();
-        StructrueMap.Chunk.put(castleLoc.getChunk(),"Castle");
+        protect protect = new protect(castleLoc);
+        protect.VILLAGE_CASTLE();
+        StructureMap.Chunk.put(castleLoc.getChunk(),"Castle");
         //던전
         AutoDungeonBuild dungeon = new AutoDungeonBuild();
         dungeon.AutoBuild(castleLoc.getChunk());
-
     }
 
 }

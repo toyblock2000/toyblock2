@@ -1,7 +1,8 @@
 package com.toyblock.toyblockserver.structure.village.castle;
 
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
-import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.structure.StructureMap;
+import com.toyblock.toyblockserver.structure.structureType;
 import com.toyblock.toyblockserver.tool.LocBalance;
 import com.toyblock.toyblockserver.tool.consol;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
@@ -42,17 +43,17 @@ public class PlayerHouseBuild implements Listener {
             Location point = event.getPlayer().getTargetBlock(100).getLocation();
             Location loc = new LocBalance().balance(point);
 
-            if (!PathLink.LinkCheck(loc,player,view)) {
+            if (!PathLink.LinkCheck(loc,view)) {
                 return;
             }
 
 
             if (new ExtendedHouse().houseCheck2x2(loc,view)) {
-                WorldEditAPIController houseedit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/House", "world");
+                WorldEditAPIController houseedit = new WorldEditAPIController(structureType.VILLAGE_2X2HOUSE.name(), "world");
                 houseedit.load("2x2house_test.schem");
                 houseedit.paste(loc, new ExtendedHouse().viewInt(view));
                 new ExtendedHouse().houseMapPut(loc,view);
-                StructrueMap.Chunk.put(loc.getChunk(),"castle");
+                StructureMap.Chunk.put(loc.getChunk(),"castle");
                 consol.send("집완성");
             }
 

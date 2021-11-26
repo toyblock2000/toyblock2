@@ -1,6 +1,6 @@
 package com.toyblock.toyblockserver.structure.village.house;
 
-import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.tool.consol;
 import org.bukkit.Location;
 
@@ -11,7 +11,7 @@ public class ExtendedHouse {
 
         for (int i = 0; i < 11; i++) {
             Location downloc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 5 + i, loc.getBlockZ());
-            if (StructrueMap.protect.containsKey(downloc) || StructrueMap.Link.containsKey(downloc)) {
+            if (StructureMap.Link.containsKey(downloc)) {
                 return false;
             }
 
@@ -79,38 +79,38 @@ public class ExtendedHouse {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
-            StructrueMap.Link.put(loc,"House");
-            StructrueMap.Link.put(loc10,"House");
-            StructrueMap.Link.put(loc01,"House");
-            StructrueMap.Link.put(loc11,"House");
+            StructureMap.Link.put(loc,"false");
+            StructureMap.Link.put(loc10,"false");
+            StructureMap.Link.put(loc01,"false");
+            StructureMap.Link.put(loc11,"false");
 
         }
         if (view == "W") {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() + 5);
-            StructrueMap.protect.put(loc,"House");
-            StructrueMap.protect.put(loc10,"House");
-            StructrueMap.protect.put(loc01,"House");
-            StructrueMap.protect.put(loc11,"House");
+            StructureMap.protect.put(loc,"House");
+            StructureMap.protect.put(loc10,"House");
+            StructureMap.protect.put(loc01,"House");
+            StructureMap.protect.put(loc11,"House");
         }
         if (view == "N") {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() - 5);
-                StructrueMap.protect.put(loc,"House");
-                StructrueMap.protect.put(loc10,"House");
-                StructrueMap.protect.put(loc01,"House");
-                StructrueMap.protect.put(loc11,"House");
+                StructureMap.protect.put(loc,"House");
+                StructureMap.protect.put(loc10,"House");
+                StructureMap.protect.put(loc01,"House");
+                StructureMap.protect.put(loc11,"House");
         }
         if (view == "E") {
             Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() - 5);
-            StructrueMap.protect.put(loc, "House");
-            StructrueMap.protect.put(loc10, "House");
-            StructrueMap.protect.put(loc01, "House");
-            StructrueMap.protect.put(loc11, "House");
+            StructureMap.protect.put(loc, "House");
+            StructureMap.protect.put(loc10, "House");
+            StructureMap.protect.put(loc01, "House");
+            StructureMap.protect.put(loc11, "House");
 
         }
     }

@@ -70,8 +70,8 @@ public class WorldEditAPIController {
 
 	public int count;
 
-	public WorldEditAPIController(String fileType, String worldString) {
-		this.File = Main.structureFile.get(fileType);
+	public WorldEditAPIController(String structureType, String worldString) {
+		this.File = Main.structureFile.get(structureType);
 		this.w = new BukkitWorld(Bukkit.getWorld(worldString));  
 	}
 

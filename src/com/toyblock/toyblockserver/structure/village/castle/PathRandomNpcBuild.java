@@ -1,6 +1,6 @@
 package com.toyblock.toyblockserver.structure.village.castle;
 
-import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.tool.consol;
 import com.toyblock.toyblockserver.structure.village.path.Castle_Path;
 import org.bukkit.Location;
@@ -70,7 +70,7 @@ public class PathRandomNpcBuild {
         for (int i = 0; i < 11; i++) {
             Location downloc = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - 5 + i, loc.getBlockZ());
             consol.send("로케이션");
-            if (StructrueMap.protect.containsKey(downloc) || StructrueMap.Link.containsKey(downloc)) {
+            if ( StructureMap.Link.containsKey(downloc)) {
                 consol.send("리턴");
                 return false;
             }

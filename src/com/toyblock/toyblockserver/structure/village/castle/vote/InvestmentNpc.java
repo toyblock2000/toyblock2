@@ -122,7 +122,7 @@ public class InvestmentNpc implements Listener {
             Location point = event.getPlayer().getTargetBlock(100).getLocation();
             Location loc = new LocBalance().balance(point);
 
-            if (!PathLink.LinkCheck(loc,player,view)) {
+            if (!PathLink.LinkCheck(loc,view)) {
                 return;
             }
             Location sideloc = PathLink.LinkSideLoc(loc,view);

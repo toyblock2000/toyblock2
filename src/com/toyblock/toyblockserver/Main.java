@@ -22,7 +22,7 @@ import com.toyblock.toyblockserver.structure.village.castle.PlayerHouseBuild;
 import com.toyblock.toyblockserver.structure.village.castle.investment.InventoryClick;
 import com.toyblock.toyblockserver.structure.village.castle.item.ItemUse;
 import com.toyblock.toyblockserver.structure.village.castle.vote.InvestmentNpc;
-import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.structure.village.info.Repute;
 import com.toyblock.toyblockserver.tool.hashmap.MapData;
 import com.toyblock.toyblockserver.structure.village.path.contract;
@@ -81,7 +81,7 @@ public class Main extends JavaPlugin implements Listener {
 		consol.sendMessage("청크");
 		MapData.makeFile(chunk);
 		MapData.makeFile(link);
-		MapData.Protect_fileToMap(link, StructrueMap.Link);
+		MapData.Protect_fileToMap(link, StructureMap.Link);
 		Bukkit.addRecipe(getRecipe());
 		if(getDataFolder() == null) {
 			getDataFolder().mkdir();
@@ -93,15 +93,15 @@ public class Main extends JavaPlugin implements Listener {
 		structureFile.put("DUNGEON_MOB",new File(getDataFolder(),"/structure/Dungeon/Mob"));
 
 		Location loc =  new Location(Bukkit.getWorld("world"),10,10,-10);
-		consol.sendMessage(""+StructrueMap.Link.get(loc));
-		StructrueMap.Link.put( new Location(Bukkit.getWorld("world"),10,10,-10),"red");
+		consol.sendMessage(""+ StructureMap.Link.get(loc));
+		StructureMap.Link.put( new Location(Bukkit.getWorld("world"),10,10,-10),"red");
 	}
 
 	@Override
 	public void onDisable() {
 		super.onDisable();
 	//	MapData.Protect_mapToFile(f_protect, StructrueMap.protect);
-		MapData.Protect_mapToFile(link, StructrueMap.Link);
+		MapData.Protect_mapToFile(link, StructureMap.Link);
 
 
 		//	data.mapToFile(data.file, villageindex);

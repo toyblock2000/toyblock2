@@ -1,10 +1,8 @@
 package com.toyblock.toyblockserver.structure.village.path;
 
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
-import com.toyblock.toyblockserver.structure.StructrueMap;
+import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.tool.LocBalance;
-import com.toyblock.toyblockserver.tool.consol;
-import com.toyblock.toyblockserver.structure.village.castle.PathRandomNpcBuild;
 import com.toyblock.toyblockserver.tool.tool;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -19,11 +17,9 @@ import java.util.List;
 public class PlayerCastlePath implements Listener {
     @EventHandler
     public void playerPathBuild(PlayerInteractEvent event) {
-        event.getPlayer().chat("길 실행중");
-        if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+        if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             return;
         }
-        event.getPlayer().chat("길 실행중");
         Player player = event.getPlayer();
 
         List castleBuildLore = new ArrayList();
@@ -32,25 +28,18 @@ public class PlayerCastlePath implements Listener {
         List checkLore = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
         if (castleBuildLore.get(0).equals(checkLore.get(0))) {
 
-            event.getPlayer().chat("생성가능여부확인시작..");
-
             String view = tool.getDirection(player);
 
-
-
-            Location point = event.getPlayer().getTargetBlock(100).getLocation();
+            Location point = event.getPlayer().getTargetBlock(5).getLocation();
             Location loc = new LocBalance().balance(point);
 
-            if (!PathLink.LinkCheck(loc,player,view)) {
+            if (!PathLink.LinkCheck(loc,view)) {
                 return;
             }
 
             Castle_Path path = new Castle_Path(loc);
             path.build();
-            StructrueMap.Chunk.put(loc.getChunk(),"castle");
-            PathRandomNpcBuild random = new PathRandomNpcBuild(loc);
-            random.pathBuild();
-            consol.send("랜덤 길 추가 생성");
+            StructureMap.Chunk.put(loc.getChunk(),"castle");
 
 
         }
