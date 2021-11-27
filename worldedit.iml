@@ -30,34 +30,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="StructureBlockLib.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/API/StructureBlockLib.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="worldedit-core-7.2.5-all.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/API/worldedit-core-7.2.5-all.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="FastAsyncWorldEdit-Bukkit-1.17-125.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/API/FastAsyncWorldEdit-Bukkit-1.17-125.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/API/worldguard-bukkit-7.0.6-beta1-dist (1).jar!/" />
@@ -67,8 +40,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="plugins" level="project" />
-    <orderEntry type="library" name="worldedit-bukkit-7.2.6-beta-02" level="project" />
-    <orderEntry type="library" name="worldedit-bukkit-7.2.6-beta-021" level="project" />
     <orderEntry type="library" name="patched_1.17.1" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
@@ -84,7 +55,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/API/worldguard-bukkit-7.0.6-dist.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/API/MythicMobs-4.13.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -93,7 +64,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/API/MythicMobs-4.13.1.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/API/worldedit-bukkit-7.2.6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

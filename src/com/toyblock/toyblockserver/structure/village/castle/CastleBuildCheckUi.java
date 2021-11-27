@@ -16,7 +16,6 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,7 +37,7 @@ public class CastleBuildCheckUi {
         BlockVector3 pos1 = BlockVector3.at(point1.getX(), point1.getY(), point1.getZ());
         BlockVector3 pos2 = BlockVector3.at(point2.getX(), point2.getY(), point2.getZ());
 
-        com.sk89q.worldedit.world.World w = new BukkitWorld(Bukkit.getWorld("world"));
+        com.sk89q.worldedit.world.World w = new BukkitWorld(point.getWorld());
         CuboidRegion region = new CuboidRegion(w, pos1, pos2);
 
 

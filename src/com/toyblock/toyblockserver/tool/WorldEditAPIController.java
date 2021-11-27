@@ -19,6 +19,7 @@ import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.toyblock.toyblockserver.Main;
+import com.toyblock.toyblockserver.tool.developer.bug;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -63,7 +64,7 @@ public class WorldEditAPIController {
 	private Clipboard clipboard;
 
 	// 기본 디렉토리
-	private File File;
+	private String baseDir;
 
 	// 월드
 	private World w;
@@ -71,7 +72,7 @@ public class WorldEditAPIController {
 	public int count;
 
 	public WorldEditAPIController(String structureType, String worldString) {
-		this.File = Main.structureFile.get(structureType);
+		this.baseDir = Main.structureFile.get(structureType).getAbsolutePath();
 		this.w = new BukkitWorld(Bukkit.getWorld(worldString));  
 	}
 
@@ -169,9 +170,9 @@ public class WorldEditAPIController {
 	}
 
 	public void save(String fileTitle) {
-		File baseDirFile = this.File;
+		File baseDirFile = new File(this.baseDir);
 		if (!baseDirFile.exists()) {
-			baseDirFile.mkdir();
+			baseDirFile.mkdirs();
 		}
 		File file = new File(baseDirFile, fileTitle);
 
@@ -188,10 +189,13 @@ public class WorldEditAPIController {
 
 	public void load(String fileTitle) {
 		// file
-		File baseDirFile = this.File;
+		File baseDirFile = new File(this.baseDir);
+		bug.chat("파일"+this.baseDir);
 		if (!baseDirFile.exists()) {
-			baseDirFile.mkdir();
+			bug.chat("파일 없음");
+			baseDirFile.mkdirs();
 		}
+		bug.chat("파일 있음");
 		File file = new File(baseDirFile, fileTitle);
 		if (!file.exists()) {
 			return;

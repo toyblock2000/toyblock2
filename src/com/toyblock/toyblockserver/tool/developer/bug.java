@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.tool.developer;
 
+import com.toyblock.toyblockserver.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +16,7 @@ public class bug implements Listener {
     @EventHandler
     public void debugMode(PlayerInteractEvent event) {
         ItemStack hand = event.getPlayer().getInventory().getItemInMainHand();
-        if ((hand.getItemMeta().getDisplayName().equals("디버그 모드"))||event.getPlayer().isOp()) {
+        if ((hand.getItemMeta().getDisplayName().equals("디버그 모드"))&&event.getPlayer().isOp()) {
             Player player = event.getPlayer();
             if (debug.containsKey(player)) {
                 debug.remove(player);

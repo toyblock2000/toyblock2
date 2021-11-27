@@ -57,6 +57,9 @@ public class Main extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		super.onEnable();
+		if(getDataFolder() == null) {
+			getDataFolder().mkdir();
+		}
 		getServer().getPluginManager().registerEvents(this, this);
 		this.getCommand("contract").setExecutor(new contract());
 		getServer().getPluginManager().registerEvents(new CastleBuildPlayer(), this);
@@ -79,18 +82,17 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new bug(), this);
 		getServer().getPluginManager().registerEvents(new ZombieDunkShot(), this);
 		consol.sendMessage("청크");
+
 		MapData.makeFile(chunk);
 		MapData.makeFile(link);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		Bukkit.addRecipe(getRecipe());
-		if(getDataFolder() == null) {
-			getDataFolder().mkdir();
-		}
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
 		structureFile.put("VILLAGE_2X2HOUSE",new File(getDataFolder(),"/structure/village/1x1house"));
 		structureFile.put("DUNGEON_MOB",new File(getDataFolder(),"/structure/Dungeon/Mob"));
+		bug.chat(""+structureFile.get("DUNGEON_MOB").toString());
 
 		Location loc =  new Location(Bukkit.getWorld("world"),10,10,-10);
 		consol.sendMessage(""+ StructureMap.Link.get(loc));
