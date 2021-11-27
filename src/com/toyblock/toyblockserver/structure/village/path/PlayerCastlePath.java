@@ -37,7 +37,7 @@ public class PlayerCastlePath implements Listener {
                 return;
             }
 
-            Castle_Path path = new Castle_Path(loc);
+            CastlePathBuild path = new CastlePathBuild(loc);
             path.build();
             StructureMap.Chunk.put(loc.getChunk(),"castle");
 

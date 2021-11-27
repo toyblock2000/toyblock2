@@ -1,6 +1,6 @@
 package com.toyblock.toyblockserver.structure.village.castle.investment;
 
-import com.toyblock.toyblockserver.structure.village.path.Castle_Path;
+import com.toyblock.toyblockserver.structure.village.path.CastlePathBuild;
 import com.toyblock.toyblockserver.structure.village.castle.vote.PathInvestment;
 import com.toyblock.toyblockserver.structure.village.castle.vote.VoteItem;
 import org.bukkit.Bukkit;
@@ -90,7 +90,7 @@ public class InventoryClick implements Listener {
                 UUID UUID = com.toyblock.toyblockserver.structure.village.castle.vote.PathInvestment.InvestmentUUIDLink.get(inv);
                 Location loc = com.toyblock.toyblockserver.structure.village.castle.vote.PathInvestment.InvestmentGorundLink.get(UUID);
                 Location make = loc.getWorld().getHighestBlockAt(loc).getLocation();
-                Castle_Path path = new Castle_Path(make);
+                CastlePathBuild path = new CastlePathBuild(make);
                 path.build();
                 Bukkit.getEntity(UUID).remove();
                 player.closeInventory();

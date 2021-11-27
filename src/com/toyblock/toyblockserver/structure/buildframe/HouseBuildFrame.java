@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.structure.buildframe;
 
+import com.toyblock.toyblockserver.structure.structureType;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
@@ -122,7 +123,7 @@ public class HouseBuildFrame implements Listener {
             Location point2 = new Location(loc.getWorld(),save_loc.getX()+2,save_loc.getY()+10,save_loc.getZ()+2);
             loc.getWorld().spawnParticle(Particle.FLAME,point1.getX(),point1.getY(),point1.getZ(),10);
             loc.getWorld().spawnParticle(Particle.FLAME,point2.getX(),point2.getY(),point2.getZ(),10);
-            WorldEditAPIController edit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle/path/smooth","world");
+            WorldEditAPIController edit = new WorldEditAPIController(structureType.VILLAGE_PATH.name(),"world");
             edit.copy(point1, point2,save_loc);
             edit.save(event.getWhoClicked().getInventory().getItemInMainHand().getItemMeta().getDisplayName()+".schem");
             player.chat(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());

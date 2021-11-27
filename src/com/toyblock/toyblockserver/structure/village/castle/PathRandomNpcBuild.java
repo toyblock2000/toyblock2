@@ -2,7 +2,7 @@ package com.toyblock.toyblockserver.structure.village.castle;
 
 import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.tool.consol;
-import com.toyblock.toyblockserver.structure.village.path.Castle_Path;
+import com.toyblock.toyblockserver.structure.village.path.CastlePathBuild;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class PathRandomNpcBuild {
             consol.send("길 생성에 실패됨");
             return;
         }
-        Castle_Path path = new Castle_Path(randompath);
+        CastlePathBuild path = new CastlePathBuild(randompath);
         consol.send("길 생성에 성공"+randompath);
         path.build();
 

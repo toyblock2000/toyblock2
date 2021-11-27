@@ -40,7 +40,7 @@ public class protect {
                     for (int z = -100; z < 1; z = z + 5) {
                         Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
                         if (pointLoc.getY() == endLoc.getY()) {
-                            StructureMap.Link.put(pointLoc, "VILLAGE_CASTLE");
+                            StructureMap.Link.put(pointLoc, "true");
 
                         }
 
@@ -96,7 +96,7 @@ public class protect {
         }
     }
     public void connect(ProtectedRegion build) {
-        String name = "aa";
+        String name = "test";
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         RegionManager manager = container.get(BukkitAdapter.adapt(Bukkit.getWorld("world")));
         ProtectedRegion castle = manager.getRegion(name);
@@ -110,9 +110,14 @@ public class protect {
         BlockVector3 newcastle1 = BlockVector3.at(Math.min(castle1.getBlockX(),build1.getBlockX()),-64, Math.min(castle1.getBlockZ(),build1.getBlockZ()));
         BlockVector3 newcastle2 = BlockVector3.at(Math.max(castle2.getBlockX(),build2.getBlockX()),300, Math.max(castle2.getBlockZ(),build2.getBlockZ()));
         ProtectedRegion region = new ProtectedCuboidRegion(name, newcastle1, newcastle2);
+        region.setFlag(Flags.GREET_TITLE,"마을\n안녕");
+        region.setFlag(Flags.FAREWELL_TITLE,"꺼져\n인마");
+
+
+
         BlockVector3 newcastle1side = BlockVector3.at(Math.min(castle1.getBlockX(),build1.getBlockX())-20,-64, Math.min(castle1.getBlockZ(),build1.getBlockZ())-20);
         BlockVector3 newcastle2side = BlockVector3.at(Math.max(castle2.getBlockX(),build2.getBlockX())+20,300, Math.max(castle2.getBlockZ(),build2.getBlockZ())+20);
-        ProtectedRegion regionside = new ProtectedCuboidRegion(name, newcastle1side, newcastle2side);
+        ProtectedRegion regionside = new ProtectedCuboidRegion(name+"side", newcastle1side, newcastle2side);
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         RegionManager manager = container.get(BukkitAdapter.adapt(Bukkit.getWorld("world")));
         manager.removeRegion(name);
@@ -120,6 +125,12 @@ public class protect {
         manager.addRegion(region);
         manager.addRegion(regionside);
         manager.getApplicableRegionsIDs(castle1);
+        try {
+            manager.save();
+        } catch (StorageException e) {
+            e.printStackTrace();
+        }
+
     }
     public void protect(Location loc1, Location loc2,String name) {
 
