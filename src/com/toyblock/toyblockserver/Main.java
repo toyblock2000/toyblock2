@@ -18,7 +18,7 @@ import com.toyblock.toyblockserver.difficulty.entity.ai.ZombieDunkShot;
 import com.toyblock.toyblockserver.tool.RandomChest;
 import com.toyblock.toyblockserver.structure.village.castle.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.village.path.PlayerCastlePath;
-import com.toyblock.toyblockserver.structure.village.castle.PlayerHouseBuild;
+import com.toyblock.toyblockserver.structure.village.house.PlayerHouseBuild;
 import com.toyblock.toyblockserver.structure.village.castle.investment.InventoryClick;
 import com.toyblock.toyblockserver.structure.village.castle.item.ItemUse;
 import com.toyblock.toyblockserver.structure.village.castle.vote.InvestmentNpc;

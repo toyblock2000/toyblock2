@@ -5,22 +5,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.bukkit.inventory.ItemStack;
 
 public class CastleBuildPlayer implements Listener {
     @EventHandler
     public void playerItemUse(PlayerInteractEvent event) {
-        if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+        if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             return;
         }
-        List castleBuildLore = new ArrayList();
-        castleBuildLore.add(0,"성 건설");
-        List checkLore = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
-        if (castleBuildLore.get(0).equals(checkLore.get(0))) {
-           Location point = event.getPlayer().getTargetBlock(100).getLocation();
-            new CastleBuildCheckUi().checkOn(event.getPlayer(),point);
+        ItemStack key = event.getPlayer().getInventory().getItemInMainHand();
+        if (key.getItemMeta().getDisplayName().equals("성 건설")) {
+           Location point = event.getPlayer().getTargetBlock(5).getLocation();
+            new CastleBuildCheck().checkOn(point,"castle_test");
 
 
 

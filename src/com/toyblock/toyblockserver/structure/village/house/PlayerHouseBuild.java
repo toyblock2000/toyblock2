@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.structure.village.castle;
+package com.toyblock.toyblockserver.structure.village.house;
 
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.StructureMap;

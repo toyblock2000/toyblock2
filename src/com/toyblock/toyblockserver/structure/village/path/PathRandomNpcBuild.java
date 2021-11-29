@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.structure.village.castle;
+package com.toyblock.toyblockserver.structure.village.path;
 
 import com.toyblock.toyblockserver.structure.StructureMap;
 import com.toyblock.toyblockserver.tool.consol;
