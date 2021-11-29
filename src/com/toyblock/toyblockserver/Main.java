@@ -110,10 +110,14 @@ public class Main extends JavaPlugin implements Listener {
 
 		//	data.mapToFile(data.file, villageindex);
 	}
+	public void timeHeal() {
+
+	}
 	public void allPlayerEnergyFull() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			Energy.createPlayerEnergy(player);
 			Energy.createBoard_full(player);
+			Energy.actionBarChat(player,ChatColor.GREEN+"Server Heal 100%");
 
 		}
 	}

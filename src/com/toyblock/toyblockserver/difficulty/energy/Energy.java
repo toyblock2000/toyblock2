@@ -111,7 +111,7 @@ public class Energy implements Listener {
         createBoard(player);
         return true;
     }
-    public void actionBarChat(Player player,String str) {
+    public static void actionBarChat(Player player,String str) {
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
                 (str) );
     }
