@@ -84,7 +84,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new ZombieDunkShot(), this);
 		getServer().getPluginManager().registerEvents(new Energy(), this);
 		consol.sendMessage("청크");
-
+		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
 		MapData.makeFile(link);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
@@ -109,6 +109,13 @@ public class Main extends JavaPlugin implements Listener {
 
 
 		//	data.mapToFile(data.file, villageindex);
+	}
+	public void allPlayerEnergyFull() {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			Energy.createPlayerEnergy(player);
+			Energy.createBoard_full(player);
+
+		}
 	}
 
 	//@EventHandler

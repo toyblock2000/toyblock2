@@ -4,6 +4,7 @@ import com.destroystokyo.paper.MaterialSetTag;
 import com.destroystokyo.paper.MaterialTags;
 import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.mapList;
+import com.toyblock.toyblockserver.tool.developer.bug;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -28,16 +29,27 @@ import java.util.List;
 public class Energy implements Listener {
     private String energyName = "Energy";
 
-    public void createPlayerEnergy(Player player,Float energy) {
+    public static void createPlayerEnergy(Player player) {
         String playerUUID = player.getUniqueId().toString();
-        mapList.ENERGY.put(playerUUID,energy);
-        mapList.ENERGY_REGEN.put(playerUUID,false);
+        mapList.ENERGY.put(playerUUID,100f);
 
+    }
+    public boolean checkPlayerEnergy(Player player) {
+        String playerUUID = player.getUniqueId().toString();
+        if(mapList.ENERGY.containsKey(playerUUID)) {
+            return true;
+        }
+        return false;
     }
     @EventHandler
     public void joinPlayerEnergy(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        createPlayerEnergy(player,100f);
+        if(checkPlayerEnergy(player)) {
+            createBoard(player);
+            return;
+        }
+        createPlayerEnergy(player);
+        createBoard(player);
     }
     public float getPlayerEnergy(Player player) {
         String playerUUID = player.getUniqueId().toString();
@@ -51,23 +63,19 @@ public class Energy implements Listener {
             return 0f;
         }
         ItemStack item = player.getInventory().getItemInMainHand();
-        if(MaterialTags.PICKAXES.isTagged(item)) {
-
-        }
         return 0f;
     }
 
     public boolean usePlayerEnergy(Player player,Float useEnergy) {
         String playerUUID = player.getUniqueId().toString();
         Float playerEnergy = mapList.ENERGY.get(playerUUID);
-        Float bonusCount = discountEnergy_Pickaxe(player);
-        Float discount = (float) (useEnergy * bonusCount / 100.0);
-        if(!(playerEnergy >= useEnergy-discount)) {
+
+        if(!(playerEnergy >= useEnergy)) {
             actionBarChat(player,ChatColor.RED+"에너지 부족");
             return false;
         }
-        mapList.ENERGY.put(playerUUID,playerEnergy-(useEnergy-discount) );
-        showUseEnergy(player,useEnergy-discount);
+        mapList.ENERGY.put(playerUUID,playerEnergy-(useEnergy) );
+        showUseEnergy(player,useEnergy);
         return true;
     }
     public boolean addPlayerEnergy(Player player,Float addEnergy) {
@@ -149,6 +157,16 @@ public class Energy implements Listener {
         score1.setScore(1);
         player.setScoreboard(board);
     }
+    public static void createBoard_full(Player player) {
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        Scoreboard board = manager.getNewScoreboard();
+        Objective obj = board.registerNewObjective("EnergyBoard","dummy","에너지");
+        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+        Score score1 = obj.getScore
+                ("에너지 : "+100+"%" );
+        score1.setScore(1);
+        player.setScoreboard(board);
+    }
     @EventHandler
     public void healEnergy(PlayerItemConsumeEvent event) {
         ItemStack potion = event.getItem();
@@ -164,9 +182,55 @@ public class Energy implements Listener {
 
     }
     @EventHandler
+    public void regenHealEnergy(PlayerItemConsumeEvent event) {
+        ItemStack potion = event.getItem();
+        Player player =event.getPlayer();
+        if(!(potion.getType().equals(Material.POTION))) {
+            return;
+        }
+        String name = potion.getItemMeta().getDisplayName();
+        if(!(name.equals("에너지 재생포션"))) {
+            return;
+        }
+        fastRegenEnergy(player,1f,100);
+
+    }
+    public void fastRegenEnergy (Player player,Float regenEnergy,long time) {
+
+
+        BukkitRunnable Regen = new BukkitRunnable() {
+            int count = 0;
+            public void run() {
+                if(count>100) {
+                    this.cancel();
+                }
+                regenPlayerEnergy(player,regenEnergy);
+                count++;
+            }
+        };
+        Regen.runTaskTimer(Main.getPlugin(Main.class) , time, time);
+    }
+
+    @EventHandler
     public void energyUse_Break(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if(!(usePlayerEnergy(player,1f))) {
+        Material block = event.getBlock().getType();
+        float useEnergy = 3;
+        if(MaterialSetTag.MINEABLE_PICKAXE.isTagged(block)) {
+
+            float bonusCount = discountEnergy_Pickaxe_test(player);
+            useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
+        }
+        if(MaterialSetTag.MINEABLE_AXE.isTagged(block)) {
+            float bonusCount = discountEnergy_Axe(player);
+            useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
+        }
+        if(MaterialSetTag.MINEABLE_SHOVEL.isTagged(block)) {
+            float bonusCount = discountEnergy_Shovel(player);
+            useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
+        }
+
+        if(!(usePlayerEnergy(player,useEnergy))) {
             if(player.getGameMode().equals(GameMode.CREATIVE)) {
                 return;
             }
@@ -206,9 +270,54 @@ public class Energy implements Listener {
         if(pickaxe == Material.NETHERITE_PICKAXE) {
             return 40f;
         }
+        return 0;
+    }
+    public float discountEnergy_Pickaxe_test(Player player) {
 
-
-
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if(!(MaterialTags.PICKAXES.isTagged(item))) {
+            return 0;
+        }
+        return loreFinder(item,"에너지 소모");
+    }
+    public float discountEnergy_Axe(Player player) {
+        ItemStack item = player.getInventory().getItemInMainHand();
+        Material pickaxe = item.getType();
+        if(pickaxe == Material.STONE_AXE) {
+            return 10f;
+        }
+        if(pickaxe == Material.IRON_AXE) {
+            return 20f;
+        }
+        if(pickaxe == Material.DIAMOND_AXE) {
+            return 30f;
+        }
+        if(pickaxe == Material.GOLDEN_AXE) {
+            return 35f;
+        }
+        if(pickaxe == Material.NETHERITE_AXE) {
+            return 40f;
+        }
+        return 0;
+    }
+    public float discountEnergy_Shovel(Player player) {
+        ItemStack item = player.getInventory().getItemInMainHand();
+        Material pickaxe = item.getType();
+        if(pickaxe == Material.STONE_SHOVEL) {
+            return 10f;
+        }
+        if(pickaxe == Material.IRON_SHOVEL) {
+            return 20f;
+        }
+        if(pickaxe == Material.DIAMOND_SHOVEL) {
+            return 30f;
+        }
+        if(pickaxe == Material.GOLDEN_SHOVEL) {
+            return 35f;
+        }
+        if(pickaxe == Material.NETHERITE_SHOVEL) {
+            return 40f;
+        }
         return 0;
     }
     public float loreFinder(ItemStack item, String findStr) {
@@ -225,15 +334,19 @@ public class Energy implements Listener {
 
     public boolean getRegen(Player player) {
         String playerUUID = player.getUniqueId().toString();
-        return mapList.ENERGY_REGEN.get(playerUUID);
+        return mapList.ENERGY_REGEN.containsKey(playerUUID);
     }
     public void setRegen(Player player,boolean plug) {
         String playerUUID = player.getUniqueId().toString();
         mapList.ENERGY_REGEN.put(playerUUID,plug);
     }
+    public void removeRegen(Player player) {
+        String playerUUID = player.getUniqueId().toString();
+        mapList.ENERGY_REGEN.remove(playerUUID);
+    }
     public void regenEnergy (Player player,Float regenEnergy,long time) {
 
-        if (getRegen(player) == true) {
+        if (getRegen(player)) {
             return;
         }
         setRegen(player,true);
@@ -243,8 +356,9 @@ public class Energy implements Listener {
                     if (getRegen(player) == false) {
                         this.cancel();
                     }
+
                     if(!regenPlayerEnergy(player,regenEnergy)) {
-                        setRegen(player,false);
+                        removeRegen(player);
                         actionBarChat(player,ChatColor.GREEN+"에너지 100% 회복");
                         this.cancel();
                     }
