@@ -43,11 +43,11 @@ public class Energy implements Listener {
     public boolean usePlayerEnergy(Player player,Float useEnergy) {
         String playerUUID = player.getUniqueId().toString();
         Float playerEnergy = mapList.ENERGY.get(playerUUID);
-        if(!(playerEnergy >= useEnergy)) {
-            return false;
-        }
         Float percent = discountEnergy_Pickaxe(player);
         Float discount = (float) (useEnergy * percent / 100.0);
+        if(!(playerEnergy >= useEnergy-discount)) {
+            return false;
+        }
         mapList.ENERGY.put(playerUUID,playerEnergy-(useEnergy-discount) );
         showUseEnergy(player,useEnergy-discount);
         return true;
