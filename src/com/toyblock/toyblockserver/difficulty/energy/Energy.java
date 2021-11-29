@@ -65,7 +65,7 @@ public class Energy implements Listener {
         else {
             mapList.ENERGY.put(playerUUID,playerEnergy+addEnergy);
         }
-        showAddEnergy(player,addEnergy);
+        //showAddEnergy(player,addEnergy);
         return true;
     }
     public void setPlayerEnergy(Player player,Float energy) {

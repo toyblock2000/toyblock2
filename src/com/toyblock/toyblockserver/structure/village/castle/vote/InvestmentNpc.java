@@ -102,7 +102,6 @@ public class InvestmentNpc implements Listener {
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             return;
         }
-        event.getPlayer().chat("투자 실행중");
         Player player = event.getPlayer();
 
         List castleBuildLore = new ArrayList();
