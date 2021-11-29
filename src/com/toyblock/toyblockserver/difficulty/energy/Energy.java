@@ -142,7 +142,7 @@ public class Energy implements Listener {
     @EventHandler
     public void energyUse_Break(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if(!(usePlayerEnergy(player,5f))) {
+        if(!(usePlayerEnergy(player,1f))) {
             if(player.getGameMode().equals(GameMode.CREATIVE)) {
                 return;
             }
@@ -155,7 +155,7 @@ public class Energy implements Listener {
     @EventHandler
     public void energyUse_Build(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        if(!(usePlayerEnergy(player,5f))) {
+        if(!(usePlayerEnergy(player,1f))) {
             if(player.getGameMode().equals(GameMode.CREATIVE)) {
                 return;
             }
