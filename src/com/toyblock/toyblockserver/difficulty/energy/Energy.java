@@ -65,7 +65,22 @@ public class Energy implements Listener {
         else {
             mapList.ENERGY.put(playerUUID,playerEnergy+addEnergy);
         }
-        //showAddEnergy(player,addEnergy);
+        showAddEnergy(player,addEnergy);
+        return true;
+    }
+    public boolean regenPlayerEnergy(Player player,Float addEnergy) {
+        String playerUUID = player.getUniqueId().toString();
+        Float playerEnergy = mapList.ENERGY.get(playerUUID);
+        if(100 <= playerEnergy) {
+            return false;
+        }
+        Float scarceEnergy = (100-playerEnergy);
+        if(scarceEnergy<=addEnergy) {
+            mapList.ENERGY.put(playerUUID,playerEnergy+scarceEnergy);
+        }
+        else {
+            mapList.ENERGY.put(playerUUID,playerEnergy+addEnergy);
+        }
         return true;
     }
     public void setPlayerEnergy(Player player,Float energy) {
@@ -193,7 +208,7 @@ public class Energy implements Listener {
                     if (getRegen(player) == false) {
                         this.cancel();
                     }
-                    if(!addPlayerEnergy(player,regenEnergy)) {
+                    if(!regenPlayerEnergy(player,regenEnergy)) {
                         setRegen(player,false);
                         this.cancel();
                     }
