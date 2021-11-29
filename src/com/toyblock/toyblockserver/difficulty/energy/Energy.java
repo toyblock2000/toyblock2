@@ -1,5 +1,7 @@
 package com.toyblock.toyblockserver.difficulty.energy;
 
+import com.destroystokyo.paper.MaterialSetTag;
+import com.destroystokyo.paper.MaterialTags;
 import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.mapList;
 import net.md_5.bungee.api.ChatMessageType;
@@ -8,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +23,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class Energy implements Listener {
     private String energyName = "Energy";
@@ -39,13 +43,27 @@ public class Energy implements Listener {
         String playerUUID = player.getUniqueId().toString();
         return mapList.ENERGY.get(playerUUID);
     }
+    public float bonusConut(Player player) {
+        return 0f;
+    }
+    public float bonusItemCount(Player player) {
+        if(player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
+            return 0f;
+        }
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if(MaterialTags.PICKAXES.isTagged(item)) {
+
+        }
+        return 0f;
+    }
 
     public boolean usePlayerEnergy(Player player,Float useEnergy) {
         String playerUUID = player.getUniqueId().toString();
         Float playerEnergy = mapList.ENERGY.get(playerUUID);
-        Float percent = discountEnergy_Pickaxe(player);
-        Float discount = (float) (useEnergy * percent / 100.0);
+        Float bonusCount = discountEnergy_Pickaxe(player);
+        Float discount = (float) (useEnergy * bonusCount / 100.0);
         if(!(playerEnergy >= useEnergy-discount)) {
+            actionBarChat(player,ChatColor.RED+"에너지 부족");
             return false;
         }
         mapList.ENERGY.put(playerUUID,playerEnergy-(useEnergy-discount) );
@@ -61,11 +79,12 @@ public class Energy implements Listener {
         Float scarceEnergy = (100-playerEnergy);
         if(scarceEnergy<=addEnergy) {
             mapList.ENERGY.put(playerUUID,playerEnergy+scarceEnergy);
+            showAddEnergy(player,scarceEnergy);
         }
         else {
             mapList.ENERGY.put(playerUUID,playerEnergy+addEnergy);
+            showAddEnergy(player,addEnergy);
         }
-        showAddEnergy(player,addEnergy);
         return true;
     }
     public boolean regenPlayerEnergy(Player player,Float addEnergy) {
@@ -81,7 +100,12 @@ public class Energy implements Listener {
         else {
             mapList.ENERGY.put(playerUUID,playerEnergy+addEnergy);
         }
+        createBoard(player);
         return true;
+    }
+    public void actionBarChat(Player player,String str) {
+        player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
+                (str) );
     }
     public void setPlayerEnergy(Player player,Float energy) {
         String playerUUID = player.getUniqueId().toString();
@@ -94,7 +118,7 @@ public class Energy implements Listener {
         String addValue = comma(addEnergy);
         String countValue = comma(getPlayerEnergy(player));
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
-                (ChatColor.GREEN+"에너지 +"+addValue ) );
+                (ChatColor.GREEN+"에너지 +"+addValue+"%" ) );
         createBoard(player);
         return ;
     }
@@ -111,7 +135,7 @@ public class Energy implements Listener {
         String useValue = comma(useEnergy);
         String countValue = comma(getPlayerEnergy(player));
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
-                (ChatColor.RED+"에너지 -"+useValue ) );
+                (ChatColor.RED+"에너지 -"+useValue+"%" ) );
         createBoard(player);
 
     }
@@ -121,7 +145,7 @@ public class Energy implements Listener {
         Objective obj = board.registerNewObjective("EnergyBoard","dummy","에너지");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score1 = obj.getScore
-                ("에너지 : "+comma(getPlayerEnergy(player)) );
+                ("에너지 : "+comma(getPlayerEnergy(player))+"%" );
         score1.setScore(1);
         player.setScoreboard(board);
     }
@@ -187,6 +211,17 @@ public class Energy implements Listener {
 
         return 0;
     }
+    public float loreFinder(ItemStack item, String findStr) {
+        List lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++){
+            String str = (String)lore.get(i);
+            if(!(str.contains(findStr))) {
+                continue;
+            }
+            return Integer.parseInt(str.replaceAll("[^0-9]", ""));
+        }
+        return 0f;
+    }
 
     public boolean getRegen(Player player) {
         String playerUUID = player.getUniqueId().toString();
@@ -210,6 +245,7 @@ public class Energy implements Listener {
                     }
                     if(!regenPlayerEnergy(player,regenEnergy)) {
                         setRegen(player,false);
+                        actionBarChat(player,ChatColor.GREEN+"에너지 100% 회복");
                         this.cancel();
                     }
                 }
