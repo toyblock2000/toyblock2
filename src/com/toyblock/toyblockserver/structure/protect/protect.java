@@ -149,4 +149,21 @@ public class protect {
         }
 
     }
+    public void protecst(Location loc1, Location loc2,String name) {
+
+        BlockVector3 pos1 = BlockVector3.at(loc1.getX(), loc1.getY(), loc1.getZ());
+        BlockVector3 pos2 = BlockVector3.at(loc2.getX(), loc2.getY(), loc2.getZ());
+        com.sk89q.worldedit.world.World world = (com.sk89q.worldedit.world.World)loc1.getWorld();
+        ProtectedRegion region = new ProtectedCuboidRegion(name,pos1,pos2);
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionManager regions = container.get(world);
+        regions.addRegion(region);
+        region.setFlag(Flags.BLOCK_BREAK, StateFlag.State.DENY);
+        try {
+            regions.save();
+        } catch (StorageException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
