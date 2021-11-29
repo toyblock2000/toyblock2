@@ -11,6 +11,7 @@ import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.AdventurerLevelUp;
+import com.toyblock.toyblockserver.difficulty.energy.Energy;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;
@@ -81,6 +82,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new Repute(), this);
 		getServer().getPluginManager().registerEvents(new bug(), this);
 		getServer().getPluginManager().registerEvents(new ZombieDunkShot(), this);
+		getServer().getPluginManager().registerEvents(new Energy(), this);
 		consol.sendMessage("청크");
 
 		MapData.makeFile(chunk);

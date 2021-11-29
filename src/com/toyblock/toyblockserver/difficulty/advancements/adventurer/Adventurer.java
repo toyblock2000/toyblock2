@@ -21,7 +21,7 @@ public class Adventurer implements Listener {
 
         Advancement start = new Advancement(null, new NameKey("adventurer", "start"), startDisplay);
         start.setCriteria(1);
-        manager.addAdvancement(start);
+       // manager.addAdvancement(start);
 
         AdvancementDisplay move1_Display =
                 new AdvancementDisplay(Material.GRASS_BLOCK, "탐험중", "§5100블럭을 탐험 하세요", AdvancementDisplay.AdvancementFrame.CHALLENGE, false, true, AdvancementVisibility.PARENT_GRANTED);
@@ -29,7 +29,7 @@ public class Adventurer implements Listener {
 
         Advancement move1 = new Advancement(start, new NameKey("adventurer", "move1"), move1_Display);
         move1.setCriteria(100);
-        manager.addAdvancement(move1);
+      //  manager.addAdvancement(move1);
 
         AdvancementDisplay move2_Display =
                 new AdvancementDisplay(Material.GRASS_BLOCK, "탐험중2", "§5200블럭을 탐험 하세요", AdvancementDisplay.AdvancementFrame.CHALLENGE, false, true, AdvancementVisibility.PARENT_GRANTED);
@@ -37,14 +37,14 @@ public class Adventurer implements Listener {
 
         Advancement move2 = new Advancement(move1, new NameKey("adventurer", "move2"), move2_Display);
         move2.setCriteria(1);
-        manager.addAdvancement(move2);
+      //  manager.addAdvancement(move2);
     }
     public static void addPlayer (Player player) {
-        manager.addPlayer(player);
+     //   manager.addPlayer(player);
         Advancement advancement;
-        advancement = manager.getAdvancement(new NameKey("adventurer","start"));
+    //    advancement = manager.getAdvancement(new NameKey("adventurer","start"));
 
-        manager.grantAdvancement(player,advancement);
+    //    manager.grantAdvancement(player,advancement);
     }
  //   @EventHandler
     public static void move1up(PlayerInteractEvent event) {
@@ -52,8 +52,8 @@ public class Adventurer implements Listener {
             return;
         }
             Advancement advancement;
-            advancement = manager.getAdvancement(new NameKey("adventurer","move1"));
-            manager.setCriteriaProgress(event.getPlayer(),advancement,manager.getCriteriaProgress(event.getPlayer(),advancement)+1);
+        //    advancement = manager.getAdvancement(new NameKey("adventurer","move1"));
+        //    manager.setCriteriaProgress(event.getPlayer(),advancement,manager.getCriteriaProgress(event.getPlayer(),advancement)+1);
             Player player = event.getPlayer();
 
 
@@ -66,18 +66,18 @@ public class Adventurer implements Listener {
             return;
         }
         Advancement advancement;
-        advancement = manager.getAdvancement(new NameKey("adventurer","move2"));
+     //   advancement = manager.getAdvancement(new NameKey("adventurer","move2"));
         Advancement advancementup;
-        advancementup = manager.getAdvancement(new NameKey("adventurer","move1"));
-        if(!(manager.getCriteriaProgress(event.getPlayer(),advancementup)>=100)) {
-            event.getPlayer().chat(""+manager.getCriteriaProgress(event.getPlayer(),advancementup));
-            return;
+      //  advancementup = manager.getAdvancement(new NameKey("adventurer","move1"));
+   //     if(!(manager.getCriteriaProgress(event.getPlayer(),advancementup)>=100)) {
+     //       event.getPlayer().chat(""+manager.getCriteriaProgress(event.getPlayer(),advancementup));
+     //       return;
         }
-        manager.setCriteriaProgress(event.getPlayer(),advancement,manager.getCriteriaProgress(event.getPlayer(),advancement)+1);
+     //   manager.setCriteriaProgress(event.getPlayer(),advancement,manager.getCriteriaProgress(event.getPlayer(),advancement)+1);
 
 
 
     }
 
 
-}
+//}

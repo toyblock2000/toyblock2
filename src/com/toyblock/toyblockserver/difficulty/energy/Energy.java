@@ -5,11 +5,15 @@ import com.toyblock.toyblockserver.mapList;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -17,13 +21,19 @@ import org.bukkit.scoreboard.*;
 
 import java.text.DecimalFormat;
 
-public class Energy {
+public class Energy implements Listener {
     private String energyName = "Energy";
 
-    public void ceatePlayerEnergy(Player player,Float energy) {
+    public void createPlayerEnergy(Player player,Float energy) {
         String playerUUID = player.getUniqueId().toString();
         mapList.ENERGY.put(playerUUID,energy);
+        mapList.ENERGY_REGEN.put(playerUUID,false);
 
+    }
+    @EventHandler
+    public void joinPlayerEnergy(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        createPlayerEnergy(player,100f);
     }
     public float getPlayerEnergy(Player player) {
         String playerUUID = player.getUniqueId().toString();
@@ -55,18 +65,21 @@ public class Energy {
         else {
             mapList.ENERGY.put(playerUUID,playerEnergy+addEnergy);
         }
-        showAddEnergy(player);
+        showAddEnergy(player,addEnergy);
         return true;
     }
     public void setPlayerEnergy(Player player,Float energy) {
         String playerUUID = player.getUniqueId().toString();
         mapList.ENERGY.put(playerUUID,energy);
     }
-    public void showAddEnergy(Player player) {
+    public void showAddEnergy(Player player,Float addEnergy) {
         if(!(player.isOnline())) {
             return ;
         }
-        player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("에너지 : + 1      남은 에너지: "+comma(getPlayerEnergy(player)) ) );
+        String addValue = comma(addEnergy);
+        String countValue = comma(getPlayerEnergy(player));
+        player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
+                (ChatColor.GREEN+"에너지 +"+addValue ) );
         createBoard(player);
         return ;
     }
@@ -75,11 +88,15 @@ public class Energy {
         String nomber = form.format(f);
         return nomber;
     }
+
     public void showUseEnergy (Player player,Float useEnergy) {
         if(!(player.isOnline())) {
             return ;
         }
-        player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("에너지 : -" +useEnergy+"   남은에너지: "+comma(getPlayerEnergy(player)) ) );
+        String useValue = comma(useEnergy);
+        String countValue = comma(getPlayerEnergy(player));
+        player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
+                (ChatColor.RED+"에너지 -"+useValue ) );
         createBoard(player);
 
     }
@@ -88,20 +105,49 @@ public class Energy {
         Scoreboard board = manager.getNewScoreboard();
         Objective obj = board.registerNewObjective("EnergyBoard","dummy","에너지");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score1 = obj.getScore("에너지 : "+comma(getPlayerEnergy(player)) );
+        Score score1 = obj.getScore
+                ("에너지 : "+comma(getPlayerEnergy(player)) );
         score1.setScore(1);
         player.setScoreboard(board);
+    }
+    @EventHandler
+    public void healEnergy(PlayerItemConsumeEvent event) {
+        ItemStack potion = event.getItem();
+        Player player =event.getPlayer();
+        if(!(potion.getType().equals(Material.POTION))) {
+            return;
+        }
+        String name = potion.getItemMeta().getDisplayName();
+        if(!(name.equals("에너지포션"))) {
+            return;
+        }
+        addPlayerEnergy(player,50f);
+
     }
     @EventHandler
     public void energyUse_Break(BlockBreakEvent event) {
         Player player = event.getPlayer();
         if(!(usePlayerEnergy(player,5f))) {
+            if(player.getGameMode().equals(GameMode.CREATIVE)) {
+                return;
+            }
+            event.setCancelled(true);
+
+            return;
         }
+        regenEnergy(player,1f,100);
     }
     @EventHandler
     public void energyUse_Build(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        usePlayerEnergy(player,5f);
+        if(!(usePlayerEnergy(player,5f))) {
+            if(player.getGameMode().equals(GameMode.CREATIVE)) {
+                return;
+            }
+            event.setCancelled(true);
+            return;
+        }
+        regenEnergy(player,1f,100);
     }
     public float discountEnergy_Pickaxe(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
@@ -112,14 +158,14 @@ public class Energy {
         if(pickaxe == Material.IRON_PICKAXE) {
             return 20f;
         }
-        if(pickaxe == Material.GOLDEN_PICKAXE) {
-            return 25f;
-        }
         if(pickaxe == Material.DIAMOND_PICKAXE) {
             return 30f;
         }
-        if(pickaxe == Material.NETHERITE_PICKAXE) {
+        if(pickaxe == Material.GOLDEN_PICKAXE) {
             return 35f;
+        }
+        if(pickaxe == Material.NETHERITE_PICKAXE) {
+            return 40f;
         }
 
 

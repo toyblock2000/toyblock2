@@ -16,7 +16,6 @@ public class test implements Listener {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;
         }
-        event.getPlayer().chat("물건 실행중");
         Player player = event.getPlayer();
 
         List castleBuildLore = new ArrayList();

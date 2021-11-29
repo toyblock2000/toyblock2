@@ -25,7 +25,7 @@ public class PlayerHouseBuild implements Listener {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;
         }
-        event.getPlayer().chat("집 실행중");
+
         Player player = event.getPlayer();
 
         List castleBuildLore = new ArrayList();

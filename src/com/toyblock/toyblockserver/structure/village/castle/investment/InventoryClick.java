@@ -25,7 +25,6 @@ public class InventoryClick implements Listener {
         Inventory inv = event.getInventory();
         ItemStack emerald = new ItemStack(Material.EMERALD);
         if (!com.toyblock.toyblockserver.structure.village.castle.vote.PathInvestment.Inv_amount.containsKey(event.getInventory())) {
-            player.chat("미등록");
             return;
         }
         if (event.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
