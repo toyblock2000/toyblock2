@@ -5,9 +5,13 @@ import com.toyblock.toyblockserver.mapList;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 
@@ -25,14 +29,17 @@ public class Energy {
         String playerUUID = player.getUniqueId().toString();
         return mapList.ENERGY.get(playerUUID);
     }
+
     public boolean usePlayerEnergy(Player player,Float useEnergy) {
         String playerUUID = player.getUniqueId().toString();
         Float playerEnergy = mapList.ENERGY.get(playerUUID);
         if(!(playerEnergy >= useEnergy)) {
             return false;
         }
-        mapList.ENERGY.put(playerUUID,playerEnergy-useEnergy);
-        showUseEnergy(player,useEnergy);
+        Float percent = discountEnergy_Pickaxe(player);
+        Float discount = (float) (useEnergy * percent / 100.0);
+        mapList.ENERGY.put(playerUUID,playerEnergy-(useEnergy-discount) );
+        showUseEnergy(player,useEnergy-discount);
         return true;
     }
     public boolean addPlayerEnergy(Player player,Float addEnergy) {
@@ -56,7 +63,12 @@ public class Energy {
         mapList.ENERGY.put(playerUUID,energy);
     }
     public void showAddEnergy(Player player) {
+        if(!(player.isOnline())) {
+            return ;
+        }
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("에너지 : + 1      남은 에너지: "+comma(getPlayerEnergy(player)) ) );
+        createBoard(player);
+        return ;
     }
     public static String comma (float f) {
         DecimalFormat form = new DecimalFormat("#.#");
@@ -64,10 +76,14 @@ public class Energy {
         return nomber;
     }
     public void showUseEnergy (Player player,Float useEnergy) {
+        if(!(player.isOnline())) {
+            return ;
+        }
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("에너지 : -" +useEnergy+"   남은에너지: "+comma(getPlayerEnergy(player)) ) );
+        createBoard(player);
+
     }
     public void createBoard(Player player) {
-
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
         Objective obj = board.registerNewObjective("EnergyBoard","dummy","에너지");
@@ -77,10 +93,40 @@ public class Energy {
         player.setScoreboard(board);
     }
     @EventHandler
-    public void energyUse(BlockBreakEvent event) {
+    public void energyUse_Break(BlockBreakEvent event) {
+        Player player = event.getPlayer();
+        if(!(usePlayerEnergy(player,5f))) {
+        }
+    }
+    @EventHandler
+    public void energyUse_Build(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         usePlayerEnergy(player,5f);
     }
+    public float discountEnergy_Pickaxe(Player player) {
+        ItemStack item = player.getInventory().getItemInMainHand();
+        Material pickaxe = item.getType();
+        if(pickaxe == Material.STONE_PICKAXE) {
+            return 10f;
+        }
+        if(pickaxe == Material.IRON_PICKAXE) {
+            return 20f;
+        }
+        if(pickaxe == Material.GOLDEN_PICKAXE) {
+            return 25f;
+        }
+        if(pickaxe == Material.DIAMOND_PICKAXE) {
+            return 30f;
+        }
+        if(pickaxe == Material.NETHERITE_PICKAXE) {
+            return 35f;
+        }
+
+
+
+        return 0;
+    }
+
     public boolean getRegen(Player player) {
         String playerUUID = player.getUniqueId().toString();
         return mapList.ENERGY_REGEN.get(playerUUID);
@@ -108,5 +154,7 @@ public class Energy {
                 }
             };
             Regen.runTaskTimer(Main.getPlugin(Main.class) , time, time);
-        }
+    }
+
+
 }
