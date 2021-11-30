@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -44,6 +45,15 @@ public class SwoardTool {
         List lore = item.getItemMeta().getLore();
         lore.add(str);
         item.getItemMeta().lore(lore);
+    }
+    public double getSharpnessDamage (ItemStack item) {
+        if(!(item.getItemMeta().hasEnchant(Enchantment.DAMAGE_ALL)) ) {
+            return 0f;
+        }
+        int sharpnessLevel = item.getItemMeta().getEnchantLevel(Enchantment.DAMAGE_ALL);
+        double sharpnessDamage = 0.5+(0.5*sharpnessLevel);
+        return sharpnessDamage;
+
     }
     public void setWoodSwordAttribute(ItemStack item , int level) {
         int point = 10-level;
