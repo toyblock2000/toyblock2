@@ -16,6 +16,9 @@ public class bug implements Listener {
     @EventHandler
     public void debugMode(PlayerInteractEvent event) {
         ItemStack hand = event.getPlayer().getInventory().getItemInMainHand();
+        if(!(hand.getItemMeta().hasLore())) {
+            return;
+        }
         if ((hand.getItemMeta().getDisplayName().equals("디버그 모드"))&&event.getPlayer().isOp()) {
             Player player = event.getPlayer();
             if (debug.containsKey(player)) {
