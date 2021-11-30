@@ -89,6 +89,7 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.makeFile(link);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		Bukkit.addRecipe(getRecipe());
+		timeFinder();
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
@@ -110,10 +111,45 @@ public class Main extends JavaPlugin implements Listener {
 
 		//	data.mapToFile(data.file, villageindex);
 	}
-	public void timeHeal() {
+	String worldName = "world";
+	public void timeFinder() {
+		BukkitRunnable task = new BukkitRunnable() {
+			World world = Bukkit.getWorld(worldName);
+			@Override
+			public void run() {
+				long time = world.getTime();
+				if(time>0&&time<30) {
+					healTime();
+					this.cancel();
+				}
+
+			}
+		};
+		task.runTaskTimer(this,20,20);
+
+	}
+	public void healTime() {
+		BukkitRunnable task = new BukkitRunnable() {
+			World world = Bukkit.getWorld(worldName);
+			@Override
+			public void run() {
+				mapList.ENERGY.clear();
+				mapList.ENERGY_REGEN.clear();
+				allPlayerEnergyFull_day();
+			}
+		};
+		task.runTaskTimer(this,12000,12000);
 
 	}
 	public void allPlayerEnergyFull() {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			Energy.createPlayerEnergy(player);
+			Energy.createBoard_full(player);
+			Energy.actionBarChat(player,ChatColor.GREEN+"Server Heal 100%");
+
+		}
+	}
+	public void allPlayerEnergyFull_day() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			Energy.createPlayerEnergy(player);
 			Energy.createBoard_full(player);

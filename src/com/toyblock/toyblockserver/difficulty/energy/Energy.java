@@ -210,10 +210,22 @@ public class Energy implements Listener {
         };
         Regen.runTaskTimer(Main.getPlugin(Main.class) , time, time);
     }
+    public boolean checkHaveEnergy(Player player) {
+        String playerUUID = player.getUniqueId().toString();
+        if(mapList.ENERGY.containsKey(playerUUID)) {
+            return true;
+        }
+        actionBarChat(player,ChatColor.RED+"에너지가 확인되지 않습니다, 버그를 관리자에게 보고해주세요");
+        return false;
+    }
 
     @EventHandler
     public void energyUse_Break(BlockBreakEvent event) {
         Player player = event.getPlayer();
+        if(!(checkHaveEnergy(player))) {
+            event.setCancelled(true);
+            return;
+        }
         Material block = event.getBlock().getType();
         float useEnergy = 3;
         if(MaterialSetTag.MINEABLE_PICKAXE.isTagged(block)) {
@@ -243,6 +255,10 @@ public class Energy implements Listener {
     @EventHandler
     public void energyUse_Build(BlockPlaceEvent event) {
         Player player = event.getPlayer();
+        if(!(checkHaveEnergy(player))) {
+            event.setCancelled(true);
+            return;
+        }
         if(!(usePlayerEnergy(player,1f))) {
             if(player.getGameMode().equals(GameMode.CREATIVE)) {
                 return;
@@ -353,10 +369,9 @@ public class Energy implements Listener {
 
             BukkitRunnable Regen = new BukkitRunnable() {
                 public void run() {
-                    if (getRegen(player) == false) {
+                    if(!(checkHaveEnergy(player))) {
                         this.cancel();
                     }
-
                     if(!regenPlayerEnergy(player,regenEnergy)) {
                         removeRegen(player);
                         actionBarChat(player,ChatColor.GREEN+"에너지 100% 회복");
