@@ -70,6 +70,27 @@ public class tool {
 		}
 		return 0f;
 	}
+	public static void loreChanger(ItemStack item,String changeLore , float changeValue) {
+		if(!(item.getItemMeta().hasLore()) ) {
+			return;
+		}
+		List<String> lore = item.getItemMeta().getLore();
+		for(int i = 0;i<lore.size();i++) {
+			String loreStr = lore.get(i);
+			if (!(loreStr.contains(changeLore)) ) {
+				continue;
+			}
+			if(!(loreStr.contains("+")) ) {
+				continue;
+			}
+			String findLore;
+			findLore = loreStr.substring(0,loreStr.indexOf("+"));
+			findLore = findLore+changeValue;
+			lore.remove(i);
+			lore.add(i,findLore);
+			return;
+		}
+	}
 	public static String getDirection(Player player) {
         double rotation = (player.getLocation().getYaw() - 180) % 360;
         if (rotation < 0) {
