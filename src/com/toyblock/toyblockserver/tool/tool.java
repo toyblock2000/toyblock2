@@ -9,6 +9,9 @@ import net.kyori.adventure.audience.MessageType;
 import net.kyori.adventure.util.ComponentMessageThrowable;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 
 public class tool {
@@ -54,6 +57,18 @@ public class tool {
 		int change_xyz = Integer.parseInt(newx1);
 
 		return change_xyz;
+	}
+
+	public static float loreFinder(ItemStack item, String findStr) {
+		List lore = item.getItemMeta().getLore();
+		for(int i = 0;i<lore.size();i++){
+			String str = (String)lore.get(i);
+			if(!(str.contains(findStr))) {
+				continue;
+			}
+			return Integer.parseInt(str.replaceAll("[^0-9]", ""));
+		}
+		return 0f;
 	}
 	public static String getDirection(Player player) {
         double rotation = (player.getLocation().getYaw() - 180) % 360;
