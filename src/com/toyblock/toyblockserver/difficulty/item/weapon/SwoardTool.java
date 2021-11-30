@@ -55,6 +55,14 @@ public class SwoardTool {
         return sharpnessDamage;
 
     }
+    public double getArthropodsDamage (ItemStack item) {
+        if(!(item.getItemMeta().hasEnchant(Enchantment.DAMAGE_ARTHROPODS)) ) {
+            return 0f;
+        }
+        int level = item.getItemMeta().getEnchantLevel(Enchantment.DAMAGE_ARTHROPODS);
+        double damage = (2.5*level);
+        return damage;
+    }
     public void setWoodSwordAttribute(ItemStack item , int level) {
         int point = 10-level;
         ItemMeta meta = item.getItemMeta();
