@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,10 +47,12 @@ public class Energy implements Listener {
         Player player = event.getPlayer();
         if(checkPlayerEnergy(player)) {
             createBoard(player);
+            timeRemoveBoard(player);
             return;
         }
         createPlayerEnergy(player);
         createBoard(player);
+        timeRemoveBoard(player);
     }
     public float getPlayerEnergy(Player player) {
         String playerUUID = player.getUniqueId().toString();
@@ -147,13 +150,27 @@ public class Energy implements Listener {
         createBoard(player);
 
     }
+    public String getColorEnergy(String commaEnergy) {
+        float energy = Float.parseFloat(commaEnergy);
+        if(energy<=33) {
+            return ChatColor.RED+""+energy+"%";
+        }
+        if(energy<=66) {
+            return ChatColor.YELLOW+""+energy+"%";
+        }
+        if(energy==100) {
+            return ChatColor.GREEN+""+100+"%";
+        }
+        return ChatColor.GREEN+""+energy+"%";
+
+    }
     public void createBoard(Player player) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
         Objective obj = board.registerNewObjective("EnergyBoard","dummy","에너지");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score1 = obj.getScore
-                ("에너지 : "+comma(getPlayerEnergy(player))+"%" );
+                ("에너지 : "+getColorEnergy(comma(getPlayerEnergy(player))) );
         score1.setScore(1);
         player.setScoreboard(board);
     }
@@ -163,9 +180,23 @@ public class Energy implements Listener {
         Objective obj = board.registerNewObjective("EnergyBoard","dummy","에너지");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score1 = obj.getScore
-                ("에너지 : "+100+"%" );
+                ("에너지 : "+ChatColor.GREEN+100+"%" );
         score1.setScore(1);
         player.setScoreboard(board);
+        timeRemoveBoard(player);
+    }
+    public static void timeRemoveBoard(Player player) {
+        String playerUUID = player.getUniqueId().toString();
+        BukkitRunnable Regen = new BukkitRunnable() {
+            public void run() {
+                if(mapList.ENERGY_REGEN.containsKey(playerUUID)) {
+                    this.cancel();
+                }
+                player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+                this.cancel();
+            }
+        };
+        Regen.runTaskTimer(Main.getPlugin(Main.class) ,300,500);
     }
     @EventHandler
     public void healEnergy(PlayerItemConsumeEvent event) {
@@ -218,6 +249,21 @@ public class Energy implements Listener {
         actionBarChat(player,ChatColor.RED+"에너지가 확인되지 않습니다, 버그를 관리자에게 보고해주세요");
         return false;
     }
+    public float getOreUseEnergy(Material block) {
+        if(MaterialSetTag.COAL_ORES.isTagged(block)) {
+            return 5f;
+        }
+        if(MaterialSetTag.IRON_ORES.isTagged(block)) {
+            return 30f;
+        }
+        if(MaterialSetTag.GOLD_ORES.isTagged(block)) {
+            return  30f;
+        }
+        if(MaterialSetTag.DIAMOND_ORES.isTagged(block)) {
+            return  90f;
+        }
+        return 0f;
+    }
 
     @EventHandler
     public void energyUse_Break(BlockBreakEvent event) {
@@ -228,9 +274,15 @@ public class Energy implements Listener {
         }
         Material block = event.getBlock().getType();
         float useEnergy = 3;
-        if(MaterialSetTag.MINEABLE_PICKAXE.isTagged(block)) {
 
-            float bonusCount = discountEnergy_Pickaxe_test(player);
+        //할인율
+        if(MaterialSetTag.MINEABLE_PICKAXE.isTagged(block)) {
+            float bonusCount = discountEnergy_Pickaxe(player); //곡괭이의 보너스 점수
+            bug.chat("곡맞음");
+            if(MaterialTags.ORES.isTagged(block)) {
+                bug.chat("광석찾음");
+                useEnergy = useEnergy+getOreUseEnergy(block);
+            }
             useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
         }
         if(MaterialSetTag.MINEABLE_AXE.isTagged(block)) {
@@ -337,6 +389,9 @@ public class Energy implements Listener {
         return 0;
     }
     public float loreFinder(ItemStack item, String findStr) {
+        if(!(item.getItemMeta().hasLore())) {
+            return 0f;
+        }
         List lore = item.getItemMeta().getLore();
         for(int i = 0;i<lore.size();i++){
             String str = (String)lore.get(i);
@@ -375,6 +430,7 @@ public class Energy implements Listener {
                     if(!regenPlayerEnergy(player,regenEnergy)) {
                         removeRegen(player);
                         actionBarChat(player,ChatColor.GREEN+"에너지 100% 회복");
+                        timeRemoveBoard(player);
                         this.cancel();
                     }
                 }

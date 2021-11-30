@@ -30,7 +30,9 @@ public class PlayerHouseBuild implements Listener {
 
         List castleBuildLore = new ArrayList();
         castleBuildLore.add(0,"집 건설");
-
+        if(!(player.getInventory().getItemInMainHand().getItemMeta().hasLore())) {
+            return;
+        }
         List checkLore = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
         if (castleBuildLore.get(0).equals(checkLore.get(0))) {
 
@@ -60,14 +62,10 @@ public class PlayerHouseBuild implements Listener {
 
         }
         else {
-            event.getPlayer().chat("실패");
+
             Location loc = player.getLocation();
             String locs = new LocationSave().locSave(loc);
-            player.chat(locs);
-            player.chat(""+ new LocationSave().x(locs));
-            player.chat(""+ new LocationSave().y(locs));
-            player.chat(""+ new LocationSave().z(locs));
-            player.chat(""+ new LocationSave().world(locs));
+
 
 
         }

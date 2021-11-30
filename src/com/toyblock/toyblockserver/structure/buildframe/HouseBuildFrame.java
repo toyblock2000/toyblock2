@@ -28,7 +28,9 @@ public class HouseBuildFrame implements Listener {
         }
         List castleBuildLore = new ArrayList();
         castleBuildLore.add(0,"집프레임");
-
+        if(!(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore())) {
+            return;
+        }
         List checkLore = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
         if (!(castleBuildLore.get(0).equals(checkLore.get(0)))) {
             return;

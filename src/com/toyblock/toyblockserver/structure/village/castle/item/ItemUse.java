@@ -17,7 +17,9 @@ public class ItemUse implements Listener {
             return;
         }
         Player player = event.getPlayer();
-
+        if(!(event.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore())) {
+            return;
+        }
         List castleBuildLore = new ArrayList();
         castleBuildLore.add(0, "길 건설");
 
