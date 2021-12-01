@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.difficulty.item.weapon;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -16,9 +17,9 @@ public class WeaponLore {
     public void setAttributeLore(ItemStack item,int level, double damage, double speed) {
         List lore = new ArrayList();
         lore.add(" ");
-        lore.add("무기 레벨 : "+level);
-        lore.add("무기 데미지 : "+damage);
-        lore.add("무기 공격속도 : "+speed);
+        lore.add(ChatColor.WHITE+"무기 레벨 : "+level);
+        lore.add(ChatColor.WHITE+"무기 데미지 : "+damage);
+        lore.add(ChatColor.WHITE+"무기 공격속도 : "+speed);
         item.setLore(lore);
     }
     public void addEnchantLore(ItemStack item) {
