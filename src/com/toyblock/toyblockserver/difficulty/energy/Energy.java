@@ -262,7 +262,33 @@ public class Energy implements Listener {
         if(MaterialSetTag.DIAMOND_ORES.isTagged(block)) {
             return  90f;
         }
+
+
         return 0f;
+    }
+    public float getUseBlockEnergy_Break(Material block) {
+        float blockEnergy = 0;
+        if(MaterialTags.ORES.isTagged(block)) {
+            blockEnergy = blockEnergy+3;
+        }
+        if(MaterialSetTag.COAL_ORES.isTagged(block)) {
+            blockEnergy = blockEnergy+10;
+        }
+        if(MaterialSetTag.IRON_ORES.isTagged(block)) {
+            blockEnergy = blockEnergy+30;
+        }
+        if(MaterialSetTag.GOLD_ORES.isTagged(block)) {
+            blockEnergy = blockEnergy+50;
+        }
+        if(MaterialSetTag.DIAMOND_ORES.isTagged(block)) {
+            blockEnergy = blockEnergy+90;
+        }
+        if(MaterialSetTag.OAK_LOGS.isTagged(block)) {
+            blockEnergy = blockEnergy+5;
+        }
+
+
+        return blockEnergy;
     }
 
     @EventHandler
@@ -273,27 +299,19 @@ public class Energy implements Listener {
             return;
         }
         Material block = event.getBlock().getType();
-        float useEnergy = 3;
-
+        float useEnergy = 3+getUseBlockEnergy_Break(block);
+        float bonusCount = 0;
         //할인율
         if(MaterialSetTag.MINEABLE_PICKAXE.isTagged(block)) {
-            float bonusCount = discountEnergy_Pickaxe(player); //곡괭이의 보너스 점수
-            bug.chat("곡맞음");
-            if(MaterialTags.ORES.isTagged(block)) {
-                bug.chat("광석찾음");
-                useEnergy = useEnergy+getOreUseEnergy(block);
-            }
-            useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
+            bonusCount = discountEnergy_Pickaxe(player); //곡괭이의 보너스 점수
         }
         if(MaterialSetTag.MINEABLE_AXE.isTagged(block)) {
-            float bonusCount = discountEnergy_Axe(player);
-            useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
+            bonusCount = discountEnergy_Axe(player);
         }
         if(MaterialSetTag.MINEABLE_SHOVEL.isTagged(block)) {
-            float bonusCount = discountEnergy_Shovel(player);
-            useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
+            bonusCount = discountEnergy_Shovel(player);
         }
-
+        useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
         if(!(usePlayerEnergy(player,useEnergy))) {
             if(player.getGameMode().equals(GameMode.CREATIVE)) {
                 return;
