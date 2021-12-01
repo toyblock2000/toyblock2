@@ -341,6 +341,9 @@ public class Energy implements Listener {
     public float discountEnergy_Pickaxe(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
         Material pickaxe = item.getType();
+        if(!(MaterialTags.PICKAXES.isTagged(pickaxe))) {
+            return 0;
+        }
         if(pickaxe == Material.STONE_PICKAXE) {
             return 10f;
         }
