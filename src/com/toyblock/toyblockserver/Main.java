@@ -11,7 +11,7 @@ import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.AdventurerLevelUp;
-import com.toyblock.toyblockserver.difficulty.energy.Energy;
+import com.toyblock.toyblockserver.difficulty.energy.Mana;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;
@@ -82,15 +82,15 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new Repute(), this);
 		getServer().getPluginManager().registerEvents(new bug(), this);
 		getServer().getPluginManager().registerEvents(new ZombieDunkShot(), this);
-		getServer().getPluginManager().registerEvents(new Energy(), this);
+		getServer().getPluginManager().registerEvents(new Mana(), this);
 		consol.sendMessage("청크");
-		allPlayerEnergyFull();
+		allPlayerManaFull();
 		MapData.makeFile(chunk);
 		MapData.makeFile(link);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		Bukkit.addRecipe(getRecipe());
 		timeFinder();
-		mapList.ENERGY_SUN.put("Sun",0);
+		mapList.MANA_SUN.put("Sun",0);
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
@@ -132,36 +132,36 @@ public class Main extends JavaPlugin implements Listener {
 	}
 
 	public void healTime() {
-		mapList.ENERGY_SUN.put("Sun",mapList.ENERGY_SUN.get("Sun")+1);
-		int SunId = mapList.ENERGY_SUN.get("Sun")+1;
+		mapList.MANA_SUN.put("Sun",mapList.MANA_SUN.get("Sun")+1);
+		int SunId = mapList.MANA_SUN.get("Sun")+1;
 		BukkitRunnable task = new BukkitRunnable() {
 			World world = Bukkit.getWorld(worldName);
 			@Override
 			public void run() {
 
-				mapList.ENERGY.clear();
-				mapList.ENERGY_REGEN.clear();
-				allPlayerEnergyFull_day();
+				mapList.MANA.clear();
+				mapList.MANA_REGEN.clear();
+				allPlayerManaFull_day();
 			}
 		};
 		task.runTaskTimer(this,0,24000);
 
 	}
-	public void allPlayerEnergyFull() {
+	public void allPlayerManaFull() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
-			Energy.createPlayerEnergy(player);
-			Energy.createBoard_full(player);
-			Energy.actionBarChat(player,ChatColor.GREEN+"Server Heal 100%");
-			Energy.timeRemoveBoard(player);
+			Mana.createPlayerMana(player);
+			Mana.createBoard_full(player);
+			Mana.actionBarChat(player,ChatColor.AQUA+"Server Heal 100%");
+			Mana.timeRemoveBoard(player);
 
 		}
 	}
-	public void allPlayerEnergyFull_day() {
+	public void allPlayerManaFull_day() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
-			Energy.createPlayerEnergy(player);
-			Energy.createBoard_full(player);
-			Energy.actionBarChat(player,ChatColor.GREEN+"Sun Heal 100%");
-			Energy.timeRemoveBoard(player);
+			Mana.createPlayerMana(player);
+			Mana.createBoard_full(player);
+			Mana.actionBarChat(player,ChatColor.AQUA+"Sun Heal 100%");
+			Mana.timeRemoveBoard(player);
 		}
 	}
 
