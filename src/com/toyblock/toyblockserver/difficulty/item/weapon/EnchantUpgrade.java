@@ -19,7 +19,6 @@ public class EnchantUpgrade implements Listener {
         WeaponLore lore = new WeaponLore();
         ItemStack item = event.getItem();
         lore.addEnchantLore(item);
-        Bukkit.getPlayer("Devil").chat("설정완료");
     }
 
     @EventHandler
@@ -27,9 +26,7 @@ public class EnchantUpgrade implements Listener {
         if (!(event.getClickedInventory().getType().equals(InventoryType.ENCHANTING))) {
             return;
         }
-        WeaponLore lore = new WeaponLore();
-
-        lore.addEnchantLore(event.getCurrentItem());
-        Bukkit.getPlayer("Devil").chat("설정세팅");
+        Tool_SwordEdit edit = new Tool_SwordEdit();
+        edit.addEnchantLore(event.getCurrentItem());
     }
 }

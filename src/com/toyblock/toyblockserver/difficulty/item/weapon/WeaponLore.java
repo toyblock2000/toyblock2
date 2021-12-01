@@ -35,7 +35,6 @@ public class WeaponLore {
         ItemMeta meta = item.getItemMeta();
         meta.setLore(addEnchantDamageLore(lore,"+ "+add));
         item.setItemMeta(meta);
-
     }
 
     public void lore() {

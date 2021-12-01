@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class SwoardTool {
+public class SwordTool {
     float woodSwordNomalDamage = 4f;
 
     float stoneSwordNomalDamage = 5f;
@@ -129,7 +129,7 @@ public class SwoardTool {
             }
             String findLore;
             findLore = loreStr.substring(0,loreStr.indexOf("+"));
-            findLore = findLore+"+"+addValue;
+            findLore = findLore+"+ "+addValue;
             lore.remove(i);
             lore.add(i,findLore);
             return;
