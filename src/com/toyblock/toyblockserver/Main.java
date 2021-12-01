@@ -36,6 +36,7 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.BoundingBox;
 import com.toyblock.toyblockserver.structure.village.npc.villager_test;
 
@@ -571,9 +572,13 @@ public class Main extends JavaPlugin implements Listener {
 	public  ShapedRecipe potionRecipe() {
 
 		ItemStack item = new ItemStack(Material.POTION);
-		item.getItemMeta().setDisplayName(ChatColor.AQUA+"마나 포션");
-		item.getItemMeta().addEnchant(Enchantment.DURABILITY,1,true);
-		item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		ItemMeta meta = item.getItemMeta();
+
+
+		meta.setDisplayName(ChatColor.AQUA+"마나 포션");
+		meta.addEnchant(Enchantment.DURABILITY,1,true);
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		item.setItemMeta(meta);
 		NamespacedKey Key = new NamespacedKey(this,"Mana_Potion");
 
 		ShapedRecipe recipe = new ShapedRecipe(Key,item);
