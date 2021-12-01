@@ -90,6 +90,7 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.makeFile(link);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		Bukkit.addRecipe(getRecipe());
+		Bukkit.addRecipe(potionRecipe());
 		timeFinder();
 		mapList.MANA_SUN.put("Sun",0);
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
