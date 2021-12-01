@@ -38,7 +38,7 @@ public class Tool_SwordEdit {
         for(int i = 0;i<lore.size();i++) {
             bug.chat("포진입");
             String loreStr = lore.get(i);
-            if (!(loreStr.contains("무기 공격력")) ) {
+            if (!(loreStr.contains("무기 데미지")) ) {
                 bug.chat("공격 찾음");
                 continue;
             }
