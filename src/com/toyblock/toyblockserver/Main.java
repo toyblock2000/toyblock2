@@ -30,9 +30,11 @@ import com.toyblock.toyblockserver.tool.hashmap.MapData;
 import com.toyblock.toyblockserver.structure.village.path.contract;
 import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
 import org.bukkit.*;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.util.BoundingBox;
 import com.toyblock.toyblockserver.structure.village.npc.villager_test;
@@ -570,7 +572,8 @@ public class Main extends JavaPlugin implements Listener {
 
 		ItemStack item = new ItemStack(Material.POTION);
 		item.getItemMeta().setDisplayName(ChatColor.AQUA+"마나 포션");
-
+		item.getItemMeta().addEnchant(Enchantment.DURABILITY,1,true);
+		item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		NamespacedKey Key = new NamespacedKey(this,"Mana_Potion");
 
 		ShapedRecipe recipe = new ShapedRecipe(Key,item);
