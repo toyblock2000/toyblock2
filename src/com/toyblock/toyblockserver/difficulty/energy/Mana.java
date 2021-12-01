@@ -206,7 +206,7 @@ public class Mana implements Listener {
             return;
         }
         String name = potion.getItemMeta().getDisplayName();
-        if(!(name.equals("마나포션"))) {
+        if(!(name.equals("마나 포션"))) {
             return;
         }
         addPlayerMana(player,50f);

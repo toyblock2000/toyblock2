@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.*;
 
 
+import com.destroystokyo.paper.MaterialTags;
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
@@ -560,6 +561,23 @@ public class Main extends JavaPlugin implements Listener {
 
 		recipe.setIngredient('W', Material.OAK_PLANKS);
 		recipe.setIngredient('S',Material.STICK);
+
+		return recipe;
+
+	}
+	public  ShapedRecipe potionRecipe() {
+
+		ItemStack item = new ItemStack(Material.POTION);
+		item.getItemMeta().setDisplayName(ChatColor.AQUA+"마나 포션");
+
+		NamespacedKey Key = new NamespacedKey(this,"Mana_Potion");
+
+		ShapedRecipe recipe = new ShapedRecipe(Key,item);
+
+		recipe.shape("RRR","RPR","RRR");
+
+		recipe.setIngredient('R', Material.REDSTONE);
+		recipe.setIngredient('P', Material.POTION);
 
 		return recipe;
 
