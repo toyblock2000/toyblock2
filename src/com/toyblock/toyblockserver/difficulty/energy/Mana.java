@@ -206,7 +206,7 @@ public class Mana implements Listener {
             return;
         }
         String name = potion.getItemMeta().getDisplayName();
-        if(!(name.equals("마나 포션"))) {
+        if(!(name.equals(ChatColor.AQUA+"마나 포션"))) {
             return;
         }
         addPlayerMana(player,50f);
@@ -220,7 +220,7 @@ public class Mana implements Listener {
             return;
         }
         String name = potion.getItemMeta().getDisplayName();
-        if(!(name.equals("마나 재생포션"))) {
+        if(!(name.equals(ChatColor.AQUA+"마나 재생포션"))) {
             return;
         }
         fastRegenMana(player,1f,100);
