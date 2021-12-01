@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.difficulty.item.weapon;
 
+import com.toyblock.toyblockserver.tool.developer.bug;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +16,7 @@ public class Tool_SwordEdit {
 
         if(item.getItemMeta().hasEnchant(Enchantment.DAMAGE_ALL)) {
             double value = getSharpnessDamage(item);
+            bug.chat("데미지 있음"+value);
             loreAdd_EnchantDamage(item,""+ ChatColor.RED+value);
         }
         if(item.getItemMeta().hasEnchant(Enchantment.DAMAGE_UNDEAD)) {
@@ -34,11 +36,14 @@ public class Tool_SwordEdit {
         }
         List<String> lore = item.getItemMeta().getLore();
         for(int i = 0;i<lore.size();i++) {
+            bug.chat("포진입");
             String loreStr = lore.get(i);
             if (!(loreStr.contains("무기 공격력")) ) {
+                bug.chat("공격 찾음");
                 continue;
             }
             if(!(loreStr.contains("+")) ) {
+                bug.chat("+ 찾음");
                 continue;
             }
             String findLore;
@@ -46,6 +51,7 @@ public class Tool_SwordEdit {
             findLore = findLore+"+ "+addValue;
             lore.remove(i);
             lore.add(i,findLore);
+            item.setLore(lore);
             return;
         }
     }
