@@ -11,7 +11,7 @@ import java.util.List;
 
 public class test implements Listener {
 
- //   @EventHandler
+    @EventHandler
     public void itemgive(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;

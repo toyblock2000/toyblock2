@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.difficulty.energy;
+package com.toyblock.toyblockserver.difficulty.mana;
 
 import com.destroystokyo.paper.MaterialSetTag;
 import com.destroystokyo.paper.MaterialTags;

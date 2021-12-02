@@ -16,7 +16,6 @@ public class Tool_SwordEdit {
 
         if(item.getItemMeta().hasEnchant(Enchantment.DAMAGE_ALL)) {
             double value = getSharpnessDamage(item);
-            bug.chat("데미지 있음"+value);
             loreAdd_EnchantDamage(item,""+ ChatColor.RED+value);
         }
         if(item.getItemMeta().hasEnchant(Enchantment.DAMAGE_UNDEAD)) {
@@ -39,18 +38,11 @@ public class Tool_SwordEdit {
             bug.chat("포진입");
             String loreStr = lore.get(i);
             if (!(loreStr.contains("무기 데미지")) ) {
-                bug.chat("공격 찾음");
                 continue;
             }
-            if(!(loreStr.contains("+")) ) {
-                bug.chat("+ 찾음");
-                continue;
-            }
-            String findLore;
-            findLore = loreStr.substring(0,loreStr.indexOf("+"));
-            findLore = findLore+"+ "+addValue;
+            String addLore = loreStr+" + "+addValue;
             lore.remove(i);
-            lore.add(i,findLore);
+            lore.add(i,addLore);
             item.setLore(lore);
             return;
         }

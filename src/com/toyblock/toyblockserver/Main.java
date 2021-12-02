@@ -5,14 +5,13 @@ import java.io.File;
 import java.util.*;
 
 
-import com.destroystokyo.paper.MaterialTags;
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.AdventurerLevelUp;
-import com.toyblock.toyblockserver.difficulty.energy.Mana;
+import com.toyblock.toyblockserver.difficulty.mana.Mana;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;

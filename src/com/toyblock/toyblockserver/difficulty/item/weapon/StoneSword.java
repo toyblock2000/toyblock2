@@ -31,7 +31,7 @@ public class StoneSword {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         WeaponLore setlore = new WeaponLore();
-        setlore.setAttributeLore(item,3,1.5,3);
+        setlore.setAttributeLore(item,3,10,1.5,3);
         return item;
     }
     public ItemStack StoneSword_Lv2() {

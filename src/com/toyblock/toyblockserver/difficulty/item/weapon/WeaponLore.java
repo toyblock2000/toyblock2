@@ -14,12 +14,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.*;
 
 public class WeaponLore {
-    public void setAttributeLore(ItemStack item,int level, double damage, double speed) {
+    public void setAttributeLore(ItemStack item,int level, int remitLevel ,double damage, double speed) {
         List lore = new ArrayList();
         lore.add(" ");
-        lore.add(ChatColor.WHITE+"무기 레벨 : "+level);
-        lore.add(ChatColor.WHITE+"무기 데미지 : "+damage);
-        lore.add(ChatColor.WHITE+"무기 공격속도 : "+speed);
+        lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.BOLD+level);
+        lore.add(ChatColor.WHITE+" 레벨제한  : "+remitLevel);
+
+        lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+damage);
+        lore.add(ChatColor.WHITE+" 공격속도 : "+ChatColor.YELLOW+speed);
         item.setLore(lore);
     }
     public void addEnchantLore(ItemStack item) {
@@ -123,7 +125,7 @@ public class WeaponLore {
         int a = 0;
         return a;
     }
-    public void setAttribute(ItemStack item,int level,double damage,double attack_speed) {
+    public void setAttribute(ItemStack item,int level,int remitLevel,double damage,double attack_speed) {
         double set_damage = damage - 1;
         double set_speed = attack_speed - 4;
         ItemMeta meta = item.getItemMeta();
@@ -135,7 +137,7 @@ public class WeaponLore {
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_SPEED, attackspeed);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
-        setAttributeLore(item,level,damage,attack_speed);
+        setAttributeLore(item,level,remitLevel,damage,attack_speed);
     }
 
 }
