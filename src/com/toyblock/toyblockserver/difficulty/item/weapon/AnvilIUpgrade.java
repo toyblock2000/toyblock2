@@ -1,17 +1,14 @@
 package com.toyblock.toyblockserver.difficulty.item.weapon;
 
 import com.destroystokyo.paper.MaterialTags;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Raid;
+import com.toyblock.toyblockserver.tool.developer.bug;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.inventory.PrepareAnvilEvent;
-import org.bukkit.event.inventory.PrepareSmithingEvent;
+import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -81,8 +78,11 @@ public class AnvilIUpgrade implements Listener {
         }
 
     }
-    public void moveEnchant(ItemStack item , ItemStack item2) {
-        item2.addEnchantments(item.getEnchantments());
+    public void moveEnchant(ItemStack main , ItemStack sub) {
+        if(!(sub.getEnchantments().isEmpty())) {
+            return;
+        }
+        main.addEnchantments(sub.getEnchantments());
     }
     public void moveCustomModelData(ItemStack item, ItemStack item2) {
         ItemMeta meta = item2.getItemMeta();
@@ -103,7 +103,7 @@ public class AnvilIUpgrade implements Listener {
         }
         return 0f;
     }
-    @EventHandler
+   // @EventHandler
     public void upgradeTool(PrepareSmithingEvent event) {
         Inventory inv = event.getInventory();
         Player player =(Player) event.getView().getPlayer();
@@ -130,7 +130,7 @@ public class AnvilIUpgrade implements Listener {
         event.setResult(item1);
 
     }
-    @EventHandler
+  //  @EventHandler
     public void upgradeToolClick(InventoryClickEvent event) {
         if(!(event.getInventory().getType().equals(InventoryType.SMITHING))) {
             return;
@@ -156,4 +156,60 @@ public class AnvilIUpgrade implements Listener {
         event.getWhoClicked().closeInventory();
         event.getWhoClicked().getInventory().addItem(upItem);
     }
+    @EventHandler
+    public void changeUpgrade_WoodenSword(SmithItemEvent event) {
+        ItemStack subItem = event.getInventory().getItem(0);
+        int level = (int) loreFinder(subItem, "레벨");
+        Player player = (Player) event.getView().getPlayer();
+        WoodenSword wood = new WoodenSword();
+        if(!((int)(Math.random()*100)<=30)) {
+            event.getInventory().setResult(subItem);
+
+            player.sendMessage(ChatColor.RED+"강화 실패");
+            return;
+        }
+        ItemStack upItem = wood.getWoodenSword(level + 1);
+        moveEnchant(upItem,subItem);
+        enchantLore(upItem);
+        event.getInventory().setResult(upItem);
+        player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
+        player.sendMessage(ChatColor.GREEN+"강화 성공");
+    }
+    public void enchantLore(ItemStack item) {
+        if(!(item.getItemMeta().hasEnchants())) {
+            return;
+        }
+        int value;
+        if(item.getEnchantments().containsKey(Enchantment.DAMAGE_ALL)) {
+            value = item.getEnchantments().get(Enchantment.DAMAGE_ALL);
+            loreAdd_EnchantDamage(item, ChatColor.YELLOW+""+value);
+        }
+        if(item.getEnchantments().containsKey(Enchantment.DAMAGE_UNDEAD)) {
+            value = item.getEnchantments().get(Enchantment.DAMAGE_UNDEAD);
+            loreAdd_EnchantDamage(item, ChatColor.WHITE+""+value);
+        }
+        if(item.getEnchantments().containsKey(Enchantment.DAMAGE_ARTHROPODS)) {
+            value = item.getEnchantments().get(Enchantment.DAMAGE_ARTHROPODS);
+            loreAdd_EnchantDamage(item, ChatColor.GRAY+""+value);
+        }
+    }
+    public void loreAdd_EnchantDamage(ItemStack item , String addValue) {
+        if(!(item.getItemMeta().hasLore()) ) {
+            return;
+        }
+        List<String> lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++) {
+
+            String loreStr = lore.get(i);
+            if (!(loreStr.contains("무기 데미지")) ) {
+                continue;
+            }
+            String addLore = loreStr+" + "+addValue;
+            lore.remove(i);
+            lore.add(i,addLore);
+            item.setLore(lore);
+            return;
+        }
+    }
+
 }

@@ -17,7 +17,7 @@ public class WeaponLore {
     public void setAttributeLore(ItemStack item,int level, int remitLevel ,double damage, double speed) {
         List lore = new ArrayList();
         lore.add(" ");
-        lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.BOLD+level);
+        lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level);
         lore.add(ChatColor.WHITE+" 레벨제한  : "+remitLevel);
 
         lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+damage);

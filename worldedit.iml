@@ -22,15 +22,6 @@
     <orderEntry type="library" name="org.eclipse.jst.j2ee.internal.web.container" level="application" />
     <orderEntry type="library" name="org.eclipse.jst.j2ee.internal.module.container" level="application" />
     <orderEntry type="module-library" exported="">
-      <library name="patched_1.17.1.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/API/worldguard-bukkit-7.0.6-beta1-dist (1).jar!/" />
@@ -39,8 +30,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="plugins" level="project" />
-    <orderEntry type="library" name="patched_1.17.1" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -88,5 +77,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="patched_1.17.11" level="project" />
   </component>
 </module>

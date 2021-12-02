@@ -33,9 +33,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.SmithingRecipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.BoundingBox;
 import com.toyblock.toyblockserver.structure.village.npc.villager_test;
@@ -45,7 +43,6 @@ import org.bukkit.block.Block;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -94,6 +91,7 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
+		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
 		timeFinder();
 		mapList.MANA_SUN.put("Sun",0);
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
@@ -116,6 +114,14 @@ public class Main extends JavaPlugin implements Listener {
 
 
 		//	data.mapToFile(data.file, villageindex);
+	}
+	public SmithingRecipe getWoodenSwordUpgradeRecipe() {
+		ItemStack makeItem = WoodenSword.woodenUpgrade();
+		NamespacedKey key = new NamespacedKey(this,"WoodenSwordUpgrade");
+		RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.WOODEN_SWORD);
+		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.AMETHYST_SHARD);
+		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+		return recipe;
 	}
 	String worldName = "world";
 	public void timeFinder() {

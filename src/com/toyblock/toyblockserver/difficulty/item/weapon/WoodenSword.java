@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.difficulty.item.weapon;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Warning;
 import org.bukkit.attribute.Attribute;
@@ -42,7 +43,17 @@ public class WoodenSword {
         if(level == 10) {
             return woodenSword_Lv10();
         }
+        if(level == 11) {
+            return woodenSword_Lv10();
+        }
         return null;
+    }
+    public static ItemStack woodenUpgrade() {
+        ItemStack item = new ItemStack(Material.MAGENTA_STAINED_GLASS_PANE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(ChatColor.LIGHT_PURPLE+"강화!! (확률 30%)");
+        item.setItemMeta(meta);
+        return item;
     }
     public ItemStack woodenSword_Lv1() {
         //공격력 2
