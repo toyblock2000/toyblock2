@@ -1,7 +1,9 @@
 package com.toyblock.toyblockserver.difficulty.item.weapon;
 
+import com.destroystokyo.paper.MaterialTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Raid;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.event.inventory.PrepareSmithingEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -76,9 +79,6 @@ public class AnvilIUpgrade implements Listener {
         if(wood.getWoodenSword( (level+1)).equals(null)) {
             return;
         }
-        if(item2.)
-        ItemStack upgradeResult = wood.getWoodenSword(level+1);
-
 
     }
     public void moveEnchant(ItemStack item , ItemStack item2) {
@@ -103,6 +103,57 @@ public class AnvilIUpgrade implements Listener {
         }
         return 0f;
     }
+    @EventHandler
+    public void upgradeTool(PrepareSmithingEvent event) {
+        Inventory inv = event.getInventory();
+        Player player =(Player) event.getView().getPlayer();
+
+        if(inv.getItem(0).equals(null)) {
+            return;
+        }
+        if(inv.getItem(1).equals(null)) {
+            return;
+        }
+        ItemStack item1 = inv.getItem(0);
+        ItemStack item2 = inv.getItem(1);
+        if(loreFinder(item1,level_Str)==0) {
+            return;
+        }
+        boolean key = false;
+        if(item1.getType().equals(Material.WOODEN_SWORD)) {
+            key=true;
+        }
+
+        int level = (int)loreFinder(item1,level_Str);
+        WoodenSword tool = new WoodenSword();
+        ItemStack upItem = tool.getWoodenSword(level+1);
+        event.setResult(item1);
+
+    }
+    @EventHandler
+    public void upgradeToolClick(InventoryClickEvent event) {
+        if(!(event.getInventory().getType().equals(InventoryType.SMITHING))) {
+            return;
+        }
+        if(!(event.getSlot()==2)) {
+            return;
+        }
+        if(!(event.getInventory().getItem(0).getType().equals(Material.WOODEN_SWORD))) {
+            return;
+        }
+        if(!(event.getInventory().getItem(1).getType().equals(Material.OAK_PLANKS))) {
+            return;
+        }
+        if(loreFinder(event.getInventory().getItem(0),level_Str)==0) {
+            return;
+        }
+        int level = (int)loreFinder(event.getInventory().getItem(0),level_Str);
+        WoodenSword tool = new WoodenSword();
+        ItemStack upItem = tool.getWoodenSword(level+1);
+        event.getInventory().clear(0);
+         event.getInventory().getItem(1).setAmount(event.getInventory().getItem(1).getAmount()-1);
+
+        event.getWhoClicked().closeInventory();
+        event.getWhoClicked().getInventory().addItem(upItem);
+    }
 }
-
-
