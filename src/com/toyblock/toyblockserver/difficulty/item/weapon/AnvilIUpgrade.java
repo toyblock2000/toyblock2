@@ -103,6 +103,23 @@ public class AnvilIUpgrade implements Listener {
         }
         return 0f;
     }
+    public float loreFinders(ItemStack item, String findStr, String noFind) {
+        if(!(item.getItemMeta().hasLore())) {
+            return 0f;
+        }
+        List lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++){
+            String str = (String)lore.get(i);
+            if(!(str.contains(findStr))) {
+                continue;
+            }
+            if(str.contains(noFind)) {
+                continue;
+            }
+            return Integer.parseInt(str.replaceAll("[^0-9]", ""));
+        }
+        return 0f;
+    }
    // @EventHandler
     public void upgradeTool(PrepareSmithingEvent event) {
         Inventory inv = event.getInventory();
@@ -159,9 +176,14 @@ public class AnvilIUpgrade implements Listener {
     @EventHandler
     public void changeUpgrade_WoodenSword(SmithItemEvent event) {
         ItemStack subItem = event.getInventory().getItem(0);
-        int level = (int) loreFinder(subItem, "레벨");
+        int level = (int) loreFinders(subItem, "레벨","제한");
         Player player = (Player) event.getView().getPlayer();
         WoodenSword wood = new WoodenSword();
+        int remitLevel = (int) loreFinder(subItem, "레벨제한");
+        if(level==remitLevel) {
+            event.setCancelled(true);
+            player.sendMessage(ChatColor.RED+"강화 한계치에 도달 했습니다");
+        }
         if(!((int)(Math.random()*100)<=30)) {
             event.getInventory().setResult(subItem);
 
@@ -211,5 +233,6 @@ public class AnvilIUpgrade implements Listener {
             return;
         }
     }
+
 
 }
