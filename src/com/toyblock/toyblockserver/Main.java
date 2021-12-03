@@ -11,7 +11,7 @@ import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.AdventurerLevelUp;
-import com.toyblock.toyblockserver.difficulty.mana.Mana;
+import com.toyblock.toyblockserver.difficulty.Energy.Energy;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.item.weapon.*;
@@ -83,9 +83,9 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new Repute(), this);
 		getServer().getPluginManager().registerEvents(new bug(), this);
 		getServer().getPluginManager().registerEvents(new ZombieDunkShot(), this);
-		getServer().getPluginManager().registerEvents(new Mana(), this);
+		getServer().getPluginManager().registerEvents(new Energy(), this);
 		consol.sendMessage("청크");
-		allPlayerManaFull();
+		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
 		MapData.makeFile(link);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
@@ -93,7 +93,7 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
 		timeFinder();
-		mapList.MANA_SUN.put("Sun",0);
+		mapList.ENERGY_SUN.put("Sun",0);
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
@@ -143,36 +143,36 @@ public class Main extends JavaPlugin implements Listener {
 	}
 
 	public void healTime() {
-		mapList.MANA_SUN.put("Sun",mapList.MANA_SUN.get("Sun")+1);
-		int SunId = mapList.MANA_SUN.get("Sun")+1;
+		mapList.ENERGY_SUN.put("Sun",mapList.ENERGY_SUN.get("Sun")+1);
+		int SunId = mapList.ENERGY_SUN.get("Sun")+1;
 		BukkitRunnable task = new BukkitRunnable() {
 			World world = Bukkit.getWorld(worldName);
 			@Override
 			public void run() {
 
-				mapList.MANA.clear();
-				mapList.MANA_REGEN.clear();
-				allPlayerManaFull_day();
+				mapList.ENERGY.clear();
+				mapList.ENERGY_REGEN.clear();
+				allPlayerEnergyFull_day();
 			}
 		};
 		task.runTaskTimer(this,0,24000);
 
 	}
-	public void allPlayerManaFull() {
+	public void allPlayerEnergyFull() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
-			Mana.createPlayerMana(player);
-			Mana.createBoard_full(player);
-			Mana.actionBarChat(player,ChatColor.AQUA+"Server Heal 100%");
-			Mana.timeRemoveBoard(player);
+			Energy.createPlayerEnergy(player);
+			Energy.createBoard_full(player);
+			Energy.actionBarChat(player,ChatColor.GREEN+"Server Heal 100%");
+			Energy.timeRemoveBoard(player);
 
 		}
 	}
-	public void allPlayerManaFull_day() {
+	public void allPlayerEnergyFull_day() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
-			Mana.createPlayerMana(player);
-			Mana.createBoard_full(player);
-			Mana.actionBarChat(player,ChatColor.AQUA+"Sun Heal 100%");
-			Mana.timeRemoveBoard(player);
+			Energy.createPlayerEnergy(player);
+			Energy.createBoard_full(player);
+			Energy.actionBarChat(player,ChatColor.GREEN+"Sun Heal 100%");
+			Energy.timeRemoveBoard(player);
 		}
 	}
 
@@ -581,11 +581,11 @@ public class Main extends JavaPlugin implements Listener {
 		ItemMeta meta = item.getItemMeta();
 
 
-		meta.setDisplayName(ChatColor.AQUA+"마나 포션");
+		meta.setDisplayName(ChatColor.GREEN+"에너지 포션");
 		meta.addEnchant(Enchantment.DURABILITY,1,true);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		item.setItemMeta(meta);
-		NamespacedKey Key = new NamespacedKey(this,"Mana_Potion");
+		NamespacedKey Key = new NamespacedKey(this,"Energy_Potion");
 
 		ShapedRecipe recipe = new ShapedRecipe(Key,item);
 

@@ -1,18 +1,15 @@
-package com.toyblock.toyblockserver.difficulty.mana;
+package com.toyblock.toyblockserver.difficulty.Energy;
 
 import com.destroystokyo.paper.MaterialSetTag;
 import com.destroystokyo.paper.MaterialTags;
 import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.mapList;
-import com.toyblock.toyblockserver.tool.developer.bug;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,36 +24,36 @@ import org.bukkit.scoreboard.*;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class Mana implements Listener {
-    private String energyName = "Mana";
+public class Energy implements Listener {
+    private String energyName = "Energy";
 
-    public static void createPlayerMana(Player player) {
+    public static void createPlayerEnergy(Player player) {
         String playerUUID = player.getUniqueId().toString();
-        mapList.MANA.put(playerUUID,100f);
+        mapList.ENERGY.put(playerUUID,100f);
 
     }
-    public boolean checkPlayerMana(Player player) {
+    public boolean checkPlayerEnergy(Player player) {
         String playerUUID = player.getUniqueId().toString();
-        if(mapList.MANA.containsKey(playerUUID)) {
+        if(mapList.ENERGY.containsKey(playerUUID)) {
             return true;
         }
         return false;
     }
     @EventHandler
-    public void joinPlayerMana(PlayerJoinEvent event) {
+    public void joinPlayerEnergy(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if(checkPlayerMana(player)) {
+        if(checkPlayerEnergy(player)) {
             createBoard(player);
             timeRemoveBoard(player);
             return;
         }
-        createPlayerMana(player);
+        createPlayerEnergy(player);
         createBoard(player);
         timeRemoveBoard(player);
     }
-    public float getPlayerMana(Player player) {
+    public float getPlayerEnergy(Player player) {
         String playerUUID = player.getUniqueId().toString();
-        return mapList.MANA.get(playerUUID);
+        return mapList.ENERGY.get(playerUUID);
     }
     public float bonusConut(Player player) {
         return 0f;
@@ -69,47 +66,47 @@ public class Mana implements Listener {
         return 0f;
     }
 
-    public boolean usePlayerMana(Player player,Float useMana) {
+    public boolean usePlayerEnergy(Player player,Float useEnergy) {
         String playerUUID = player.getUniqueId().toString();
-        Float playerMana = mapList.MANA.get(playerUUID);
+        Float playerEnergy = mapList.ENERGY.get(playerUUID);
 
-        if(!(playerMana >= useMana)) {
-            actionBarChat(player,ChatColor.RED+"마나 부족");
+        if(!(playerEnergy >= useEnergy)) {
+            actionBarChat(player,ChatColor.RED+"에너지 부족");
             return false;
         }
-        mapList.MANA.put(playerUUID,playerMana-(useMana) );
-        showUseMana(player,useMana);
+        mapList.ENERGY.put(playerUUID,playerEnergy-(useEnergy) );
+        showUseEnergy(player,useEnergy);
         return true;
     }
-    public boolean addPlayerMana(Player player,Float addMana) {
+    public boolean addPlayerEnergy(Player player,Float addEnergy) {
         String playerUUID = player.getUniqueId().toString();
-        Float playerMana = mapList.MANA.get(playerUUID);
-        if(100 <= playerMana) {
+        Float playerEnergy = mapList.ENERGY.get(playerUUID);
+        if(100 <= playerEnergy) {
             return false;
         }
-        Float scarceMana = (100-playerMana);
-        if(scarceMana<=addMana) {
-            mapList.MANA.put(playerUUID,playerMana+scarceMana);
-            showAddMana(player,scarceMana);
+        Float scarceEnergy = (100-playerEnergy);
+        if(scarceEnergy<=addEnergy) {
+            mapList.ENERGY.put(playerUUID,playerEnergy+scarceEnergy);
+            showAddEnergy(player,scarceEnergy);
         }
         else {
-            mapList.MANA.put(playerUUID,playerMana+addMana);
-            showAddMana(player,addMana);
+            mapList.ENERGY.put(playerUUID,playerEnergy+addEnergy);
+            showAddEnergy(player,addEnergy);
         }
         return true;
     }
-    public boolean regenPlayerMana(Player player,Float addMana) {
+    public boolean regenPlayerEnergy(Player player,Float addEnergy) {
         String playerUUID = player.getUniqueId().toString();
-        Float playerMana = mapList.MANA.get(playerUUID);
-        if(100 <= playerMana) {
+        Float playerEnergy = mapList.ENERGY.get(playerUUID);
+        if(100 <= playerEnergy) {
             return false;
         }
-        Float scarceMana = (100-playerMana);
-        if(scarceMana<=addMana) {
-            mapList.MANA.put(playerUUID,playerMana+scarceMana);
+        Float scarceEnergy = (100-playerEnergy);
+        if(scarceEnergy<=addEnergy) {
+            mapList.ENERGY.put(playerUUID,playerEnergy+scarceEnergy);
         }
         else {
-            mapList.MANA.put(playerUUID,playerMana+addMana);
+            mapList.ENERGY.put(playerUUID,playerEnergy+addEnergy);
         }
         createBoard(player);
         return true;
@@ -118,18 +115,18 @@ public class Mana implements Listener {
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
                 (str) );
     }
-    public void setPlayerMana(Player player,Float energy) {
+    public void setPlayerEnergy(Player player,Float energy) {
         String playerUUID = player.getUniqueId().toString();
-        mapList.MANA.put(playerUUID,energy);
+        mapList.ENERGY.put(playerUUID,energy);
     }
-    public void showAddMana(Player player,Float addMana) {
+    public void showAddEnergy(Player player,Float addEnergy) {
         if(!(player.isOnline())) {
             return ;
         }
-        String addValue = comma(addMana);
-        String countValue = comma(getPlayerMana(player));
+        String addValue = comma(addEnergy);
+        String countValue = comma(getPlayerEnergy(player));
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
-                (ChatColor.AQUA+"마나 +"+addValue+"%" ) );
+                (ChatColor.GREEN+"에너지 +"+addValue+"%" ) );
         createBoard(player);
         return ;
     }
@@ -139,19 +136,19 @@ public class Mana implements Listener {
         return nomber;
     }
 
-    public void showUseMana (Player player,Float useMana) {
+    public void showUseEnergy (Player player,Float useEnergy) {
         if(!(player.isOnline())) {
             return ;
         }
-        String useValue = comma(useMana);
-        String countValue = comma(getPlayerMana(player));
+        String useValue = comma(useEnergy);
+        String countValue = comma(getPlayerEnergy(player));
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
-                (ChatColor.RED+"마나 -"+useValue+"%" ) );
+                (ChatColor.RED+"에너지 -"+useValue+"%" ) );
         createBoard(player);
 
     }
-    public String getColorMana(String commaMana) {
-        float energy = Float.parseFloat(commaMana);
+    public String getColorEnergy(String commaEnergy) {
+        float energy = Float.parseFloat(commaEnergy);
         if(energy<=33) {
             return ChatColor.RED+""+energy+"%";
         }
@@ -159,28 +156,28 @@ public class Mana implements Listener {
             return ChatColor.YELLOW+""+energy+"%";
         }
         if(energy==100) {
-            return ChatColor.AQUA+""+100+"%";
+            return ChatColor.GREEN+""+100+"%";
         }
-        return ChatColor.AQUA+""+energy+"%";
+        return ChatColor.GREEN+""+energy+"%";
 
     }
     public void createBoard(Player player) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("ManaBoard","dummy","마나");
+        Objective obj = board.registerNewObjective("EnergyBoard","dummy","에너지");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score1 = obj.getScore
-                ("마나 : "+getColorMana(comma(getPlayerMana(player))) );
+                ("에너지 : "+getColorEnergy(comma(getPlayerEnergy(player))) );
         score1.setScore(1);
         player.setScoreboard(board);
     }
     public static void createBoard_full(Player player) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("ManaBoard","dummy","마나");
+        Objective obj = board.registerNewObjective("EnergyBoard","dummy","에너지");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score1 = obj.getScore
-                ("마나 : "+ChatColor.AQUA+100+"%" );
+                ("에너지 : "+ChatColor.GREEN+100+"%" );
         score1.setScore(1);
         player.setScoreboard(board);
         timeRemoveBoard(player);
@@ -189,7 +186,7 @@ public class Mana implements Listener {
         String playerUUID = player.getUniqueId().toString();
         BukkitRunnable Regen = new BukkitRunnable() {
             public void run() {
-                if(mapList.MANA_REGEN.containsKey(playerUUID)) {
+                if(mapList.ENERGY_REGEN.containsKey(playerUUID)) {
                     this.cancel();
                 }
                 player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
@@ -199,34 +196,34 @@ public class Mana implements Listener {
         Regen.runTaskTimer(Main.getPlugin(Main.class) ,300,500);
     }
     @EventHandler
-    public void healMana(PlayerItemConsumeEvent event) {
+    public void healEnergy(PlayerItemConsumeEvent event) {
         ItemStack potion = event.getItem();
         Player player =event.getPlayer();
         if(!(potion.getType().equals(Material.POTION))) {
             return;
         }
         String name = potion.getItemMeta().getDisplayName();
-        if(!(name.equals(ChatColor.AQUA+"마나 포션"))) {
+        if(!(name.equals(ChatColor.GREEN+"에너지 포션"))) {
             return;
         }
-        addPlayerMana(player,50f);
+        addPlayerEnergy(player,50f);
 
     }
     @EventHandler
-    public void regenHealMana(PlayerItemConsumeEvent event) {
+    public void regenHealEnergy(PlayerItemConsumeEvent event) {
         ItemStack potion = event.getItem();
         Player player =event.getPlayer();
         if(!(potion.getType().equals(Material.POTION))) {
             return;
         }
         String name = potion.getItemMeta().getDisplayName();
-        if(!(name.equals(ChatColor.AQUA+"마나 재생포션"))) {
+        if(!(name.equals(ChatColor.GREEN+"에너지 재생포션"))) {
             return;
         }
-        fastRegenMana(player,1f,100);
+        fastRegenEnergy(player,1f,100);
 
     }
-    public void fastRegenMana (Player player,Float regenMana,long time) {
+    public void fastRegenEnergy (Player player,Float regenEnergy,long time) {
 
 
         BukkitRunnable Regen = new BukkitRunnable() {
@@ -235,21 +232,21 @@ public class Mana implements Listener {
                 if(count>100) {
                     this.cancel();
                 }
-                regenPlayerMana(player,regenMana);
+                regenPlayerEnergy(player,regenEnergy);
                 count++;
             }
         };
         Regen.runTaskTimer(Main.getPlugin(Main.class) , time, time);
     }
-    public boolean checkHaveMana(Player player) {
+    public boolean checkHaveEnergy(Player player) {
         String playerUUID = player.getUniqueId().toString();
-        if(mapList.MANA.containsKey(playerUUID)) {
+        if(mapList.ENERGY.containsKey(playerUUID)) {
             return true;
         }
-        actionBarChat(player,ChatColor.RED+"마나가 확인되지 않습니다, 버그를 관리자에게 보고해주세요");
+        actionBarChat(player,ChatColor.RED+"에너지가 확인되지 않습니다, 버그를 관리자에게 보고해주세요");
         return false;
     }
-    public float getOreUseMana(Material block) {
+    public float getOreUseEnergy(Material block) {
         if(MaterialSetTag.COAL_ORES.isTagged(block)) {
             return 5f;
         }
@@ -266,53 +263,53 @@ public class Mana implements Listener {
 
         return 0f;
     }
-    public float getUseBlockMana_Break(Material block) {
-        float blockMana = 0;
+    public float getUseBlockEnergy_Break(Material block) {
+        float blockEnergy = 0;
         if(MaterialTags.ORES.isTagged(block)) {
-            blockMana = blockMana+3;
+            blockEnergy = blockEnergy+3;
         }
         if(MaterialSetTag.COAL_ORES.isTagged(block)) {
-            blockMana = blockMana+10;
+            blockEnergy = blockEnergy+10;
         }
         if(MaterialSetTag.IRON_ORES.isTagged(block)) {
-            blockMana = blockMana+30;
+            blockEnergy = blockEnergy+30;
         }
         if(MaterialSetTag.GOLD_ORES.isTagged(block)) {
-            blockMana = blockMana+50;
+            blockEnergy = blockEnergy+50;
         }
         if(MaterialSetTag.DIAMOND_ORES.isTagged(block)) {
-            blockMana = blockMana+90;
+            blockEnergy = blockEnergy+90;
         }
         if(MaterialSetTag.OAK_LOGS.isTagged(block)) {
-            blockMana = blockMana+5;
+            blockEnergy = blockEnergy+5;
         }
 
 
-        return blockMana;
+        return blockEnergy;
     }
 
     @EventHandler
     public void energyUse_Break(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if(!(checkHaveMana(player))) {
+        if(!(checkHaveEnergy(player))) {
             event.setCancelled(true);
             return;
         }
         Material block = event.getBlock().getType();
-        float useMana = 3+getUseBlockMana_Break(block);
+        float useEnergy = 3+getUseBlockEnergy_Break(block);
         float bonusCount = 0;
         //할인율
         if(MaterialSetTag.MINEABLE_PICKAXE.isTagged(block)) {
-            bonusCount = discountMana_Pickaxe(player); //곡괭이의 보너스 점수
+            bonusCount = discountEnergy_Pickaxe(player); //곡괭이의 보너스 점수
         }
         if(MaterialSetTag.MINEABLE_AXE.isTagged(block)) {
-            bonusCount = discountMana_Axe(player);
+            bonusCount = discountEnergy_Axe(player);
         }
         if(MaterialSetTag.MINEABLE_SHOVEL.isTagged(block)) {
-            bonusCount = discountMana_Shovel(player);
+            bonusCount = discountEnergy_Shovel(player);
         }
-        useMana = useMana- (float) (useMana * bonusCount / 100.0);
-        if(!(usePlayerMana(player,useMana))) {
+        useEnergy = useEnergy- (float) (useEnergy * bonusCount / 100.0);
+        if(!(usePlayerEnergy(player,useEnergy))) {
             if(player.getGameMode().equals(GameMode.CREATIVE)) {
                 return;
             }
@@ -320,25 +317,25 @@ public class Mana implements Listener {
 
             return;
         }
-        regenMana(player,1f,100);
+        regenEnergy(player,1f,100);
     }
     @EventHandler
     public void energyUse_Build(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        if(!(checkHaveMana(player))) {
+        if(!(checkHaveEnergy(player))) {
             event.setCancelled(true);
             return;
         }
-        if(!(usePlayerMana(player,1f))) {
+        if(!(usePlayerEnergy(player,1f))) {
             if(player.getGameMode().equals(GameMode.CREATIVE)) {
                 return;
             }
             event.setCancelled(true);
             return;
         }
-        regenMana(player,1f,100);
+        regenEnergy(player,1f,100);
     }
-    public float discountMana_Pickaxe(Player player) {
+    public float discountEnergy_Pickaxe(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
         Material pickaxe = item.getType();
         if(!(MaterialTags.PICKAXES.isTagged(pickaxe))) {
@@ -361,15 +358,15 @@ public class Mana implements Listener {
         }
         return 0;
     }
-    public float discountMana_Pickaxe_test(Player player) {
+    public float discountEnergy_Pickaxe_test(Player player) {
 
         ItemStack item = player.getInventory().getItemInMainHand();
         if(!(MaterialTags.PICKAXES.isTagged(item))) {
             return 0;
         }
-        return loreFinder(item,"마나 소모");
+        return loreFinder(item,"에너지 소모");
     }
-    public float discountMana_Axe(Player player) {
+    public float discountEnergy_Axe(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
         Material pickaxe = item.getType();
         if(pickaxe == Material.STONE_AXE) {
@@ -389,7 +386,7 @@ public class Mana implements Listener {
         }
         return 0;
     }
-    public float discountMana_Shovel(Player player) {
+    public float discountEnergy_Shovel(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
         Material pickaxe = item.getType();
         if(pickaxe == Material.STONE_SHOVEL) {
@@ -426,17 +423,17 @@ public class Mana implements Listener {
 
     public boolean getRegen(Player player) {
         String playerUUID = player.getUniqueId().toString();
-        return mapList.MANA_REGEN.containsKey(playerUUID);
+        return mapList.ENERGY_REGEN.containsKey(playerUUID);
     }
     public void setRegen(Player player,boolean plug) {
         String playerUUID = player.getUniqueId().toString();
-        mapList.MANA_REGEN.put(playerUUID,plug);
+        mapList.ENERGY_REGEN.put(playerUUID,plug);
     }
     public void removeRegen(Player player) {
         String playerUUID = player.getUniqueId().toString();
-        mapList.MANA_REGEN.remove(playerUUID);
+        mapList.ENERGY_REGEN.remove(playerUUID);
     }
-    public void regenMana (Player player,Float regenMana,long time) {
+    public void regenEnergy (Player player,Float regenEnergy,long time) {
 
         if (getRegen(player)) {
             return;
@@ -445,12 +442,12 @@ public class Mana implements Listener {
 
             BukkitRunnable Regen = new BukkitRunnable() {
                 public void run() {
-                    if(!(checkHaveMana(player))) {
+                    if(!(checkHaveEnergy(player))) {
                         this.cancel();
                     }
-                    if(!regenPlayerMana(player,regenMana)) {
+                    if(!regenPlayerEnergy(player,regenEnergy)) {
                         removeRegen(player);
-                        actionBarChat(player,ChatColor.AQUA+"마나 100% 회복");
+                        actionBarChat(player,ChatColor.GREEN+"에너지 100% 회복");
                         timeRemoveBoard(player);
                         this.cancel();
                     }
