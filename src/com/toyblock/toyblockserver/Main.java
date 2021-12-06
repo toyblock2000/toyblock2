@@ -9,6 +9,7 @@ import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
+import com.sk89q.worldguard.bukkit.event.entity.SpawnEntityEvent;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.AdventurerLevelUp;
 import com.toyblock.toyblockserver.difficulty.Energy.Energy;
@@ -33,6 +34,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
+import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.BoundingBox;
@@ -92,8 +94,6 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
-		timeFinder();
-		mapList.ENERGY_SUN.put("Sun",0);
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
@@ -104,6 +104,9 @@ public class Main extends JavaPlugin implements Listener {
 		Location loc =  new Location(Bukkit.getWorld("world"),10,10,-10);
 		consol.sendMessage(""+ StructureMap.Link.get(loc));
 		StructureMap.Link.put( new Location(Bukkit.getWorld("world"),10,10,-10),"red");
+
+		mapList.COUNT.put(timeChangeCount,0);
+		timeFinder();
 	}
 
 	@Override
@@ -124,15 +127,21 @@ public class Main extends JavaPlugin implements Listener {
 		return recipe;
 	}
 	String worldName = "world";
+	static String timeChangeCount = "TIME_CHANGE_COUNT";
 	public void timeFinder() {
+		int count = mapList.COUNT.get(timeChangeCount);
+		mapList.COUNT.put(timeChangeCount,count+1);
 		BukkitRunnable task = new BukkitRunnable() {
 			World world = Bukkit.getWorld(worldName);
 			@Override
 			public void run() {
 				long time = world.getTime();
 				bug.chat("실행타이머"+time);
+				if(!(count+1==mapList.COUNT.get(timeChangeCount))) {
+					this.cancel();
+				}
 				if(time>0&&time<30) {
-					healTime();
+					healTime(count+1);
 					this.cancel();
 				}
 
@@ -141,15 +150,25 @@ public class Main extends JavaPlugin implements Listener {
 		task.runTaskTimer(this,20,20);
 
 	}
+	int timeSkip = 0;
+	@EventHandler
+	public void healTiemChange(TimeSkipEvent event) {
+		timeSkip++;
+		if(timeSkip==3) {
+			bug.chat("타임스킵");
+			timeFinder();
+			timeSkip= 0;
+		}
+	}
 
-	public void healTime() {
-		mapList.ENERGY_SUN.put("Sun",mapList.ENERGY_SUN.get("Sun")+1);
-		int SunId = mapList.ENERGY_SUN.get("Sun")+1;
+	public void healTime(int count) {
 		BukkitRunnable task = new BukkitRunnable() {
 			World world = Bukkit.getWorld(worldName);
 			@Override
 			public void run() {
-
+				if(!(count == mapList.COUNT.get(timeChangeCount))) {
+					this.cancel();
+				}
 				mapList.ENERGY.clear();
 				mapList.ENERGY_REGEN.clear();
 				allPlayerEnergyFull_day();
@@ -164,7 +183,7 @@ public class Main extends JavaPlugin implements Listener {
 			Energy.createBoard_full(player);
 			Energy.actionBarChat(player,ChatColor.GREEN+"Server Heal 100%");
 			Energy.timeRemoveBoard(player);
-
+			player.playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
 		}
 	}
 	public void allPlayerEnergyFull_day() {
@@ -173,7 +192,24 @@ public class Main extends JavaPlugin implements Listener {
 			Energy.createBoard_full(player);
 			Energy.actionBarChat(player,ChatColor.GREEN+"Sun Heal 100%");
 			Energy.timeRemoveBoard(player);
+			player.playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
 		}
+	}
+	@EventHandler
+	public void fireRoket(PlayerInteractEvent event) {
+		Location loc = event.getClickedBlock().getLocation();
+		LivingEntity entity = (LivingEntity) Bukkit.getWorld("world").spawnEntity(loc,EntityType.MAGMA_CUBE);
+		entity.setGlowing(true);
+		entity.setAI(false);
+		entity.setSilent(true);
+		BukkitRunnable task = new BukkitRunnable() {
+			@Override
+			public void run() {
+				entity.remove();
+				this.cancel();
+			}
+		};
+		task.runTaskTimer(this,300,0);
 	}
 
 	//@EventHandler

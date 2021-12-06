@@ -2,6 +2,8 @@ package com.toyblock.toyblockserver.difficulty.item.weapon;
 
 import com.destroystokyo.paper.MaterialTags;
 import com.toyblock.toyblockserver.tool.developer.bug;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -103,7 +105,7 @@ public class AnvilIUpgrade implements Listener {
         }
         return 0f;
     }
-    public float loreFinders(ItemStack item, String findStr, String noFind) {
+    public float loreFinders(ItemStack item, String findStr,String nofindStr) {
         if(!(item.getItemMeta().hasLore())) {
             return 0f;
         }
@@ -113,7 +115,7 @@ public class AnvilIUpgrade implements Listener {
             if(!(str.contains(findStr))) {
                 continue;
             }
-            if(str.contains(noFind)) {
+            if(str.contains(nofindStr)) {
                 continue;
             }
             return Integer.parseInt(str.replaceAll("[^0-9]", ""));
@@ -177,17 +179,20 @@ public class AnvilIUpgrade implements Listener {
     public void changeUpgrade_WoodenSword(SmithItemEvent event) {
         ItemStack subItem = event.getInventory().getItem(0);
         int level = (int) loreFinders(subItem, "레벨","제한");
+        int remitLevel = (int) loreFinder(subItem,"레벨제한");
         Player player = (Player) event.getView().getPlayer();
         WoodenSword wood = new WoodenSword();
-        int remitLevel = (int) loreFinder(subItem, "레벨제한");
-        if(level==remitLevel) {
+        if(remitLevel == level) {
             event.setCancelled(true);
-            player.sendMessage(ChatColor.RED+"강화 한계치에 도달 했습니다");
+            player.sendMessage(ChatColor.RED+"이미 제한 레벨까지 도달했습니다");
+
+            return;
         }
         if(!((int)(Math.random()*100)<=30)) {
             event.getInventory().setResult(subItem);
 
             player.sendMessage(ChatColor.RED+"강화 실패");
+
             return;
         }
         ItemStack upItem = wood.getWoodenSword(level + 1);
@@ -196,6 +201,11 @@ public class AnvilIUpgrade implements Listener {
         event.getInventory().setResult(upItem);
         player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
         player.sendMessage(ChatColor.GREEN+"강화 성공");
+
+    }
+    public static void actionBarChat(Player player,String str) {
+        player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
+                (str) );
     }
     public void enchantLore(ItemStack item) {
         if(!(item.getItemMeta().hasEnchants())) {
@@ -233,6 +243,5 @@ public class AnvilIUpgrade implements Listener {
             return;
         }
     }
-
 
 }
