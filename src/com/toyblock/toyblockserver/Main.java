@@ -195,22 +195,7 @@ public class Main extends JavaPlugin implements Listener {
 			player.playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
 		}
 	}
-	@EventHandler
-	public void fireRoket(PlayerInteractEvent event) {
-		Location loc = event.getClickedBlock().getLocation();
-		LivingEntity entity = (LivingEntity) Bukkit.getWorld("world").spawnEntity(loc,EntityType.MAGMA_CUBE);
-		entity.setGlowing(true);
-		entity.setAI(false);
-		entity.setSilent(true);
-		BukkitRunnable task = new BukkitRunnable() {
-			@Override
-			public void run() {
-				entity.remove();
-				this.cancel();
-			}
-		};
-		task.runTaskTimer(this,300,0);
-	}
+
 
 	//@EventHandler
 	public void creepercancel(EntityPathfindEvent event) {
