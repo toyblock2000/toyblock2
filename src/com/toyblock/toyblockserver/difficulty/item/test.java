@@ -1,5 +1,6 @@
-package com.toyblock.toyblockserver.difficulty.item.weapon;
+package com.toyblock.toyblockserver.difficulty.item;
 
+import com.toyblock.toyblockserver.difficulty.item.tool.weapon.WoodenSword;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

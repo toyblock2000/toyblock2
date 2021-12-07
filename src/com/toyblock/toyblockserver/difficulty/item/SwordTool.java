@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.difficulty.item.weapon;
+package com.toyblock.toyblockserver.difficulty.item;
 
 import com.toyblock.toyblockserver.tool.tool;
 import net.kyori.adventure.text.Component;

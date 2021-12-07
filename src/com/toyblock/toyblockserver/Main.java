@@ -9,13 +9,14 @@ import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
-import com.sk89q.worldguard.bukkit.event.entity.SpawnEntityEvent;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer;
 import com.toyblock.toyblockserver.difficulty.advancements.adventurer.AdventurerLevelUp;
 import com.toyblock.toyblockserver.difficulty.Energy.Energy;
+import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
+import com.toyblock.toyblockserver.difficulty.item.*;
+import com.toyblock.toyblockserver.difficulty.item.tool.weapon.WoodenSword;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
-import com.toyblock.toyblockserver.difficulty.item.weapon.*;
 import com.toyblock.toyblockserver.difficulty.entity.ai.ZombieDunkShot;
 import com.toyblock.toyblockserver.tool.RandomChest;
 import com.toyblock.toyblockserver.structure.village.castle.CastleBuildPlayer;
@@ -86,6 +87,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new bug(), this);
 		getServer().getPluginManager().registerEvents(new ZombieDunkShot(), this);
 		getServer().getPluginManager().registerEvents(new Energy(), this);
+		getServer().getPluginManager().registerEvents(new DropChance(), this);
 		consol.sendMessage("청크");
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);

@@ -1,7 +1,6 @@
-package com.toyblock.toyblockserver.difficulty.item.weapon;
+package com.toyblock.toyblockserver.difficulty.item;
 
-import com.destroystokyo.paper.MaterialTags;
-import com.toyblock.toyblockserver.tool.developer.bug;
+import com.toyblock.toyblockserver.difficulty.item.tool.weapon.WoodenSword;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -9,14 +8,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
-import java.util.Objects;
 
 public class AnvilIUpgrade implements Listener {
     //@EventHandler
@@ -185,13 +182,6 @@ public class AnvilIUpgrade implements Listener {
         if(remitLevel == level) {
             event.setCancelled(true);
             player.sendMessage(ChatColor.RED+"이미 제한 레벨까지 도달했습니다");
-
-            return;
-        }
-        if(!((int)(Math.random()*100)<=30)) {
-            event.getInventory().setResult(subItem);
-
-            player.sendMessage(ChatColor.RED+"강화 실패");
 
             return;
         }

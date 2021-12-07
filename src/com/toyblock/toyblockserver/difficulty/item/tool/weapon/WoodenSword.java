@@ -1,15 +1,10 @@
-package com.toyblock.toyblockserver.difficulty.item.weapon;
+package com.toyblock.toyblockserver.difficulty.item.tool.weapon;
 
+import com.toyblock.toyblockserver.difficulty.item.WeaponLore;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Warning;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.UUID;
 
 public class WoodenSword {
     public ItemStack getWoodenSword(int level) {
@@ -51,7 +46,7 @@ public class WoodenSword {
     public static ItemStack woodenUpgrade() {
         ItemStack item = new ItemStack(Material.MAGENTA_STAINED_GLASS_PANE);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(ChatColor.LIGHT_PURPLE+"강화!! (확률 30%)");
+        meta.setDisplayName(ChatColor.LIGHT_PURPLE+"나무검 강화");
         item.setItemMeta(meta);
         return item;
     }

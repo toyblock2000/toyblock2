@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.difficulty.item.weapon.tool;
+package com.toyblock.toyblockserver.difficulty.item.tool;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

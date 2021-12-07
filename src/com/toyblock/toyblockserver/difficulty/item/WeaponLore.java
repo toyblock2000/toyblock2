@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.difficulty.item.weapon;
+package com.toyblock.toyblockserver.difficulty.item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
