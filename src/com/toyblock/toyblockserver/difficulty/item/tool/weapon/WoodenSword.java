@@ -1,12 +1,37 @@
 package com.toyblock.toyblockserver.difficulty.item.tool.weapon;
 
 import com.toyblock.toyblockserver.difficulty.item.WeaponLore;
+import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.math.BigDecimal;
+
 public class WoodenSword {
+    public double getDamage(int level) {
+        double nomalDamage = 4; //기본
+        double damage = 0.1;    //레벨당
+        double sum = damage*(10-level);
+        BigDecimal value = new BigDecimal(nomalDamage-sum);
+        return value.doubleValue();
+    }
+    public double getAttackSpeed(int level) {
+        double nomalSpeed = 1.6; //기본
+        double speed = 0.05;      //레벨당
+        double sum = speed*(10-level);
+        BigDecimal value = new BigDecimal(nomalSpeed-sum);
+        return value.doubleValue();
+    }
+    public double getSoulBound(int level) {
+        double nomalSoulBound = 50; //기본
+        double soulBound = 0.5;      //레벨당
+        double sum = soulBound*(10-level);
+        BigDecimal value = new BigDecimal(nomalSoulBound-sum);
+        return value.doubleValue();
+    }
+    //4,1.6
     public ItemStack getWoodenSword(int level) {
         if(level == 1) {
             return woodenSword_Lv1();
@@ -44,6 +69,7 @@ public class WoodenSword {
         return null;
     }
     public static ItemStack woodenUpgrade() {
+
         ItemStack item = new ItemStack(Material.MAGENTA_STAINED_GLASS_PANE);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.LIGHT_PURPLE+"나무검 강화");
@@ -51,83 +77,82 @@ public class WoodenSword {
         return item;
     }
     public ItemStack woodenSword_Lv1() {
-        //공격력 2
-        //공속 0.5
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,1,10,2,1.1);
+        ToolEdit setting = new ToolEdit();
+        int level = 1;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv2() {
-        //2
-        //0.6
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,2,10,2,1.2);
+        ToolEdit setting = new ToolEdit();
+        int level = 2;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv3() {
-        //2.5
-        //0.6
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,3,10,2.5,1.2);
+        ToolEdit setting = new ToolEdit();
+        int level = 3;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv4() {
-        //2.5
-        //0.7
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,4,10,2.5,1.3);
+        ToolEdit setting = new ToolEdit();
+        int level = 4;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv5() {
-        //3
-        //0.7
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,5,10,3,1.3);
+        ToolEdit setting = new ToolEdit();
+        int level = 5;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv6() { //특수능력 1
-        //3
-        //0.8
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,6,10,3,1.4);
+        ToolEdit setting = new ToolEdit();
+        int level = 6;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv7() {
-        //3.5
-        //0.8
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,7,10,3.5,1.4);
+        ToolEdit setting = new ToolEdit();
+        int level = 7;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv8() { //특수능력 2
-        //3.5
-        //0.9
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,8,10,3.5,1.5);
+        ToolEdit setting = new ToolEdit();
+        int level = 8;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv9() {
-        //4
-        //0.9
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,9,10,4,1.5);
+        ToolEdit setting = new ToolEdit();
+        int level = 9;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
     public ItemStack woodenSword_Lv10() { //특수능력 3
-        //4
-        //1
+
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        WeaponLore setting = new WeaponLore();
-        setting.setAttribute(item,10,10,4,1.6);
+        ToolEdit setting = new ToolEdit();
+        int level = 10;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
         return item;
     }
 

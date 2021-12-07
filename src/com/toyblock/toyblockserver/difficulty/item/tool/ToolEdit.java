@@ -2,18 +2,25 @@ package com.toyblock.toyblockserver.difficulty.item.tool;
 
 import com.toyblock.toyblockserver.tool.developer.bug;
 import org.bukkit.ChatColor;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ToolEdit {
     public void moveItemMeta(ItemStack fromItem , ItemStack item) {
         moveEnchant(fromItem,item); //인첸트 옮기기
         enchantLore(item); //인첸트 설명 붙이기
         moveCustomModelData(fromItem,item); //커스텀 모델 데이터 옮기기
+        moveAbility(fromItem,item); //무기 추가능력 옮기기
+        moveAddSoulBound(fromItem,item); //무기 소울바인딩 플러스 옮기기
         
     }
     public void setPickaxeLore(ItemStack item, int level, int remitLevel , double energy_discount) {
@@ -43,6 +50,24 @@ public class ToolEdit {
             return;
         }
     }
+    public  void loreAdd_SoulBound(ItemStack item , float addValue) {
+        if(!(item.getItemMeta().hasLore()) ) {
+            return;
+        }
+        List<String> lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++) {
+
+            String loreStr = lore.get(i);
+            if (!(loreStr.contains("소울바운드")) ) {
+                continue;
+            }
+            String addLore = loreStr+" + "+addValue;
+            lore.remove(i);
+            lore.add(i,addLore);
+            item.setLore(lore);
+            return;
+        }
+    }
     public  void enchantLore(ItemStack item) {
         if(!(item.getItemMeta().hasEnchants())) {
             return;
@@ -61,13 +86,23 @@ public class ToolEdit {
             loreAdd_EnchantDamage(item, ChatColor.GRAY+""+value);
         }
     }
+    public void moveAddSoulBound(ItemStack moveItem , ItemStack item) {
+        float soulBound = loreFinder_Add(moveItem,"소울바운드");
+        if(soulBound==0){
+            return;
+        }
+        loreAdd_SoulBound(item,soulBound);
+    }
     public void moveEnchant(ItemStack sub , ItemStack main) {
-        if(!(sub.getEnchantments().isEmpty())) {
+        if(sub.getEnchantments().isEmpty()) {
             return;
         }
         main.addEnchantments(sub.getEnchantments());
     }
     public void moveCustomModelData(ItemStack fromItem, ItemStack item) {
+        if(!(fromItem.getItemMeta().hasCustomModelData())){
+            return;
+        }
         ItemMeta meta = item.getItemMeta();
         meta.setCustomModelData(fromItem.getItemMeta().getCustomModelData() );
         item.setItemMeta(meta);
@@ -97,6 +132,48 @@ public class ToolEdit {
         }
         return 0f;
     }
+    public void moveAbility(ItemStack moveItem, ItemStack item) {
+        if(!(moveItem.getItemMeta().hasLore())) {
+            return;
+        }
+        if(!(item.getItemMeta().hasLore())) {
+            return;
+        }
+
+        List moveLore = moveItem.getLore();
+        List lore = item.getLore();
+        for(int i = 0;i<moveLore.size();i++){
+            String str = (String)moveLore.get(i);
+
+            if(!(str.contains("어빌리티"))) {
+                continue;
+            }
+            lore.add(str);
+        }
+        item.setLore(lore);
+        return;
+    }
+    public float loreFinder_Add(ItemStack item, String findStr) {
+        if(!(item.getItemMeta().hasLore())) {
+            return 0f;
+        }
+        List lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++){
+            String str = (String)lore.get(i);
+            if(!(str.contains(findStr))) {
+                continue;
+            }
+            if(!(str.contains("+"))) {
+                continue;
+            }
+            String[] array = str.split("\\+");
+
+
+
+            return Float.parseFloat(array[1].replaceAll("[^0-9]", ""));
+        }
+        return 0f;
+    }
     public float loreFinders(ItemStack item, String findStr,String nofindStr) {
         if(!(item.getItemMeta().hasLore())) {
             return 0f;
@@ -113,5 +190,32 @@ public class ToolEdit {
             return Float.parseFloat(str.replaceAll("[^0-9]", ""));
         }
         return 0f;
+    }
+    public void setAttribute(ItemStack item,int level,int remitLevel,double damage,double attack_speed,double soulBound) {
+        double playerAttackSpeed = 4;
+        double playerDamange = 1;
+        double set_damage = damage - playerDamange;
+        double set_speed = attack_speed - playerAttackSpeed;
+        ItemMeta meta = item.getItemMeta();
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+        AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", set_damage, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+        meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
+        AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", set_speed, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
+        meta.addAttributeModifier (Attribute.GENERIC_ATTACK_SPEED, attackspeed);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        item.setItemMeta(meta);
+        setAttributeLore(item,level,remitLevel,damage,attack_speed,soulBound);
+    }
+    public void setAttributeLore(ItemStack item,int level, int remitLevel ,double damage, double speed,double soulBound) {
+        List lore = new ArrayList();
+        lore.add(" ");
+        lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level);
+        lore.add(ChatColor.WHITE+" 레벨제한  : "+remitLevel);
+
+        lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+damage);
+        lore.add(ChatColor.WHITE+" 공격속도 : "+ChatColor.YELLOW+speed);
+        lore.add(ChatColor.LIGHT_PURPLE+" 소울바운드 : "+soulBound);
+        item.setLore(lore);
     }
 }

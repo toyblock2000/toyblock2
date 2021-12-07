@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.difficulty.item;
 
+import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
 import com.toyblock.toyblockserver.difficulty.item.tool.weapon.WoodenSword;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -78,7 +79,7 @@ public class AnvilIUpgrade implements Listener {
 
     }
     public void moveEnchant(ItemStack main , ItemStack sub) {
-        if(!(sub.getEnchantments().isEmpty())) {
+        if(sub.getEnchantments().isEmpty()) {
             return;
         }
         main.addEnchantments(sub.getEnchantments());
@@ -186,8 +187,8 @@ public class AnvilIUpgrade implements Listener {
             return;
         }
         ItemStack upItem = wood.getWoodenSword(level + 1);
-        moveEnchant(upItem,subItem);
-        enchantLore(upItem);
+        ToolEdit toolEdit = new ToolEdit();
+        toolEdit.moveItemMeta(subItem,upItem);
         event.getInventory().setResult(upItem);
         player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
         player.sendMessage(ChatColor.GREEN+"강화 성공");

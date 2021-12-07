@@ -53,7 +53,7 @@ public class EnchantUpgrade implements Listener {
         for(int i = 0;i<lore.size();i++) {
 
             String loreStr = lore.get(i);
-            if (!(loreStr.contains("무기 데미지")) ) {
+            if (!(loreStr.contains("데미지")) ) {
                 continue;
             }
             String addLore = loreStr+" + "+addValue;
