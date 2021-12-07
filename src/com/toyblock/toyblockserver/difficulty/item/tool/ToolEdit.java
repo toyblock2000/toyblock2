@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -41,7 +42,7 @@ public class ToolEdit {
         for(int i = 0;i<lore.size();i++) {
 
             String loreStr = lore.get(i);
-            if (!(loreStr.contains("무기 데미지")) ) {
+            if (!(loreStr.contains("데미지")) ) {
                 continue;
             }
             String addLore = loreStr+" + "+addValue;
@@ -62,7 +63,7 @@ public class ToolEdit {
             if (!(loreStr.contains("소울바운드")) ) {
                 continue;
             }
-            String addLore = loreStr+" + "+addValue;
+            String addLore = loreStr+" + "+addValue+"%";
             lore.remove(i);
             lore.add(i,addLore);
             item.setLore(lore);
@@ -123,13 +124,13 @@ public class ToolEdit {
                 String[] array = str.split("\\+");
                 for(int v=0;v<array.length;v++) {
 
-                    float data = Float.parseFloat(array[v].replaceAll("[^0-9]", ""));
+                    float data = Float.parseFloat(array[v].replaceAll("[^0-9.]", ""));
                     value = value+data;
                 }
                 return value;
             }
 
-            return Float.parseFloat(str.replaceAll("[^0-9]", ""));
+            return Float.parseFloat(str.replaceAll("[^0-9.]", ""));
         }
         return 0f;
     }
@@ -171,7 +172,7 @@ public class ToolEdit {
 
 
 
-            return Float.parseFloat(array[1].replaceAll("[^0-9]", ""));
+            return Float.parseFloat(array[1].replaceAll("[^0-9.]", ""));
         }
         return 0f;
     }
@@ -188,7 +189,7 @@ public class ToolEdit {
             if(str.contains(nofindStr)) {
                 continue;
             }
-            return Float.parseFloat(str.replaceAll("[^0-9]", ""));
+            return Float.parseFloat(str.replaceAll("[^0-9.]", ""));
         }
         return 0f;
     }
@@ -208,6 +209,11 @@ public class ToolEdit {
         item.setItemMeta(meta);
         setAttributeLore(item,level,remitLevel,damage,attack_speed,soulBound);
     }
+    public String comma (double f) {
+        DecimalFormat form = new DecimalFormat("#.##");
+        String nomber = form.format(f);
+        return nomber;
+    }
     public void setAttributeLore(ItemStack item,int level, int remitLevel ,double damage, double speed,double soulBound) {
         List lore = new ArrayList();
         new BigDecimal(damage).doubleValue();
@@ -215,9 +221,9 @@ public class ToolEdit {
         lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level);
         lore.add(ChatColor.WHITE+" 레벨제한  : "+remitLevel);
 
-        lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+new BigDecimal(damage));
-        lore.add(ChatColor.WHITE+" 공격속도 : "+ChatColor.YELLOW+new BigDecimal(speed));
-        lore.add(ChatColor.LIGHT_PURPLE+" 소울바운드 : "+soulBound);
+        lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+comma(damage));
+        lore.add(ChatColor.WHITE+" 공격속도 : "+ChatColor.YELLOW+comma(speed));
+        lore.add(ChatColor.LIGHT_PURPLE+" 소울바운드 : "+soulBound+"%");
         item.setLore(lore);
     }
 }

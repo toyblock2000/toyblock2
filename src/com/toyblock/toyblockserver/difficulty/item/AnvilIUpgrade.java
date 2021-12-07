@@ -1,7 +1,9 @@
 package com.toyblock.toyblockserver.difficulty.item;
 
+import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
 import com.toyblock.toyblockserver.difficulty.item.tool.weapon.WoodenSword;
+import com.toyblock.toyblockserver.tool.developer.bug;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -12,6 +14,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
+import org.bukkit.inventory.SmithingRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
@@ -173,11 +177,12 @@ public class AnvilIUpgrade implements Listener {
         event.getWhoClicked().closeInventory();
         event.getWhoClicked().getInventory().addItem(upItem);
     }
-    @EventHandler
+   @EventHandler
     public void changeUpgrade_WoodenSword(SmithItemEvent event) {
         ItemStack subItem = event.getInventory().getItem(0);
-        int level = (int) loreFinders(subItem, "레벨","제한");
-        int remitLevel = (int) loreFinder(subItem,"레벨제한");
+       ToolEdit toolEdit = new ToolEdit();
+        int level = (int) toolEdit.loreFinders(subItem, "레벨","제한");
+        int remitLevel = (int) toolEdit.loreFinder(subItem,"레벨제한");
         Player player = (Player) event.getView().getPlayer();
         WoodenSword wood = new WoodenSword();
         if(remitLevel == level) {
@@ -187,13 +192,12 @@ public class AnvilIUpgrade implements Listener {
             return;
         }
         ItemStack upItem = wood.getWoodenSword(level + 1);
-        ToolEdit toolEdit = new ToolEdit();
         toolEdit.moveItemMeta(subItem,upItem);
         event.getInventory().setResult(upItem);
-        player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
+        //player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
         player.sendMessage(ChatColor.GREEN+"강화 성공");
-
     }
+
     public static void actionBarChat(Player player,String str) {
         player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
                 (str) );

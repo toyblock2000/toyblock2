@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.difficulty.inventory.dropchance;
 
 import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
+import com.toyblock.toyblockserver.tool.developer.bug;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -73,6 +74,7 @@ public class DropChance implements Listener {
             if (soulBound < random ) {
                 continue;
             }
+            bug.chat(soulBound+"<"+random);
             iterator.remove();
             event.getItemsToKeep().add(drop);
             saveCount = saveCount+1;

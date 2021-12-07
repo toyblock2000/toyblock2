@@ -14,6 +14,7 @@ import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer
 import com.toyblock.toyblockserver.difficulty.Energy.Energy;
 import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
 import com.toyblock.toyblockserver.difficulty.item.*;
+import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
 import com.toyblock.toyblockserver.difficulty.item.tool.weapon.WoodenSword;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
@@ -34,6 +35,7 @@ import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.*;
@@ -120,12 +122,11 @@ public class Main extends JavaPlugin implements Listener {
 
 		//	data.mapToFile(data.file, villageindex);
 	}
-
 	public SmithingRecipe getWoodenSwordUpgradeRecipe() {
-		ItemStack makeItem = WoodenSword.woodenUpgrade();
+		ItemStack makeItem = new WoodenSword().woodenUpgrade();
 		NamespacedKey key = new NamespacedKey(this,"WoodenSwordUpgrade");
 		RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.WOODEN_SWORD);
-		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.AMETHYST_SHARD);
+		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.CHARCOAL);
 		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
 		return recipe;
 	}

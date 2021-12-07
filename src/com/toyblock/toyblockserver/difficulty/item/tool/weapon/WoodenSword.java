@@ -8,25 +8,30 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WoodenSword {
+    static double damage = 0.1;
+    static double speed = 0.05;
+    static double soulBound = 5;
     public double getDamage(int level) {
         double nomalDamage = 4; //기본
-        double damage = 0.1;    //레벨당
+         damage = 0.1;    //레벨당
         double sum = damage*(10-level);
         double value = nomalDamage-sum;
         return value;
     }
     public double getAttackSpeed(int level) {
         double nomalSpeed = 1.6; //기본
-        double speed = 0.05;      //레벨당
+        speed = 0.05;      //레벨당
         double sum = speed*(10-level);
         double value = nomalSpeed-sum;
         return value;
     }
     public double getSoulBound(int level) {
         double nomalSoulBound = 50; //기본
-        double soulBound = 0.5;      //레벨당
+         soulBound = 5;      //레벨당
         double sum = soulBound*(10-level);
         double value = nomalSoulBound-sum;
         return value;
@@ -74,7 +79,15 @@ public class WoodenSword {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.LIGHT_PURPLE+"나무검 강화");
         item.setItemMeta(meta);
+        setUpgradeLore(item);
         return item;
+    }
+    public static void setUpgradeLore(ItemStack item) {
+        List lore = new ArrayList();
+        lore.add(ChatColor.RED + "레벨당 데미지 + "+damage);
+        lore.add(ChatColor.YELLOW + "레벨당 공격속도 + "+speed);
+        lore.add(ChatColor.LIGHT_PURPLE+ "레벨당 소울바운드 + "+soulBound);
+        item.setLore(lore);
     }
     public ItemStack woodenSword_Lv1() {
 
