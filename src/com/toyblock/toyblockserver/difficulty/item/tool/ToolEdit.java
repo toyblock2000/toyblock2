@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -209,12 +210,13 @@ public class ToolEdit {
     }
     public void setAttributeLore(ItemStack item,int level, int remitLevel ,double damage, double speed,double soulBound) {
         List lore = new ArrayList();
+        new BigDecimal(damage).doubleValue();
         lore.add(" ");
         lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level);
         lore.add(ChatColor.WHITE+" 레벨제한  : "+remitLevel);
 
-        lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+damage);
-        lore.add(ChatColor.WHITE+" 공격속도 : "+ChatColor.YELLOW+speed);
+        lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+new BigDecimal(damage));
+        lore.add(ChatColor.WHITE+" 공격속도 : "+ChatColor.YELLOW+new BigDecimal(speed));
         lore.add(ChatColor.LIGHT_PURPLE+" 소울바운드 : "+soulBound);
         item.setLore(lore);
     }

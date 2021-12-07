@@ -14,22 +14,22 @@ public class WoodenSword {
         double nomalDamage = 4; //기본
         double damage = 0.1;    //레벨당
         double sum = damage*(10-level);
-        BigDecimal value = new BigDecimal(nomalDamage-sum);
-        return value.doubleValue();
+        double value = nomalDamage-sum;
+        return value;
     }
     public double getAttackSpeed(int level) {
         double nomalSpeed = 1.6; //기본
         double speed = 0.05;      //레벨당
         double sum = speed*(10-level);
-        BigDecimal value = new BigDecimal(nomalSpeed-sum);
-        return value.doubleValue();
+        double value = nomalSpeed-sum;
+        return value;
     }
     public double getSoulBound(int level) {
         double nomalSoulBound = 50; //기본
         double soulBound = 0.5;      //레벨당
         double sum = soulBound*(10-level);
-        BigDecimal value = new BigDecimal(nomalSoulBound-sum);
-        return value.doubleValue();
+        double value = nomalSoulBound-sum;
+        return value;
     }
     //4,1.6
     public ItemStack getWoodenSword(int level) {
@@ -153,6 +153,17 @@ public class WoodenSword {
         ToolEdit setting = new ToolEdit();
         int level = 10;
         setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
+        return item;
+    }
+    public ItemStack upSword_Lv1() { //특수능력 3
+
+        ItemStack item = new ItemStack(Material.WOODEN_SWORD);
+        ToolEdit setting = new ToolEdit();
+        int level = 1;
+        setting.setAttribute(item,level,10,getDamage(level),getAttackSpeed(level),getSoulBound(level));
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(1);
+        item.setItemMeta(meta);
         return item;
     }
 

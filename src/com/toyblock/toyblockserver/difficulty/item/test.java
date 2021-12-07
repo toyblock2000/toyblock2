@@ -46,6 +46,7 @@ public class test implements Listener {
             player.getInventory().addItem(wood.woodenSword_Lv8());
             player.getInventory().addItem(wood.woodenSword_Lv9());
             player.getInventory().addItem(wood.woodenSword_Lv10());
+            player.getInventory().addItem(wood.upSword_Lv1());
 
 
 
