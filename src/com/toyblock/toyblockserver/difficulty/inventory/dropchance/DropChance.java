@@ -81,6 +81,6 @@ public class DropChance implements Listener {
             player.sendMessage(ChatColor.RED+"아이템을 모두 잃었습니다");
             return;
         }
-        player.sendMessage(ChatColor.RED+""+invSize+"개의 아이템중"+saveCount+"개의 아이템만은 끝까지 지켜냈습니다");
+        player.sendMessage(ChatColor.WHITE+""+invSize+ChatColor.RED+"개의 아이템중"+ChatColor.GREEN+saveCount+ChatColor.RED+"개의 아이템만은 끝까지 지켜냈습니다");
     }
 }

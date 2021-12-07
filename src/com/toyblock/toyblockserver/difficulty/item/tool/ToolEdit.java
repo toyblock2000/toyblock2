@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.difficulty.item.tool;
 
+import com.toyblock.toyblockserver.tool.developer.bug;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -81,7 +82,18 @@ public class ToolEdit {
             if(!(str.contains(findStr))) {
                 continue;
             }
-            return Integer.parseInt(str.replaceAll("[^0-9]", ""));
+            float value = 0;
+            if(str.contains("+")) {
+                String[] array = str.split("\\+");
+                for(int v=0;v<array.length;v++) {
+
+                    float data = Float.parseFloat(array[v].replaceAll("[^0-9]", ""));
+                    value = value+data;
+                }
+                return value;
+            }
+
+            return Float.parseFloat(str.replaceAll("[^0-9]", ""));
         }
         return 0f;
     }
@@ -98,7 +110,7 @@ public class ToolEdit {
             if(str.contains(nofindStr)) {
                 continue;
             }
-            return Integer.parseInt(str.replaceAll("[^0-9]", ""));
+            return Float.parseFloat(str.replaceAll("[^0-9]", ""));
         }
         return 0f;
     }
