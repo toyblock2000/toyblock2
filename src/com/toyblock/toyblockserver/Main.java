@@ -142,7 +142,7 @@ public class Main extends JavaPlugin implements Listener {
 				if(!(count+1==mapList.COUNT.get(timeChangeCount))) {
 					this.cancel();
 				}
-				if(time>0&&time<30) {
+				if(time>30&&time<60) {
 					healTime(count+1);
 					this.cancel();
 				}
