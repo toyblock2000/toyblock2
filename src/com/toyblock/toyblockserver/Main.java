@@ -31,6 +31,7 @@ import com.toyblock.toyblockserver.structure.village.info.Repute;
 import com.toyblock.toyblockserver.tool.hashmap.MapData;
 import com.toyblock.toyblockserver.structure.village.path.contract;
 import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
+import io.papermc.paper.tag.EntityTags;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -197,6 +198,7 @@ public class Main extends JavaPlugin implements Listener {
 			Energy.actionBarChat(player,ChatColor.GREEN+"Sun Heal 100%");
 			Energy.timeRemoveBoard(player);
 			player.playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
+			spwanPatrol(player);
 		}
 	}
 
@@ -259,6 +261,37 @@ public class Main extends JavaPlugin implements Listener {
 				task.runTaskTimer(this,20,20);
 			}
 		}
+	}
+	public void leader(Location loc) {
+		World world =loc.getWorld();
+		Location spawnLoc = loc;
+		Pillager pillager = (Pillager) world.spawnEntity(spawnLoc,EntityType.PILLAGER);
+		pillager.getEquipment().setHelmet(new ItemStack(Material.BLACK_BANNER));
+		pillager.getEquipment().getItemInMainHand().setType(Material.CROSSBOW);
+		pillager.setPatrolLeader(true);
+
+	}
+	public void patrol(Location loc) {
+		World world =loc.getWorld();
+		Location spawnLoc = loc;
+		Pillager pillager = (Pillager) world.spawnEntity(spawnLoc,EntityType.PILLAGER);
+		pillager.getEquipment().getItemInMainHand().setType(Material.CROSSBOW);
+		pillager.setCanJoinRaid(true);
+		pillager.setPatrolLeader(false);
+
+	}
+	public void spwanPatrol(Player player) {
+		leader(player.getLocation());
+		patrol(player.getLocation());
+		patrol(player.getLocation());
+		patrol(player.getLocation());
+		patrol(player.getLocation());		patrol(player.getLocation());		patrol(player.getLocation());
+
+		patrol(player.getLocation());		patrol(player.getLocation());		patrol(player.getLocation());
+
+		patrol(player.getLocation());		patrol(player.getLocation());		patrol(player.getLocation());
+
+
 	}
 //	@EventHandler
 	public void onExplosion(ExplosionPrimeEvent e) {
