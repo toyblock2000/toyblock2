@@ -20,7 +20,34 @@ public class MakeSword {
     double levelDamage ;
     double levelSpeed ;
     double levelSoulBound ;
+    public void setType(Material material) {
+        if(material.equals(Material.WOODEN_SWORD)) {
+            setWoodenSword();
+            return;
+        }
+        if(material.equals(Material.STONE_SWORD)) {
+            setStoneSword();
+            return;
+        }
+        if(material.equals(Material.IRON_SWORD)) {
+            setIronSword();
+            return;
+        }
+        if(material.equals(Material.GOLDEN_SWORD)) {
+            setGoldenSword();
+            return;
+        }
+        if(material.equals(Material.DIAMOND_SWORD)) {
+            setDiamondSword();
+            return;
+        }
+        if(material.equals(Material.NETHERITE_SWORD)) {
+            setNetheriteSword();
+            return;
+        }
+        setWoodenSword();
 
+    }
     public void setWoodenSword() {
         this.swordType = Material.WOODEN_SWORD;
         this.nomalDamage = 4;
@@ -36,10 +63,10 @@ public class MakeSword {
         this.nomalDamage = 6;
         setLevelValue(0.2,0.05,5);
     }
-    public void setGoldSword() {
+    public void setGoldenSword() {
         this.swordType = Material.GOLDEN_SWORD;
         this.nomalDamage = 4;
-        setLevelValue(0.03,0.01,8);
+        setLevelValue(0.05,0.01,8);
     }
     public void setDiamondSword() {
         this.swordType = Material.DIAMOND_SWORD;
@@ -112,7 +139,7 @@ public class MakeSword {
         if(level == 11) {
             return sword_Lv10();
         }
-        return null;
+        return sword_Lv1();
     }
     public ItemStack UpgradeGUI() {
 
@@ -123,6 +150,21 @@ public class MakeSword {
         setUpgradeLore(item);
         return item;
     }
+    public ItemStack ChangeGUI() {
+
+        ItemStack item = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(ChatColor.LIGHT_PURPLE+"네더라이트 강화");
+        item.setItemMeta(meta);
+        setChangeLore(item);
+        return item;
+    }
+    private void setChangeLore(ItemStack item) {
+        List lore = new ArrayList();
+        lore.add(ChatColor.GRAY+ " 네더라이트 변형시 데미지 + (1) 만큼의 차이");
+        lore.add(ChatColor.GRAY+ " 네더라이트 변형시 소울바운드 + (1% X level) 만큼의 차이");
+        item.setLore(lore);
+    }
     private void setUpgradeLore(ItemStack item) {
         List lore = new ArrayList();
         lore.add(ChatColor.RED + "레벨당 데미지 + "+levelDamage);
@@ -130,6 +172,7 @@ public class MakeSword {
         lore.add(ChatColor.LIGHT_PURPLE+ "레벨당 소울바운드 + "+levelSoulBound);
         item.setLore(lore);
     }
+
     private ItemStack sword_Lv1() {
 
         ItemStack item = new ItemStack(this.swordType);

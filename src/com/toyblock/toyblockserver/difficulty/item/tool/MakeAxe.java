@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.difficulty.item.tool.weapon;
+package com.toyblock.toyblockserver.difficulty.item.tool;
 
 import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
 import org.bukkit.ChatColor;
@@ -9,7 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class makeAxe {
+public class MakeAxe {
     Material axeType ;
 
     double nomalDamage ;
@@ -21,7 +21,34 @@ public class makeAxe {
     double levelDamage ;
     double levelSpeed ;
     double levelSoulBound ;
+    public void setType(Material material) {
+        if(material.equals(Material.WOODEN_AXE)) {
+            setWoodenAxe();
+            return;
+        }
+        if(material.equals(Material.STONE_AXE)) {
+            setStoneAxe();
+            return;
+        }
+        if(material.equals(Material.IRON_AXE)) {
+            setIronAxe();
+            return;
+        }
+        if(material.equals(Material.GOLDEN_AXE)) {
+            setGoldenAxe();
+            return;
+        }
+        if(material.equals(Material.DIAMOND_AXE)) {
+            setDiamondAxe();
+            return;
+        }
+        if(material.equals(Material.NETHERITE_AXE)) {
+            setNetheriteAxe();
+            return;
+        }
+        setWoodenAxe();
 
+    }
     public void setWoodenAxe() {
         this.axeType = Material.WOODEN_AXE;
         this.nomalDamage = 7;
@@ -37,7 +64,7 @@ public class makeAxe {
         this.nomalDamage = 9;
         setLevelValue(0.3,0.05,3,5);
     }
-    public void setGoldAxe() {
+    public void setGoldenAxe() {
         this.axeType = Material.GOLDEN_AXE;
         this.nomalDamage = 7;
         setLevelValue(0.04,0.01,6,8);
@@ -121,7 +148,23 @@ public class makeAxe {
         if(level == 11) {
             return axe_Lv10();
         }
-        return null;
+        return axe_Lv1();
+    }
+    public ItemStack ChangeGUI() {
+
+        ItemStack item = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(ChatColor.LIGHT_PURPLE+"네더라이트 강화");
+        item.setItemMeta(meta);
+        setChangeLore(item);
+        return item;
+    }
+    private void setChangeLore(ItemStack item) {
+        List lore = new ArrayList();
+        lore.add(ChatColor.GRAY+ " 네더라이트 변형시 데미지 + (1) 만큼의 차이");
+        lore.add(ChatColor.GRAY+ " 네더라이트 변형시 에너지효율 + (1% X level) 만큼의 차이");
+        lore.add(ChatColor.GRAY+ " 네더라이트 변형시 소울바운드 + (1% X level) 만큼의 차이");
+        item.setLore(lore);
     }
     public ItemStack UpgradeGUI() {
 

@@ -17,7 +17,34 @@ public class MakePickaxe {
 
     double levelEnergyEfficiency;
     double levelSoulBound ;
+    public void setType(Material material) {
+        if(material.equals(Material.WOODEN_PICKAXE)) {
+            setWoodenPickaxe();
+            return;
+        }
+        if(material.equals(Material.STONE_PICKAXE)) {
+            setStonePickaxe();
+            return;
+        }
+        if(material.equals(Material.IRON_PICKAXE)) {
+            setIronPickaxe();
+            return;
+        }
+        if(material.equals(Material.GOLDEN_PICKAXE)) {
+            setGoldenPickaxe();
+            return;
+        }
+        if(material.equals(Material.DIAMOND_PICKAXE)) {
+            setDiamondPickaxe();
+            return;
+        }
+        if(material.equals(Material.NETHERITE_PICKAXE)) {
+            setNetheritePickaxe();
+            return;
+        }
+        setWoodenPickaxe();
 
+    }
     public void setWoodenPickaxe() {
         this.pickaxeType = Material.WOODEN_PICKAXE;
         setLevelValue(1,3);
@@ -30,7 +57,7 @@ public class MakePickaxe {
         this.pickaxeType = Material.IRON_PICKAXE;
         setLevelValue(3,5);
     }
-    public void setGoldPickaxe() {
+    public void setGoldenPickaxe() {
         this.pickaxeType = Material.GOLDEN_PICKAXE;
         setLevelValue(6,8);
     }
@@ -95,7 +122,22 @@ public class MakePickaxe {
         if(level == 11) {
             return pickaxe_Lv10();
         }
-        return null;
+        return pickaxe_Lv1();
+    }
+    public ItemStack ChangeGUI() {
+
+        ItemStack item = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(ChatColor.LIGHT_PURPLE+"네더라이트 강화");
+        item.setItemMeta(meta);
+        setChangeLore(item);
+        return item;
+    }
+    private void setChangeLore(ItemStack item) {
+        List lore = new ArrayList();
+        lore.add(ChatColor.GRAY+ " 네더라이트 변형시 에너지효율 + (1% X level) 만큼의 차이");
+        lore.add(ChatColor.GRAY+ " 네더라이트 변형시 소울바운드 + (1% X level) 만큼의 차이");
+        item.setLore(lore);
     }
     public ItemStack UpgradeGUI() {
 

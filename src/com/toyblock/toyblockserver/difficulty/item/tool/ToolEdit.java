@@ -20,7 +20,9 @@ public class ToolEdit {
     public void moveItemMeta(ItemStack fromItem , ItemStack item) {
         moveEnchant(fromItem,item); //인첸트 옮기기
         enchantLore(item); //인첸트 설명 붙이기
-        moveCustomModelData(fromItem,item); //커스텀 모델 데이터 옮기기
+        if(fromItem.getType()==item.getType()) {
+            moveCustomModelData(fromItem,item); //커스텀 모델 데이터 옮기기
+        }
         moveAbility(fromItem,item); //무기 추가능력 옮기기
         moveAddSoulBound(fromItem,item); //무기 소울바인딩 플러스 옮기기
         
@@ -195,6 +197,27 @@ public class ToolEdit {
 
 
             return Float.parseFloat(array[1].replaceAll("[^0-9.]", ""));
+        }
+        return 0f;
+    }
+    public float loreFinder_level(ItemStack item, String findStr) {
+        if(!(item.getItemMeta().hasLore())) {
+            return 0f;
+        }
+        List lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++){
+            String str = (String)lore.get(i);
+            if(!(str.contains(findStr))) {
+                continue;
+            }
+            if(!(str.contains("/"))) {
+                continue;
+            }
+            String[] array = str.split("\\/");
+
+
+
+            return Float.parseFloat(array[0].replaceAll("[^0-9.]", ""));
         }
         return 0f;
     }

@@ -1,11 +1,16 @@
 package com.toyblock.toyblockserver.difficulty.item;
 
+import com.destroystokyo.paper.MaterialTags;
+import com.toyblock.toyblockserver.difficulty.item.tool.MakeAxe;
+import com.toyblock.toyblockserver.difficulty.item.tool.MakePickaxe;
 import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
 import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
+import com.toyblock.toyblockserver.tool.developer.bug;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -154,22 +159,174 @@ public class AnvilIUpgrade implements Listener {
     }
    @EventHandler
     public void changeUpgrade_Sword(SmithItemEvent event) {
+       ItemStack ingot = event.getInventory().getItem(1);
+       if(ingot.getType().equals(Material.NETHERITE_INGOT)) {
+           return;
+       }
         ItemStack subItem = event.getInventory().getItem(0);
+        Material itemType = subItem.getType();
+       if(!(MaterialTags.SWORDS.isTagged(itemType))) {
+           return;
+       }
+
        ToolEdit toolEdit = new ToolEdit();
-        int level = (int) toolEdit.loreFinder(subItem, "레벨");
+        int level = (int) toolEdit.loreFinder_level(subItem, "레벨");
         int remitLevel = (int) toolEdit.loreFinder_remit(subItem,"레벨");
+
         Player player = (Player) event.getView().getPlayer();
         MakeSword wood = new MakeSword();
-        if(remitLevel == level) {
+        wood.setType(subItem.getType());
+
+        if(remitLevel <= level) {
+
             event.setCancelled(true);
             player.sendMessage(ChatColor.RED+"이미 제한 레벨까지 도달했습니다");
 
             return;
         }
+
+        bug.chat(wood.getSword(level+1).getType().toString());
         ItemStack upItem = wood.getSword(level + 1);
         toolEdit.moveItemMeta(subItem,upItem);
         event.getInventory().setResult(upItem);
-        //player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
+
+        player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
+        player.sendMessage(ChatColor.GREEN+"강화 성공");
+    }
+    @EventHandler
+    public void change_Sword(SmithItemEvent event) {
+        ItemStack ingot = event.getInventory().getItem(1);
+        if(!(ingot.getType().equals(Material.NETHERITE_INGOT))) {
+            return;
+        }
+        ItemStack subItem = event.getInventory().getItem(0);
+        Material itemType = subItem.getType();
+        if(!(MaterialTags.SWORDS.isTagged(itemType))) {
+            return;
+        }
+
+        ToolEdit toolEdit = new ToolEdit();
+        int level = (int) toolEdit.loreFinder_level(subItem, "레벨");
+
+
+        Player player = (Player) event.getView().getPlayer();
+        MakeSword wood = new MakeSword();
+        wood.setNetheriteSword();
+        ItemStack upItem = wood.getSword(level);
+        toolEdit.moveItemMeta(subItem,upItem);
+        event.getInventory().setResult(upItem);
+
+        player.playSound(player.getLocation(),Sound.UI_TOAST_CHALLENGE_COMPLETE,1,1);
+        player.sendMessage(ChatColor.GRAY+"다이아검 네더라이트 강화 성공");
+        Bukkit.broadcastMessage(ChatColor.GRAY+""+ChatColor.BOLD+player.getName()+"님이 [네더라이트 검] 을 제작했습니다");
+    }
+    @EventHandler
+    public void change_Pickaxe(SmithItemEvent event) {
+        ItemStack ingot = event.getInventory().getItem(1);
+        if(!(ingot.getType().equals(Material.NETHERITE_INGOT))) {
+            return;
+        }
+        ItemStack subItem = event.getInventory().getItem(0);
+        Material itemType = subItem.getType();
+        if(!(MaterialTags.PICKAXES.isTagged(itemType))) {
+            return;
+        }
+
+        ToolEdit toolEdit = new ToolEdit();
+        int level = (int) toolEdit.loreFinder_level(subItem, "레벨");
+
+        Player player = (Player) event.getView().getPlayer();
+        MakePickaxe make = new MakePickaxe();
+        make.setNetheritePickaxe();
+        ItemStack upItem = make.getPickaxe(level);
+        toolEdit.moveItemMeta(subItem,upItem);
+        event.getInventory().setResult(upItem);
+
+        player.playSound(player.getLocation(),Sound.UI_TOAST_CHALLENGE_COMPLETE,1,1);
+        player.sendMessage(ChatColor.GRAY+"네더라이트 강화 성공");
+    }
+    @EventHandler
+    public void change_Axe(SmithItemEvent event) {
+        ItemStack ingot = event.getInventory().getItem(1);
+        if(!(ingot.getType().equals(Material.NETHERITE_INGOT))) {
+            return;
+        }
+        ItemStack subItem = event.getInventory().getItem(0);
+        Material itemType = subItem.getType();
+        if(!(MaterialTags.AXES.isTagged(itemType))) {
+            return;
+        }
+
+        ToolEdit toolEdit = new ToolEdit();
+        int level = (int) toolEdit.loreFinder_level(subItem, "레벨");
+
+
+        Player player = (Player) event.getView().getPlayer();
+        MakeAxe make = new MakeAxe();
+        make.setNetheriteAxe();
+        ItemStack upItem = make.getAxe(level);
+        toolEdit.moveItemMeta(subItem,upItem);
+        event.getInventory().setResult(upItem);
+
+        player.playSound(player.getLocation(),Sound.UI_TOAST_CHALLENGE_COMPLETE,1,1);
+        player.sendMessage(ChatColor.GRAY+"네더라이트 강화 성공");
+    }
+    @EventHandler
+    public void changeUpgrade_Pickaxe(SmithItemEvent event) {
+        ItemStack ingot = event.getInventory().getItem(1);
+        if(ingot.getType().equals(Material.NETHERITE_INGOT)) {
+            return;
+        }
+        ItemStack subItem = event.getInventory().getItem(0);
+        Material itemType = subItem.getType();
+        if(!(MaterialTags.PICKAXES.isTagged(itemType))) {
+            return;
+        }
+        ToolEdit toolEdit = new ToolEdit();
+        int level = (int) toolEdit.loreFinder_level(subItem, "레벨");
+        int remitLevel = (int) toolEdit.loreFinder_remit(subItem,"레벨");
+        Player player = (Player) event.getView().getPlayer();
+        MakePickaxe wood = new MakePickaxe();
+        wood.setType(subItem.getType());
+        if(remitLevel <= level) {
+            event.setCancelled(true);
+            player.sendMessage(ChatColor.RED+"이미 제한 레벨까지 도달했습니다");
+
+            return;
+        }
+        ItemStack upItem = wood.getPickaxe(level + 1);
+        toolEdit.moveItemMeta(subItem,upItem);
+        event.getInventory().setResult(upItem);
+        player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
+        player.sendMessage(ChatColor.GREEN+"강화 성공");
+    }
+    @EventHandler
+    public void changeUpgrade_Axe(SmithItemEvent event) {
+        ItemStack ingot = event.getInventory().getItem(1);
+        if(ingot.getType().equals(Material.NETHERITE_INGOT)) {
+            return;
+        }
+        ItemStack subItem = event.getInventory().getItem(0);
+        Material itemType = subItem.getType();
+        if(!(MaterialTags.AXES.isTagged(itemType))) {
+            return;
+        }
+        ToolEdit toolEdit = new ToolEdit();
+        int level = (int) toolEdit.loreFinder_level(subItem, "레벨");
+        int remitLevel = (int) toolEdit.loreFinder_remit(subItem,"레벨");
+        Player player = (Player) event.getView().getPlayer();
+        MakeAxe wood = new MakeAxe();
+        wood.setType(subItem.getType());
+        if(remitLevel <= level) {
+            event.setCancelled(true);
+            player.sendMessage(ChatColor.RED+"이미 제한 레벨까지 도달했습니다");
+
+            return;
+        }
+        ItemStack upItem = wood.getAxe(level + 1);
+        toolEdit.moveItemMeta(subItem,upItem);
+        event.getInventory().setResult(upItem);
+        player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);
         player.sendMessage(ChatColor.GREEN+"강화 성공");
     }
 
