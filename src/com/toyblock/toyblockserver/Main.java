@@ -5,6 +5,8 @@ import java.io.File;
 import java.util.*;
 
 
+import com.destroystokyo.paper.MaterialSetTag;
+import com.destroystokyo.paper.MaterialTags;
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
@@ -14,8 +16,7 @@ import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer
 import com.toyblock.toyblockserver.difficulty.Energy.Energy;
 import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
 import com.toyblock.toyblockserver.difficulty.item.*;
-import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
-import com.toyblock.toyblockserver.difficulty.item.tool.weapon.WoodenSword;
+import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.entity.ai.ZombieDunkShot;
@@ -31,12 +32,11 @@ import com.toyblock.toyblockserver.structure.village.info.Repute;
 import com.toyblock.toyblockserver.tool.hashmap.MapData;
 import com.toyblock.toyblockserver.structure.village.path.contract;
 import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
-import io.papermc.paper.tag.EntityTags;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.*;
@@ -124,7 +124,10 @@ public class Main extends JavaPlugin implements Listener {
 		//	data.mapToFile(data.file, villageindex);
 	}
 	public SmithingRecipe getWoodenSwordUpgradeRecipe() {
-		ItemStack makeItem = new WoodenSword().woodenUpgrade();
+		MakeSword make = new MakeSword();
+		make.setWoodenSword();
+		make.setRemitLevel(10);
+		ItemStack makeItem = make.UpgradeGUI();
 		NamespacedKey key = new NamespacedKey(this,"WoodenSwordUpgrade");
 		RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.WOODEN_SWORD);
 		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.CHARCOAL);
@@ -198,7 +201,6 @@ public class Main extends JavaPlugin implements Listener {
 			Energy.actionBarChat(player,ChatColor.GREEN+"Sun Heal 100%");
 			Energy.timeRemoveBoard(player);
 			player.playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
-			spwanPatrol(player);
 		}
 	}
 
@@ -281,19 +283,7 @@ public class Main extends JavaPlugin implements Listener {
 		pillager.setPatrolLeader(false);
 
 	}
-	public void spwanPatrol(Player player) {
-		leader(player.getLocation());
-		patrol(player.getLocation());
-		patrol(player.getLocation());
-		patrol(player.getLocation());
-		patrol(player.getLocation());		patrol(player.getLocation());		patrol(player.getLocation());
 
-		patrol(player.getLocation());		patrol(player.getLocation());		patrol(player.getLocation());
-
-		patrol(player.getLocation());		patrol(player.getLocation());		patrol(player.getLocation());
-
-
-	}
 //	@EventHandler
 	public void onExplosion(ExplosionPrimeEvent e) {
 		Entity entity = e.getEntity();
@@ -618,17 +608,49 @@ public class Main extends JavaPlugin implements Listener {
 		};
 		task.runTaskTimer(this,8,0);
 	}
-	public  ShapedRecipe getRecipe() {
-		WoodenSword sword = new WoodenSword();
-		ItemStack item = sword.woodenSword_Lv1();
+	@EventHandler
+	public void recipeChange(CraftItemEvent event) {
+		CraftingInventory inv = event.getInventory();
+		if(inv.getResult().equals(null)) {
+			return;
+		}
+		ItemStack result = inv.getResult();
+		if(result.getType().equals(Material.STONE_SWORD)) {
+			MakeSword make = new MakeSword();
+			make.setStoneSword();
+			inv.setResult(make.getSword(1));
+		}
 
-		NamespacedKey Key = new NamespacedKey(this,"Wooden_Sword");
+	}
+	public  ShapedRecipe getRecipe_StoneSword() {
+		MakeSword sword = new MakeSword();
+		sword.setStoneSword();
+		ItemStack item = sword.getSword(1);
+
+		NamespacedKey Key = new NamespacedKey(this,"Stone_Sword");
 
 		ShapedRecipe recipe = new ShapedRecipe(Key,item);
 
 		recipe.shape(" W "," W "," S ");
 
-		recipe.setIngredient('W', Material.OAK_PLANKS);
+		recipe.setIngredient('W', Material.COBBLESTONE);
+		recipe.setIngredient('S',Material.STICK);
+
+		return recipe;
+
+	}
+	public  ShapedRecipe getRecipe_GoldSword() {
+		MakeSword sword = new MakeSword();
+		sword.setStoneSword();
+		ItemStack item = sword.getSword(1);
+
+		NamespacedKey Key = new NamespacedKey(this,"Stone_Sword");
+
+		ShapedRecipe recipe = new ShapedRecipe(Key,item);
+
+		recipe.shape(" W "," W "," S ");
+
+		recipe.setIngredient('W', Material.COBBLESTONE);
 		recipe.setIngredient('S',Material.STICK);
 
 		return recipe;

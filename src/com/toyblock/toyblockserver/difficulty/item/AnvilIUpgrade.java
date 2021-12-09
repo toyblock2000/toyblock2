@@ -1,9 +1,7 @@
 package com.toyblock.toyblockserver.difficulty.item;
 
-import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
-import com.toyblock.toyblockserver.difficulty.item.tool.weapon.WoodenSword;
-import com.toyblock.toyblockserver.tool.developer.bug;
+import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -14,8 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.RecipeChoice;
-import org.bukkit.inventory.SmithingRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
@@ -69,7 +65,7 @@ public class AnvilIUpgrade implements Listener {
         ItemStack result = event.getResult();
         ItemStack item1 = inv.getItem(0);
         ItemStack item2 = inv.getItem(1);
-        WoodenSword wood = new WoodenSword();
+        MakeSword wood = new MakeSword();
         if(loreFinder(item1,level_Str) == 0) {
             return;
         }
@@ -77,7 +73,7 @@ public class AnvilIUpgrade implements Listener {
             return;
         }
         int level = (int)loreFinder(item1,level_Str);
-        if(wood.getWoodenSword( (level+1)).equals(null)) {
+        if(wood.getSword( (level+1)).equals(null)) {
             return;
         }
 
@@ -146,8 +142,8 @@ public class AnvilIUpgrade implements Listener {
         }
 
         int level = (int)loreFinder(item1,level_Str);
-        WoodenSword tool = new WoodenSword();
-        ItemStack upItem = tool.getWoodenSword(level+1);
+        MakeSword tool = new MakeSword();
+        ItemStack upItem = tool.getSword(level+1);
         event.setResult(item1);
 
     }
@@ -169,8 +165,8 @@ public class AnvilIUpgrade implements Listener {
             return;
         }
         int level = (int)loreFinder(event.getInventory().getItem(0),level_Str);
-        WoodenSword tool = new WoodenSword();
-        ItemStack upItem = tool.getWoodenSword(level+1);
+        MakeSword tool = new MakeSword();
+        ItemStack upItem = tool.getSword(level+1);
         event.getInventory().clear(0);
          event.getInventory().getItem(1).setAmount(event.getInventory().getItem(1).getAmount()-1);
 
@@ -178,20 +174,20 @@ public class AnvilIUpgrade implements Listener {
         event.getWhoClicked().getInventory().addItem(upItem);
     }
    @EventHandler
-    public void changeUpgrade_WoodenSword(SmithItemEvent event) {
+    public void changeUpgrade_Sword(SmithItemEvent event) {
         ItemStack subItem = event.getInventory().getItem(0);
        ToolEdit toolEdit = new ToolEdit();
-        int level = (int) toolEdit.loreFinders(subItem, "레벨","제한");
-        int remitLevel = (int) toolEdit.loreFinder(subItem,"레벨제한");
+        int level = (int) toolEdit.loreFinder(subItem, "레벨");
+        int remitLevel = (int) toolEdit.loreFinder_remit(subItem,"레벨");
         Player player = (Player) event.getView().getPlayer();
-        WoodenSword wood = new WoodenSword();
+        MakeSword wood = new MakeSword();
         if(remitLevel == level) {
             event.setCancelled(true);
             player.sendMessage(ChatColor.RED+"이미 제한 레벨까지 도달했습니다");
 
             return;
         }
-        ItemStack upItem = wood.getWoodenSword(level + 1);
+        ItemStack upItem = wood.getSword(level + 1);
         toolEdit.moveItemMeta(subItem,upItem);
         event.getInventory().setResult(upItem);
         //player.playSound(player.getLocation(),Sound.ENTITY_PLAYER_LEVELUP,1,1);

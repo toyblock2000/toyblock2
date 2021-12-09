@@ -27,7 +27,7 @@ public class ToolEdit {
     }
     public void setPickaxeLore(ItemStack item, int level, int remitLevel , double energy_discount) {
         List lore = new ArrayList();
-        lore.add(" ");
+        //lore.add(" ");
         lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level);
         lore.add(ChatColor.WHITE+" 레벨제한  : "+remitLevel);
 
@@ -134,6 +134,7 @@ public class ToolEdit {
         }
         return 0f;
     }
+
     public void moveAbility(ItemStack moveItem, ItemStack item) {
         if(!(moveItem.getItemMeta().hasLore())) {
             return;
@@ -176,6 +177,27 @@ public class ToolEdit {
         }
         return 0f;
     }
+    public float loreFinder_remit(ItemStack item, String findStr) {
+        if(!(item.getItemMeta().hasLore())) {
+            return 0f;
+        }
+        List lore = item.getItemMeta().getLore();
+        for(int i = 0;i<lore.size();i++){
+            String str = (String)lore.get(i);
+            if(!(str.contains(findStr))) {
+                continue;
+            }
+            if(!(str.contains("/"))) {
+                continue;
+            }
+            String[] array = str.split("\\/");
+
+
+
+            return Float.parseFloat(array[1].replaceAll("[^0-9.]", ""));
+        }
+        return 0f;
+    }
     public float loreFinders(ItemStack item, String findStr,String nofindStr) {
         if(!(item.getItemMeta().hasLore())) {
             return 0f;
@@ -193,7 +215,7 @@ public class ToolEdit {
         }
         return 0f;
     }
-    public void setAttribute(ItemStack item,int level,int remitLevel,double damage,double attack_speed,double soulBound) {
+    public void setSwordAttribute(ItemStack item,int level,int remitLevel,double damage,double attack_speed,double soulBound) {
         double playerAttackSpeed = 4;
         double playerDamange = 1;
         double set_damage = damage - playerDamange;
@@ -207,22 +229,57 @@ public class ToolEdit {
         meta.addAttributeModifier (Attribute.GENERIC_ATTACK_SPEED, attackspeed);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
-        setAttributeLore(item,level,remitLevel,damage,attack_speed,soulBound);
+        setSwordAttributeLore(item,level,remitLevel,damage,attack_speed,soulBound);
+    }
+    public void setPickaxeAttribute(ItemStack item,int level,int remitLevel,double energyEfficiency,double soulBound) {
+
+        setPickaxeAttributeLore(item,level,remitLevel,energyEfficiency,soulBound);
+    }
+    public void setAxeAttribute(ItemStack item,int level,int remitLevel,double damage,double attack_speed,double energyEfficiency,double soulBound) {
+        double playerAttackSpeed = 4;
+        double playerDamange = 1;
+        double set_damage = damage - playerDamange;
+        double set_speed = attack_speed - playerAttackSpeed;
+        ItemMeta meta = item.getItemMeta();
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
+        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+        AttributeModifier attackdamage = new AttributeModifier(UUID.randomUUID(), "무기 공격력", set_damage, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+        meta.addAttributeModifier (Attribute.GENERIC_ATTACK_DAMAGE, attackdamage);
+        AttributeModifier attackspeed = new AttributeModifier(UUID.randomUUID(), "무기 공격속도", set_speed, AttributeModifier.Operation.ADD_NUMBER,EquipmentSlot.HAND);
+        meta.addAttributeModifier (Attribute.GENERIC_ATTACK_SPEED, attackspeed);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        item.setItemMeta(meta);
+        setAxeAttributeLore(item,level,remitLevel,damage,attack_speed,energyEfficiency,soulBound);
     }
     public String comma (double f) {
         DecimalFormat form = new DecimalFormat("#.##");
         String nomber = form.format(f);
         return nomber;
     }
-    public void setAttributeLore(ItemStack item,int level, int remitLevel ,double damage, double speed,double soulBound) {
+    public void setSwordAttributeLore(ItemStack item,int level, int remitLevel ,double damage, double speed,double soulBound) {
         List lore = new ArrayList();
-        new BigDecimal(damage).doubleValue();
         lore.add(" ");
-        lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level);
-        lore.add(ChatColor.WHITE+" 레벨제한  : "+remitLevel);
-
+        lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level+ ChatColor.WHITE+" / "+remitLevel);
         lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+comma(damage));
         lore.add(ChatColor.WHITE+" 공격속도 : "+ChatColor.YELLOW+comma(speed));
+        lore.add(ChatColor.LIGHT_PURPLE+" 소울바운드 : "+soulBound+"%");
+        item.setLore(lore);
+    }
+    public void setPickaxeAttributeLore(ItemStack item,int level, int remitLevel , double energyEfficiency,double soulBound) {
+        List lore = new ArrayList();
+        lore.add(" ");
+        lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level+ ChatColor.WHITE+" / "+remitLevel);
+        lore.add(ChatColor.WHITE+" 에너지 효율 : "+ChatColor.YELLOW+comma(energyEfficiency)+"%");
+        lore.add(ChatColor.LIGHT_PURPLE+" 소울바운드 : "+soulBound+"%");
+        item.setLore(lore);
+    }
+    public void setAxeAttributeLore(ItemStack item,int level, int remitLevel , double damage,double speed,double energyEfficiency,double soulBound) {
+        List lore = new ArrayList();
+        lore.add(" ");
+        lore.add(ChatColor.WHITE+" 레벨  : "+ChatColor.LIGHT_PURPLE+level+ ChatColor.WHITE+" / "+remitLevel);
+        lore.add(ChatColor.WHITE+" 데미지 : "+ChatColor.YELLOW+comma(damage));
+        lore.add(ChatColor.WHITE+" 공격속도 : "+ChatColor.YELLOW+comma(speed));
+        lore.add(ChatColor.WHITE+" 에너지 효율 : "+ChatColor.YELLOW+comma(energyEfficiency)+"%");
         lore.add(ChatColor.LIGHT_PURPLE+" 소울바운드 : "+soulBound+"%");
         item.setLore(lore);
     }
