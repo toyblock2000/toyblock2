@@ -269,6 +269,7 @@ public class Main extends JavaPlugin implements Listener {
 		pillager.getEquipment().setHelmet(new ItemStack(Material.BLACK_BANNER));
 		pillager.getEquipment().getItemInMainHand().setType(Material.CROSSBOW);
 		pillager.setPatrolLeader(true);
+		pillager.setCustomName("리더");
 
 	}
 	public void patrol(Location loc) {
