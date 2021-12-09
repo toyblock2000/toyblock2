@@ -17,17 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 
 public class AnvilIUpgrade implements Listener {
-    //@EventHandler
-    public void upgrade(PrepareAnvilEvent event) {
-        if(!(event.getInventory().getItem(1).getItemMeta().getDisplayName().equals("업그레이드"))) {
-            return;
-        }
-        Inventory inv = event.getInventory();
-        WeaponLore weapon = new WeaponLore();
-        ItemStack up = weapon.upgradeTear(event.getResult());
-        weapon.addEnchantLore(up);
-        event.setResult(up);
-    }
+
     //@EventHandler
     public void enchant(PrepareAnvilEvent event) {
         if(event.getResult().getEnchantmentLevel(Enchantment.DAMAGE_ALL)>0) {
@@ -38,18 +28,7 @@ public class AnvilIUpgrade implements Listener {
         }
 
     }
-    //@EventHandler
-    public void anvilupgrade(PrepareAnvilEvent event) {
 
-        Inventory inv = event.getInventory();
-        WeaponLore weapon = new WeaponLore();
-        if (weapon.getTear(inv.getItem(0)) < weapon.getTear(inv.getItem(1))) {
-            ItemStack newitem = weapon.setUpgradeTear(inv.getItem(1), inv.getItem(2));
-            weapon.addEnchantLore(newitem);
-            event.setResult(newitem);
-            return;
-        }
-    }
     String remitLevel_Str = "레벨 제한";
     String level_Str = "레벨";
     public void anvilUpgrade_OrderSheet(PrepareAnvilEvent event) {

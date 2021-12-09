@@ -611,14 +611,20 @@ public class Main extends JavaPlugin implements Listener {
 	@EventHandler
 	public void recipeChange(CraftItemEvent event) {
 		CraftingInventory inv = event.getInventory();
+		bug.chat("인벤찾기");
 		if(inv.getResult().equals(null)) {
+			bug.chat("공기");
 			return;
+			
 		}
+		bug.chat("머가있긴있다");
 		ItemStack result = inv.getResult();
 		if(result.getType().equals(Material.STONE_SWORD)) {
+			bug.chat("돌찾음");
 			MakeSword make = new MakeSword();
 			make.setStoneSword();
 			inv.setResult(make.getSword(1));
+			bug.chat("돌찾아서 교체 해놓음");
 		}
 
 	}
@@ -651,6 +657,23 @@ public class Main extends JavaPlugin implements Listener {
 		recipe.shape(" W "," W "," S ");
 
 		recipe.setIngredient('W', Material.COBBLESTONE);
+		recipe.setIngredient('S',Material.STICK);
+
+		return recipe;
+
+	}
+	public  ShapedRecipe getRecipe() {
+		MakeSword sword = new MakeSword();
+		sword.setStoneSword();
+		ItemStack item = sword.getSword(1);
+
+		NamespacedKey Key = new NamespacedKey(this,"Wooden_Sword");
+
+		ShapedRecipe recipe = new ShapedRecipe(Key,item);
+
+		recipe.shape(" W "," W "," S ");
+
+		recipe.setIngredient('W', Material.OAK_PLANKS);
 		recipe.setIngredient('S',Material.STICK);
 
 		return recipe;

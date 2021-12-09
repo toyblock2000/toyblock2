@@ -68,47 +68,8 @@ public class WeaponLore {
         }
         return lore;
     }
-    public ItemStack upgradeTear(ItemStack item) {
-        List<String>lore = item.getItemMeta().getLore();
-        for(int i = 0;i<lore.size();i++) {
-            String str = lore.get(i);
-            if (str.contains("무기 레벨 :")) {
-                str = str.replaceAll("[^0-9]","");
-                int gettear = Integer.parseInt(str);
-                if(item.getType().equals(Material.WOODEN_SWORD)) {
-                    TearSpawn tear = new TearSpawn();
-                    ItemStack newItem = tear.woodenTearSpawn(item,gettear+1);
-                    Map<Enchantment,Integer> map = item.getItemMeta().getEnchants();
-                    for(Enchantment key : map.keySet()) {
-                        Integer value = map.get(key);
-                        newItem.addEnchantment(key,value);
-                    }
-                    return newItem;
-                }
 
 
-            }
-        }
-        return item;
-    }
-    public ItemStack setUpgradeTear(ItemStack item1, ItemStack item2) {
-       // List<String>lore = item.getItemMeta().getLore();
-        int tear = getTear(item1);
-
-
-                if(item2.getType().equals(Material.WOODEN_SWORD)) {
-                    TearSpawn tearspawn = new TearSpawn();
-                    ItemStack newItem = tearspawn.woodenTearSpawn(item2,tear);
-                    Map<Enchantment,Integer> map = item2.getItemMeta().getEnchants();
-                    for(Enchantment key : map.keySet()) {
-                        Integer value = map.get(key);
-                        newItem.addEnchantment(key,value);
-                    }
-                    return newItem;
-                }
-
-        return item2;
-            }
     public int getTear(ItemStack item) {
         if(item.getType().isEmpty()) {
             return 0;

@@ -76,7 +76,7 @@ public class makeAxe {
         return value;
     }
     private double getAttackSpeed(int level) {
-        double sum = levelDamage*(10-level);
+        double sum = levelSpeed*(10-level);
         double value = nomalSpeed-sum;
         return value;
     }
