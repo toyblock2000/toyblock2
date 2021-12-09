@@ -33,6 +33,7 @@ import com.toyblock.toyblockserver.structure.village.info.Repute;
 import com.toyblock.toyblockserver.tool.hashmap.MapData;
 import com.toyblock.toyblockserver.structure.village.path.contract;
 import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
+import net.minecraft.world.entity.npc.VillagerData;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -190,6 +191,8 @@ public class Main extends JavaPlugin implements Listener {
 			Energy.timeRemoveBoard(player);
 			player.playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
 		}
+	}
+	public void ttt(LivingEntity en) {
 	}
 
 
