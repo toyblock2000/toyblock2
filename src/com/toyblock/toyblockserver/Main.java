@@ -17,7 +17,6 @@ import com.toyblock.toyblockserver.difficulty.Energy.Energy;
 import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
 import com.toyblock.toyblockserver.difficulty.item.*;
 import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
-import com.toyblock.toyblockserver.difficulty.item.tool.Recipes;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.entity.ai.ZombieDunkShot;
@@ -33,7 +32,6 @@ import com.toyblock.toyblockserver.structure.village.info.Repute;
 import com.toyblock.toyblockserver.tool.hashmap.MapData;
 import com.toyblock.toyblockserver.structure.village.path.contract;
 import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
-import net.minecraft.world.entity.npc.VillagerData;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -80,6 +78,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new ItemUse(), this);
 		getServer().getPluginManager().registerEvents(new InvestmentNpc(), this);
 		getServer().getPluginManager().registerEvents(new InventoryClick(), this);
+		getServer().getPluginManager().registerEvents(new test(), this);
 		getServer().getPluginManager().registerEvents(new Adventurer(), this);
 		getServer().getPluginManager().registerEvents(new AdventurerLevelUp(), this);
 		getServer().getPluginManager().registerEvents(new AnvilIUpgrade(), this);
@@ -97,8 +96,9 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.makeFile(chunk);
 		MapData.makeFile(link);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
-		Recipes.putRecipe();
+		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
+		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
@@ -122,6 +122,17 @@ public class Main extends JavaPlugin implements Listener {
 
 
 		//	data.mapToFile(data.file, villageindex);
+	}
+	public SmithingRecipe getWoodenSwordUpgradeRecipe() {
+		MakeSword make = new MakeSword();
+		make.setWoodenSword();
+		make.setRemitLevel(10);
+		ItemStack makeItem = make.UpgradeGUI();
+		NamespacedKey key = new NamespacedKey(this,"WoodenSwordUpgrade");
+		RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.WOODEN_SWORD);
+		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.CHARCOAL);
+		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+		return recipe;
 	}
 	String worldName = "world";
 	static String timeChangeCount = "TIME_CHANGE_COUNT";
@@ -191,8 +202,6 @@ public class Main extends JavaPlugin implements Listener {
 			Energy.timeRemoveBoard(player);
 			player.playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
 		}
-	}
-	public void ttt(LivingEntity en) {
 	}
 
 
@@ -599,7 +608,77 @@ public class Main extends JavaPlugin implements Listener {
 		};
 		task.runTaskTimer(this,8,0);
 	}
+	@EventHandler
+	public void recipeChange(CraftItemEvent event) {
+		CraftingInventory inv = event.getInventory();
+		bug.chat("인벤찾기");
+		if(inv.getResult().equals(null)) {
+			bug.chat("공기");
+			return;
+			
+		}
+		bug.chat("머가있긴있다");
+		ItemStack result = inv.getResult();
+		if(result.getType().equals(Material.STONE_SWORD)) {
+			bug.chat("돌찾음");
+			MakeSword make = new MakeSword();
+			make.setStoneSword();
+			inv.setResult(make.getSword(1));
+			bug.chat("돌찾아서 교체 해놓음");
+		}
 
+	}
+	public  ShapedRecipe getRecipe_StoneSword() {
+		MakeSword sword = new MakeSword();
+		sword.setStoneSword();
+		ItemStack item = sword.getSword(1);
+
+		NamespacedKey Key = new NamespacedKey(this,"Stone_Sword");
+
+		ShapedRecipe recipe = new ShapedRecipe(Key,item);
+
+		recipe.shape(" W "," W "," S ");
+
+		recipe.setIngredient('W', Material.COBBLESTONE);
+		recipe.setIngredient('S',Material.STICK);
+
+		return recipe;
+
+	}
+	public  ShapedRecipe getRecipe_GoldSword() {
+		MakeSword sword = new MakeSword();
+		sword.setStoneSword();
+		ItemStack item = sword.getSword(1);
+
+		NamespacedKey Key = new NamespacedKey(this,"Stone_Sword");
+
+		ShapedRecipe recipe = new ShapedRecipe(Key,item);
+
+		recipe.shape(" W "," W "," S ");
+
+		recipe.setIngredient('W', Material.COBBLESTONE);
+		recipe.setIngredient('S',Material.STICK);
+
+		return recipe;
+
+	}
+	public  ShapedRecipe getRecipe() {
+		MakeSword sword = new MakeSword();
+		sword.setStoneSword();
+		ItemStack item = sword.getSword(1);
+
+		NamespacedKey Key = new NamespacedKey(this,"Wooden_Sword");
+
+		ShapedRecipe recipe = new ShapedRecipe(Key,item);
+
+		recipe.shape(" W "," W "," S ");
+
+		recipe.setIngredient('W', Material.OAK_PLANKS);
+		recipe.setIngredient('S',Material.STICK);
+
+		return recipe;
+
+	}
 	public  ShapedRecipe potionRecipe() {
 
 		ItemStack item = new ItemStack(Material.POTION);
