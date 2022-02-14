@@ -24,6 +24,8 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -80,4 +82,11 @@ public class OneLand {
         }
         return setting;
     }
+
+    @EventHandler
+    public void onPlace(BlockPlaceEvent event) {
+        //이벤트 작동 내용
+    }
+
+
 }
