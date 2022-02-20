@@ -1,7 +1,7 @@
 package com.toyblock.toyblockserver.difficulty.item;
 
 import com.toyblock.toyblockserver.tool.tool;
-import net.kyori.adventure.text.Component;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;

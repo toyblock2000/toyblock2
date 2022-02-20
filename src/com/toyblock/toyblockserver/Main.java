@@ -11,8 +11,7 @@ import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
-import com.toyblock.toyblockserver.difficulty.advancements.adventurer.Adventurer;
-import com.toyblock.toyblockserver.difficulty.advancements.adventurer.AdventurerLevelUp;
+
 import com.toyblock.toyblockserver.difficulty.Energy.Energy;
 import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
 import com.toyblock.toyblockserver.difficulty.item.*;

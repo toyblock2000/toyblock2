@@ -2,7 +2,7 @@ package com.toyblock.toyblockserver.difficulty.inventory.dropchance;
 
 import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
 import com.toyblock.toyblockserver.tool.developer.bug;
-import net.md_5.bungee.api.chat.TextComponent;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
