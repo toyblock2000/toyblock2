@@ -2,6 +2,7 @@ package com.toyblock.toyblockserver.structure;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 

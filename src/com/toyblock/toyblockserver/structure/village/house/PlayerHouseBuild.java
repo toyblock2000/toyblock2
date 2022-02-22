@@ -46,6 +46,7 @@ public class PlayerHouseBuild implements Listener {
             Location loc = new LocBalance().balance(point);
 
             if (!PathLink.LinkCheck(loc,view)) {
+                event.getPlayer().chat("생성미완료");
                 return;
             }
 
@@ -57,6 +58,7 @@ public class PlayerHouseBuild implements Listener {
                 new ExtendedHouse().houseMapPut(loc,view);
                 StructureMap.Chunk.put(loc.getChunk(),"castle");
                 consol.send("집완성");
+                event.getPlayer().chat("집 건섫");
             }
 
 

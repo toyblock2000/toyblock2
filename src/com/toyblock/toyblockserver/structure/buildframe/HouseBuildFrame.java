@@ -80,12 +80,12 @@ public class HouseBuildFrame implements Listener {
             Player player = (Player) event.getWhoClicked();
             event.setCancelled(true);
             Location loc = event.getWhoClicked().getLocation();
-            Location save_loc = new Location(loc.getWorld(),loc.getX(),loc.getY()+4,loc.getZ()+6);
-            Location point1 = new Location(loc.getWorld(),save_loc.getX()-2,save_loc.getY()-4,save_loc.getZ()-2);
-            Location point2 = new Location(loc.getWorld(),save_loc.getX()+7,save_loc.getY()+10,save_loc.getZ()+7);
+            Location save_loc = new Location(loc.getWorld(),loc.getX(),loc.getY()+4,loc.getZ()+4);
+            Location point1 = new Location(loc.getWorld(),loc.getX()+2,loc.getY(),loc.getZ()+11);
+            Location point2 = new Location(loc.getWorld(),point1.getX()-9,point1.getY()+14,point1.getZ()-9);
             loc.getWorld().spawnParticle(Particle.FLAME,point1.getX(),point1.getY(),point1.getZ(),10);
             loc.getWorld().spawnParticle(Particle.FLAME,point2.getX(),point2.getY(),point2.getZ(),10);
-            WorldEditAPIController edit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/House","world");
+            WorldEditAPIController edit = new WorldEditAPIController(structureType.VILLAGE_2X2HOUSE.name(), "world");
             edit.copy(point1, point2,save_loc);
             edit.save(event.getWhoClicked().getInventory().getItemInMainHand().getItemMeta().getDisplayName()+".schem");
             player.chat(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
@@ -105,7 +105,7 @@ public class HouseBuildFrame implements Listener {
             Location point2 = new Location(loc.getWorld(),save_loc.getX()-52,save_loc.getY()-100,save_loc.getZ()-52);
             loc.getWorld().spawnParticle(Particle.FLAME,point1.getX(),point1.getY(),point1.getZ(),10);
             loc.getWorld().spawnParticle(Particle.FLAME,point2.getX(),point2.getY(),point2.getZ(),10);
-            WorldEditAPIController edit = new WorldEditAPIController("C:/Users/82105/Desktop/paper 1.17.1/plugins/Astral_server/schematic/village/castle","world");
+            WorldEditAPIController edit = new WorldEditAPIController(structureType.VILLAGE_CASTLE.name(), "world");
             edit.copy(point1, point2,save_loc);
             edit.save(event.getWhoClicked().getInventory().getItemInMainHand().getItemMeta().getDisplayName()+".schem");
             player.chat(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());

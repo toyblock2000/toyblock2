@@ -16,6 +16,7 @@ import com.sk89q.worldguard.protection.managers.storage.StorageException;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.toyblock.toyblockserver.mapList;
 import com.toyblock.toyblockserver.structure.StructureMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -35,6 +36,8 @@ public class protect {
             Location loc1 = new Location(this.world, this.structureLoc.getX() + 52 , this.structureLoc.getY() + 300, this.structureLoc.getZ() + 52);
             Location loc2 = new Location(this.world, this.structureLoc.getX() - 52, this.structureLoc.getY() - 300, this.structureLoc.getZ() - 52);
             castleguard(loc1, loc2, "test");
+        mapList.VILLAGER_LIST.add("test");
+        Bukkit.getPlayer("toy_block").chat("테스트 만들어놨음");
             for (int x = -100; x < 1; x = x + 5) {
                 for (int y = -400; y < 401; y = y + 5) {
                     for (int z = -100; z < 1; z = z + 5) {

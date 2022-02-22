@@ -2,6 +2,8 @@ package com.toyblock.toyblockserver.tool;
 
 
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
@@ -116,6 +118,6 @@ public class tool {
         }
     }
 	public static void player_center_chat(Player player , String text) {
-		player.sendMessage(ChatMessageType.ACTION_BAR,TextComponent.fromLegacyText(text));
+		player.sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(text));
 	}
 }

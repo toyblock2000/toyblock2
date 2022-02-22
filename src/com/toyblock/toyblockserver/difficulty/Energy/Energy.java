@@ -1,10 +1,10 @@
 package com.toyblock.toyblockserver.difficulty.Energy;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import com.destroystokyo.paper.MaterialSetTag;
 import com.destroystokyo.paper.MaterialTags;
 import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.mapList;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -439,20 +439,20 @@ public class Energy implements Listener {
         }
         setRegen(player,true);
 
-            BukkitRunnable Regen = new BukkitRunnable() {
-                public void run() {
-                    if(!(checkHaveEnergy(player))) {
-                        this.cancel();
-                    }
-                    if(!regenPlayerEnergy(player,regenEnergy)) {
-                        removeRegen(player);
-                        actionBarChat(player,ChatColor.GREEN+"에너지 100% 회복");
-                        timeRemoveBoard(player);
-                        this.cancel();
-                    }
+        BukkitRunnable Regen = new BukkitRunnable() {
+            public void run() {
+                if(!(checkHaveEnergy(player))) {
+                    this.cancel();
                 }
-            };
-            Regen.runTaskTimer(Main.getPlugin(Main.class) , time, time);
+                if(!regenPlayerEnergy(player,regenEnergy)) {
+                    removeRegen(player);
+                    actionBarChat(player,ChatColor.GREEN+"에너지 100% 회복");
+                    timeRemoveBoard(player);
+                    this.cancel();
+                }
+            }
+        };
+        Regen.runTaskTimer(Main.getPlugin(Main.class) , time, time);
     }
 
 

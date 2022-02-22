@@ -23,8 +23,8 @@ public class ExtendedHouse {
     public boolean houseCheck2x2(Location loc, String view) {
         consol.send("집체크");
         if (view == "S") {
-            Location loc10 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
-            Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() + 5);
+            Location loc10 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
+            Location loc01 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
             if (heightCheck(loc) && heightCheck(loc10) && heightCheck(loc01) && heightCheck(loc11)) {
                 consol.send("집체크성공");
@@ -35,9 +35,9 @@ public class ExtendedHouse {
             }
         }
         if (view == "W") {
-            Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
+            Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
-            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() + 5);
+            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ()  -5);
             if (heightCheck(loc) && heightCheck(loc10) && heightCheck(loc01) && heightCheck(loc11)) {
                 consol.send("집체크성공");
                 return true;
@@ -47,9 +47,9 @@ public class ExtendedHouse {
             }
         }
         if (view == "N") {
-            Location loc10 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
+            Location loc10 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
-            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() - 5);
+            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() +5, loc.getBlockY(), loc.getBlockZ() - 5);
             if (heightCheck(loc) && heightCheck(loc10) && heightCheck(loc01) && heightCheck(loc11)) {
                 consol.send("집체크성공");
                 return true;
@@ -59,9 +59,9 @@ public class ExtendedHouse {
             }
         }
         if (view == "E") {
-            Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
+            Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
-            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() - 5);
+            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() + 5);
             if (heightCheck(loc) && heightCheck(loc10) && heightCheck(loc01) && heightCheck(loc11)) {
                 consol.send("집체크성공");
                 return true;
@@ -76,8 +76,8 @@ public class ExtendedHouse {
     }
     public void houseMapPut(Location loc, String view) {
         if (view == "S") {
-            Location loc10 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
-            Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() + 5);
+            Location loc10 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
+            Location loc01 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc11 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
             StructureMap.Link.put(loc,"false");
             StructureMap.Link.put(loc10,"false");
@@ -86,27 +86,27 @@ public class ExtendedHouse {
 
         }
         if (view == "W") {
-            Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
+            Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
-            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() + 5);
+            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() - 5);
             StructureMap.protect.put(loc,"House");
             StructureMap.protect.put(loc10,"House");
             StructureMap.protect.put(loc01,"House");
             StructureMap.protect.put(loc11,"House");
         }
         if (view == "N") {
-            Location loc10 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ());
+            Location loc10 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
-            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() - 5, loc.getBlockY(), loc.getBlockZ() - 5);
+            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() - 5);
                 StructureMap.protect.put(loc,"House");
                 StructureMap.protect.put(loc10,"House");
                 StructureMap.protect.put(loc01,"House");
                 StructureMap.protect.put(loc11,"House");
         }
         if (view == "E") {
-            Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() - 5);
+            Location loc10 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() + 5);
             Location loc01 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ());
-            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() - 5);
+            Location loc11 = new Location(loc.getWorld(), loc.getBlockX() + 5, loc.getBlockY(), loc.getBlockZ() +5);
             StructureMap.protect.put(loc, "House");
             StructureMap.protect.put(loc10, "House");
             StructureMap.protect.put(loc01, "House");
