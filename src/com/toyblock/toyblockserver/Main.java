@@ -103,6 +103,7 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.makeFile(villager_name);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		MapData.String_fileToMap(villager_name);
+		MapData.player_fileToMap(affiliation,mapList.AFFILIATION);
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());

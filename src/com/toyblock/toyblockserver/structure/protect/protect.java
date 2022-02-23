@@ -169,4 +169,24 @@ public class protect {
         }
 
     }
+    public void villageCastleSpawn (String castleName) { //100X100
+        Location endLoc = new Location(this.world, this.structureLoc.getX() + 50, this.structureLoc.getY(), this.structureLoc.getZ() + 50);
+        Location loc1 = new Location(this.world, this.structureLoc.getX() + 52 , this.structureLoc.getY() + 300, this.structureLoc.getZ() + 52);
+        Location loc2 = new Location(this.world, this.structureLoc.getX() - 52, this.structureLoc.getY() - 300, this.structureLoc.getZ() - 52);
+        castleguard(loc1, loc2, castleName+" "+"Spawn");
+        mapList.VILLAGER_LIST.add(castleName);
+        for (int x = -100; x < 1; x = x + 5) {
+            for (int y = -400; y < 401; y = y + 5) {
+                for (int z = -100; z < 1; z = z + 5) {
+                    Location pointLoc = new Location(this.world, endLoc.getX() + x, endLoc.getY() + y, endLoc.getZ() + z);
+                    if (pointLoc.getY() == endLoc.getY()) {
+                        StructureMap.Link.put(pointLoc, "true");
+
+                    }
+
+                }
+            }
+        }
+
+    }
 }

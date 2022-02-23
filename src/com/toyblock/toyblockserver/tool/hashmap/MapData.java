@@ -2,6 +2,7 @@ package com.toyblock.toyblockserver.tool.hashmap;
 
 import com.toyblock.toyblockserver.mapList;
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -90,6 +91,24 @@ public class MapData extends JavaPlugin {
                 Location locs = save.locput(key);
 
                 map.put(locs,index);
+
+            }
+        } catch (FileNotFoundException e3) {
+            e3.printStackTrace();
+        } catch (IOException e4) {
+            e4.printStackTrace();
+        }
+    }
+    public static void player_fileToMap(File f, HashMap<Player,String> map) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            String fileLine = null;
+            while ((fileLine = reader.readLine()) != null) {
+
+                String key = (fileLine.split("\\|")[0]);
+                String index = (fileLine.split("\\|")[1]);
+                Player player = Bukkit.getPlayer(key);
+                map.put(player,index);
 
             }
         } catch (FileNotFoundException e3) {

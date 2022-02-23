@@ -8,10 +8,12 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.mapList;
 import com.toyblock.toyblockserver.tool.developer.bug;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Lectern;
@@ -22,8 +24,10 @@ import org.bukkit.entity.Villager;
 import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.LecternInventory;
 import org.bukkit.inventory.MerchantRecipe;
@@ -36,12 +40,20 @@ import java.util.Objects;
 
 
 public class villageRegister implements Listener {
+    String pass = ChatColor.GREEN+""+ChatColor.BOLD+"가입 확인서";
     @EventHandler
-    public void setAutoShop(VillagerCareerChangeEvent event) {
-        Bukkit.getPlayer("toy_block").chat("직업이벤트발생");
+    public void setSecretary(VillagerCareerChangeEvent event) {
+
         Villager villager = (Villager) event.getEntity();
         Location jobLoc = villager.getMemory(MemoryKey.JOB_SITE);
-        if(jobLoc.getBlock().getType().equals(Material.LECTERN)) {
+
+        if(!jobLoc.getBlock().getType().equals(Material.LECTERN)) {
+            return;
+        }
+        Location jobLocTear = new Location(jobLoc.getWorld(),jobLoc.getX(),jobLoc.getBlockY()-1,jobLoc.getBlockZ());
+        if(!jobLocTear.getBlock().getType().equals(Material.IRON_BLOCK)) {
+            return;
+        }
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
             RegionManager manager = container.get(BukkitAdapter.adapt(jobLoc.getWorld()));
             BlockVector3 pos = BlockVector3.at(jobLoc.getX(), jobLoc.getY(), jobLoc.getZ());
@@ -56,25 +68,25 @@ public class villageRegister implements Listener {
                     return;
                 }
             }
-        }
     }
     public void setShop(Villager villager,String name) {
-        villager.setCustomName(name+"행정관");
+        villager.setCustomName(name+"서기관");
         villager.setCustomNameVisible(true);
-        setRegisterShop(villager);
+        setSecretaryShop(villager);
     }
-    public void setRegisterShop(Villager shop) {
+    public void setSecretaryShop(Villager shop) {
         ItemStack item = new ItemStack(Material.PAPER);
         ItemMeta meta = item.getItemMeta();
         String villageName = shop.getName();
-        villageName = villageName.replace("행정관","");
-        meta.setDisplayName(villageName+"가입확인서");
+        villageName = villageName.replace("서기관","");
+        meta.setDisplayName(villageName+pass);
         item.setItemMeta(meta);
+
         MerchantRecipe recipe = new MerchantRecipe(item, 10);
-        recipe.addIngredient(new ItemStack(Material.STICK, 64));
-        recipe.addIngredient(new ItemStack(Material.LEATHER, 32));
+        recipe.addIngredient(new ItemStack(Material.BREAD, 1));
         List<MerchantRecipe> recipes = new ArrayList<>();
         recipes.add(recipe);
+
         BukkitRunnable task = new BukkitRunnable() {
             @Override
             public void run() {
@@ -83,7 +95,47 @@ public class villageRegister implements Listener {
             }
         };
         task.runTaskTimer(Main.getPlugin(Main.class),5,5);
-        bug.chat("확인제작");
         
+    }
+    @EventHandler
+    public void PlayerPassUse(PlayerInteractEvent event) {
+
+        if(!passItemUse(event)) {
+            return;
+        }
+        Player player = event.getPlayer();
+        titleChat(player,"마을 가입 완료!","");
+        player.getInventory().remove(player.getInventory().getItemInMainHand());
+        mapList.AFFILIATION.put(player,"test");
+    }
+    public static void actionBarChat(Player player,String str) {
+        player.spigot (). sendMessage (ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText
+                (str) );
+    }
+    public static void titleChat(Player player,String title,String subTitle) {
+        player.sendTitle(title,subTitle);
+    }
+    public boolean itemUse(PlayerInteractEvent event,String itemName) {
+        Player player = event.getPlayer();
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            return false;
+        }
+        ItemStack key = player.getInventory().getItemInMainHand();
+        if (key.getItemMeta().getDisplayName().equals(itemName)) {
+            return true;
+        }
+        return false;
+    }
+    public boolean passItemUse(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (!(event.getAction().equals(Action.RIGHT_CLICK_AIR)||event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+            return false;
+        }
+        ItemStack keyItem = player.getInventory().getItemInMainHand();
+        String key = keyItem.getItemMeta().getDisplayName();
+        if (key.contains(pass)) {
+            return true;
+        }
+        return false;
     }
 }
