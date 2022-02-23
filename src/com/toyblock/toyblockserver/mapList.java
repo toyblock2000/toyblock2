@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -22,5 +23,6 @@ public class mapList {
     public static HashMap<UUID, String > VILLAGER_AFFILIATION = new HashMap<UUID,String>();
 
     public static ArrayList<String> VILLAGER_LIST = new ArrayList<>();
+    public static ArrayList<Location> LASERTOWER = new ArrayList<>();
 
 }

@@ -79,6 +79,21 @@ public class MapData extends JavaPlugin {
             e.printStackTrace();
         }
     }
+    public static void laser_mapToFile(File f, ArrayList<Location> list ) {
+
+        try {
+            FileWriter writer = new FileWriter(f, false);
+            for(int i=0;i<list.size();i++){
+                LocationSave save = new LocationSave();
+
+                String str = save.locSave(list.get(i));;
+                writer.write(str+"\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void Protect_fileToMap(File f, HashMap<Location,String> map) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(f));
@@ -125,6 +140,23 @@ public class MapData extends JavaPlugin {
 
 
                 mapList.VILLAGER_LIST.add(fileLine);
+
+            }
+        } catch (FileNotFoundException e3) {
+            e3.printStackTrace();
+        } catch (IOException e4) {
+            e4.printStackTrace();
+        }
+    }
+    public static void tower_fileToMap(File f) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            String fileLine = null;
+            while ((fileLine = reader.readLine()) != null) {
+
+                LocationSave save = new LocationSave();
+                Location loc = save.locput(fileLine);
+                mapList.LASERTOWER.add(loc);
 
             }
         } catch (FileNotFoundException e3) {

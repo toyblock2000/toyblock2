@@ -45,6 +45,9 @@ public class HouseBuildFrame implements Listener {
     @EventHandler
     public void entityClick(PlayerInteractAtEntityEvent event) {
         LivingEntity entity = (LivingEntity) event.getRightClicked();
+        if(entity.getCustomName() == null) {
+            return;
+        }
         if (!(entity.getCustomName().equals("프레임"))) {
             return;
         }

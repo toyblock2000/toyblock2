@@ -14,6 +14,8 @@ import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 
 
 import com.toyblock.toyblockserver.difficulty.Energy.Energy;
+import com.toyblock.toyblockserver.difficulty.entity.ai.Laser;
+import com.toyblock.toyblockserver.difficulty.entity.ai.laserTower;
 import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
 import com.toyblock.toyblockserver.difficulty.item.*;
 import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
@@ -66,6 +68,7 @@ public class Main extends JavaPlugin implements Listener {
 	File affiliation = new File(getDataFolder(), "/affiliation.txt");
 	File villager_affiliation = new File(getDataFolder(), "/villager_affiliation.txt");
 	File villager_name = new File(getDataFolder(), "/villager_name.txt");
+	File laserTower = new File(getDataFolder(), "/laserTower.txt");
 	@Override
 	public void onEnable() {
 		super.onEnable();
@@ -94,6 +97,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new DropChance(), this);
 		getServer().getPluginManager().registerEvents(new affiliation(), this);
 		getServer().getPluginManager().registerEvents(new villageRegister(), this);
+		getServer().getPluginManager().registerEvents(new laserTower(), this);
 		consol.sendMessage("청크");
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
@@ -101,9 +105,11 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.makeFile(affiliation);
 		MapData.makeFile(villager_affiliation);
 		MapData.makeFile(villager_name);
+		MapData.makeFile(laserTower);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		MapData.String_fileToMap(villager_name);
 		MapData.player_fileToMap(affiliation,mapList.AFFILIATION);
+		MapData.tower_fileToMap(laserTower);
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
@@ -120,6 +126,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		mapList.COUNT.put(timeChangeCount,0);
 		timeFinder();
+		laserTowerTime();
 	}
 
 	@Override
@@ -129,10 +136,57 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.Protect_mapToFile(link, StructureMap.Link);
 		MapData.Player_mapToFile(affiliation, mapList.AFFILIATION);
 		MapData.uuid_mapToFile(villager_affiliation, mapList.VILLAGER_AFFILIATION);
-		MapData.villager_mapToFile(villager_name,mapList.VILLAGER_LIST);;
-
+		MapData.villager_mapToFile(villager_name,mapList.VILLAGER_LIST);
+		MapData.laser_mapToFile(laserTower,mapList.LASERTOWER);
 
 		//	data.mapToFile(data.file, villageindex);
+	}
+	@EventHandler
+	public void laserTowerTime() {
+		bug.chat("레이저 실행");
+		BukkitRunnable task = new BukkitRunnable() {
+			@Override
+			public void run() {
+				for(int i=0;i<mapList.LASERTOWER.size();i++) {
+					for (Entity entitys : mapList.LASERTOWER.get(i).getNearbyLivingEntities(100)) {
+						LivingEntity entity = (LivingEntity) entitys;
+						if(entity.getType().equals(EntityType.PLAYER)) {
+							return;
+						}
+						Laser laser = null;
+						Location loc = new Location(mapList.LASERTOWER.get(i).getWorld(),mapList.LASERTOWER.get(i).getX()+0.5,mapList.LASERTOWER.get(i).getBlockY()+1,mapList.LASERTOWER.get(i).getBlockZ()+0.5);
+						try {
+							laser = new Laser.GuardianLaser(loc,entity.getLocation(),6,30);
+						} catch (ReflectiveOperationException e) {
+							e.printStackTrace();
+						}
+						laser.start(Main.getPlugin(Main.class));
+						try {
+							((Laser.GuardianLaser) laser).attachEndEntity(entity);
+						} catch (ReflectiveOperationException e) {
+							e.printStackTrace();
+						}
+						towerKill(entity);
+						bug.chat("죽이기");
+						break;
+					}
+				}
+				bug.chat("포문 나오기 성공");
+			}
+		};
+		task.runTaskTimer(Main.getPlugin(Main.class),100,200);
+	}
+	public void towerKill(LivingEntity entity) {
+		BukkitRunnable task = new BukkitRunnable() {
+			@Override
+			public void run() {
+				entity.damage(50);
+				entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_CAT_HISS,1,1);
+				this.cancel();
+			}
+		};
+		task.runTaskTimer(Main.getPlugin(Main.class),100,200);
+
 	}
 	public SmithingRecipe getWoodenSwordUpgradeRecipe() {
 		MakeSword make = new MakeSword();
