@@ -39,6 +39,19 @@ public class MapData extends JavaPlugin {
             e.printStackTrace();
         }
     }
+    public static void difficulty_mapToFile(File f, HashMap<String, Float> map) {
+
+        try {
+            FileWriter writer = new FileWriter(f, false);
+            LocationSave save = new LocationSave();
+            for(String str : map.keySet()){
+                writer.write(str+"|"+map.get(str)+"\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void Player_mapToFile(File f, HashMap<Player, String> map) {
 
         try {
@@ -124,6 +137,23 @@ public class MapData extends JavaPlugin {
                 String index = (fileLine.split("\\|")[1]);
                 Player player = Bukkit.getPlayer(key);
                 map.put(player,index);
+
+            }
+        } catch (FileNotFoundException e3) {
+            e3.printStackTrace();
+        } catch (IOException e4) {
+            e4.printStackTrace();
+        }
+    }
+    public static void difficulty_fileToMap(File f, HashMap<String,Float> map) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            String fileLine = null;
+            while ((fileLine = reader.readLine()) != null) {
+
+                String key = (fileLine.split("\\|")[0]);
+                Float index = Float.parseFloat(fileLine.split("\\|")[1]);
+                map.put(key,index);
 
             }
         } catch (FileNotFoundException e3) {

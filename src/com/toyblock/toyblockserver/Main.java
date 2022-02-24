@@ -15,6 +15,7 @@ import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 
 import com.toyblock.toyblockserver.difficulty.Energy.Energy;
 import com.toyblock.toyblockserver.difficulty.entity.ai.Laser;
+import com.toyblock.toyblockserver.difficulty.entity.ai.difficultyMob;
 import com.toyblock.toyblockserver.difficulty.entity.ai.laserTower;
 import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
 import com.toyblock.toyblockserver.difficulty.item.*;
@@ -69,6 +70,7 @@ public class Main extends JavaPlugin implements Listener {
 	File villager_affiliation = new File(getDataFolder(), "/villager_affiliation.txt");
 	File villager_name = new File(getDataFolder(), "/villager_name.txt");
 	File laserTower = new File(getDataFolder(), "/laserTower.txt");
+	File difficulty = new File(getDataFolder(), "/difficulty.txt");
 	@Override
 	public void onEnable() {
 		super.onEnable();
@@ -98,6 +100,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new affiliation(), this);
 		getServer().getPluginManager().registerEvents(new villageRegister(), this);
 		getServer().getPluginManager().registerEvents(new laserTower(), this);
+		getServer().getPluginManager().registerEvents(new difficultyMob(), this);
 		consol.sendMessage("청크");
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
@@ -106,10 +109,12 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.makeFile(villager_affiliation);
 		MapData.makeFile(villager_name);
 		MapData.makeFile(laserTower);
+		MapData.makeFile(difficulty);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		MapData.String_fileToMap(villager_name);
 		MapData.player_fileToMap(affiliation,mapList.AFFILIATION);
 		MapData.tower_fileToMap(laserTower);
+		MapData.difficulty_fileToMap(difficulty,mapList.DIFFICULTY);
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
@@ -129,9 +134,6 @@ public class Main extends JavaPlugin implements Listener {
 		timeFinder();
 		laserTowerTime();
 	}
-	public void addRecipe() {
-		Bukkit.
-	}
 
 	@Override
 	public void onDisable() {
@@ -142,6 +144,7 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.uuid_mapToFile(villager_affiliation, mapList.VILLAGER_AFFILIATION);
 		MapData.villager_mapToFile(villager_name,mapList.VILLAGER_LIST);
 		MapData.laser_mapToFile(laserTower,mapList.LASERTOWER);
+		MapData.difficulty_mapToFile(difficulty,mapList.DIFFICULTY);
 
 		//	data.mapToFile(data.file, villageindex);
 	}
@@ -152,7 +155,7 @@ public class Main extends JavaPlugin implements Listener {
 			@Override
 			public void run() {
 				for(int i=0;i<mapList.LASERTOWER.size();i++) {
-					for (Entity entitys : mapList.LASERTOWER.get(i).getNearbyLivingEntities(100)) {
+					for (Entity entitys : mapList.LASERTOWER.get(i).getNearbyLivingEntities(25)) {
 						LivingEntity entity = (LivingEntity) entitys;
 						if(entity.getType().equals(EntityType.PLAYER)) {
 							continue;
