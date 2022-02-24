@@ -151,7 +151,11 @@ public class Main extends JavaPlugin implements Listener {
 					for (Entity entitys : mapList.LASERTOWER.get(i).getNearbyLivingEntities(100)) {
 						LivingEntity entity = (LivingEntity) entitys;
 						if(entity.getType().equals(EntityType.PLAYER)) {
-							return;
+							continue;
+						}
+						EntityType type = entity.getType();
+						if(!(entity instanceof Monster)) {
+							continue;
 						}
 						Laser laser = null;
 						Location loc = new Location(mapList.LASERTOWER.get(i).getWorld(),mapList.LASERTOWER.get(i).getX()+0.5,mapList.LASERTOWER.get(i).getBlockY()+1,mapList.LASERTOWER.get(i).getBlockZ()+0.5);
@@ -166,6 +170,7 @@ public class Main extends JavaPlugin implements Listener {
 						} catch (ReflectiveOperationException e) {
 							e.printStackTrace();
 						}
+						loc.getWorld().playSound(loc,Sound.BLOCK_NETHER_BRICKS_BREAK,3,0.1f);
 						towerKill(entity);
 						bug.chat("죽이기");
 						break;
