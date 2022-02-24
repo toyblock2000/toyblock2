@@ -113,6 +113,7 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
+
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
@@ -127,6 +128,9 @@ public class Main extends JavaPlugin implements Listener {
 		mapList.COUNT.put(timeChangeCount,0);
 		timeFinder();
 		laserTowerTime();
+	}
+	public void addRecipe() {
+		Bukkit.
 	}
 
 	@Override
