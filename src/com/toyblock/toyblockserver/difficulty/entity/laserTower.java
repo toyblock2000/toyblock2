@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.difficulty.entity.ai;
+package com.toyblock.toyblockserver.difficulty.entity;
 
 import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.mapList;
@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;

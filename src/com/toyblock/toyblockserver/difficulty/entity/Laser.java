@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.difficulty.entity.ai;
+package com.toyblock.toyblockserver.difficulty.entity;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

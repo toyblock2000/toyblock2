@@ -5,8 +5,6 @@ import java.io.File;
 import java.util.*;
 
 
-import com.destroystokyo.paper.MaterialSetTag;
-import com.destroystokyo.paper.MaterialTags;
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
@@ -14,9 +12,9 @@ import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 
 
 import com.toyblock.toyblockserver.difficulty.Energy.Energy;
-import com.toyblock.toyblockserver.difficulty.entity.ai.Laser;
-import com.toyblock.toyblockserver.difficulty.entity.ai.difficultyMob;
-import com.toyblock.toyblockserver.difficulty.entity.ai.laserTower;
+import com.toyblock.toyblockserver.difficulty.entity.Laser;
+import com.toyblock.toyblockserver.difficulty.entity.nomal.difficultyMob;
+import com.toyblock.toyblockserver.difficulty.entity.laserTower;
 import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
 import com.toyblock.toyblockserver.difficulty.item.*;
 import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
@@ -24,7 +22,7 @@ import com.toyblock.toyblockserver.players.affiliation;
 import com.toyblock.toyblockserver.players.villageRegister;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.tool.developer.bug;
-import com.toyblock.toyblockserver.difficulty.entity.ai.ZombieDunkShot;
+import com.toyblock.toyblockserver.difficulty.entity.ZombieDunkShot;
 import com.toyblock.toyblockserver.tool.RandomChest;
 import com.toyblock.toyblockserver.structure.village.castle.CastleBuildPlayer;
 import com.toyblock.toyblockserver.structure.village.path.PlayerCastlePath;

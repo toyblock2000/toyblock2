@@ -1,4 +1,4 @@
-package com.toyblock.toyblockserver.difficulty.entity.ai;
+package com.toyblock.toyblockserver.difficulty.entity;
 
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;

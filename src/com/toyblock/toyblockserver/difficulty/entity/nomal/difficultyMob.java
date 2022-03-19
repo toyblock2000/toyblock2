@@ -1,15 +1,12 @@
-package com.toyblock.toyblockserver.difficulty.entity.ai;
+package com.toyblock.toyblockserver.difficulty.entity.nomal;
 
-import com.sk89q.worldguard.bukkit.event.entity.SpawnEntityEvent;
-import com.toyblock.toyblockserver.Main;
-import com.toyblock.toyblockserver.tool.developer.bug;
+import com.toyblock.toyblockserver.difficulty.entity.nomal.mobList;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.Random;
 
 public class difficultyMob implements Listener {
