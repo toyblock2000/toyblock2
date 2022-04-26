@@ -35,6 +35,7 @@ import com.toyblock.toyblockserver.structure.village.info.Repute;
 import com.toyblock.toyblockserver.tool.hashmap.MapData;
 import com.toyblock.toyblockserver.structure.village.path.contract;
 import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
+import com.toyblock.toyblockserver.zombie.zombieTear;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -99,6 +100,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new villageRegister(), this);
 		getServer().getPluginManager().registerEvents(new laserTower(), this);
 		getServer().getPluginManager().registerEvents(new difficultyMob(), this);
+		getServer().getPluginManager().registerEvents(new zombieTear(), this);
 		consol.sendMessage("청크");
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);

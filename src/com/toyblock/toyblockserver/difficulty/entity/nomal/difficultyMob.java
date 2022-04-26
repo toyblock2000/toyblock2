@@ -21,7 +21,7 @@ public class difficultyMob implements Listener {
     public void zombieMoveSpeed_x2(Zombie mob) {
         mob.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.23*2);
     }
-    @EventHandler
+  //  @EventHandler
     public void nomalSpawn(EntitySpawnEvent event) {
         if(event.getEntity().getType().equals(EntityType.ZOMBIE)) {
             Zombie mob = (Zombie) event.getEntity();
