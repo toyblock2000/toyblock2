@@ -17,10 +17,6 @@ public class CastleBuildPlayer implements Listener {
         if (key.getItemMeta().getDisplayName().equals("성 건설")) {
            Location point = event.getPlayer().getTargetBlock(5).getLocation();
             new CastleBuildCheck().checkOn(point,"castle_test");
-
-
-
-
         }
     }
 }
