@@ -1,5 +1,6 @@
 package com.toyblock.toyblockserver.system;
 
+import com.toyblock.toyblockserver.structure.village.castle.item.CustomHead;
 import com.toyblock.toyblockserver.tool.LocBalance;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -10,9 +11,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class buildGui implements Listener {
 
-    @EventHandler
+   // @EventHandler
     public void spawn(PlayerInteractEvent event) {
-       // on(event.getClickedBlock().getLocation(), event.getPlayer());
+       on(event.getClickedBlock().getLocation(), event.getPlayer());
+       CustomHead head = new CustomHead();
+       event.getPlayer().getInventory().addItem(head.house("test"));
     }
     public void on(Location loc, Player player) {
         LocBalance balance = new LocBalance();
@@ -80,6 +83,7 @@ public class buildGui implements Listener {
             border.getWorld().spawnParticle(particle, border3, speed);
             border.getWorld().spawnParticle(particle, border4, speed);
         }
+
 
     }
 }

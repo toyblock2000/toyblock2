@@ -17,10 +17,15 @@ import com.toyblock.toyblockserver.difficulty.entity.nomal.difficultyMob;
 import com.toyblock.toyblockserver.difficulty.entity.laserTower;
 import com.toyblock.toyblockserver.difficulty.inventory.dropchance.DropChance;
 import com.toyblock.toyblockserver.difficulty.item.*;
+import com.toyblock.toyblockserver.difficulty.item.tool.ItemEdit;
 import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
+import com.toyblock.toyblockserver.difficulty.item.tool.sword.WoodenSword;
+import com.toyblock.toyblockserver.difficulty.item.tool.sword.swordCommand;
 import com.toyblock.toyblockserver.players.affiliation;
 import com.toyblock.toyblockserver.players.villageRegister;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
+import com.toyblock.toyblockserver.structure.village.house.Create;
+import com.toyblock.toyblockserver.structure.village.house.landInfo;
 import com.toyblock.toyblockserver.system.buildGui;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.entity.ZombieDunkShot;
@@ -42,6 +47,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.*;
@@ -79,6 +85,7 @@ public class Main extends JavaPlugin implements Listener {
 		}
 		getServer().getPluginManager().registerEvents(this, this);
 		this.getCommand("contract").setExecutor(new contract());
+		this.getCommand("swordCommand").setExecutor(new swordCommand());
 		getServer().getPluginManager().registerEvents(new CastleBuildPlayer(), this);
 		getServer().getPluginManager().registerEvents(new PlayerCastlePath(), this);
 		getServer().getPluginManager().registerEvents(new natural_spawn(), this);
@@ -102,7 +109,9 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new laserTower(), this);
 		getServer().getPluginManager().registerEvents(new difficultyMob(), this);
 		getServer().getPluginManager().registerEvents(new zombieTear(), this);
+		getServer().getPluginManager().registerEvents(new Create(), this);
 		getServer().getPluginManager().registerEvents(new buildGui(), this);
+		getServer().getPluginManager().registerEvents(new landInfo(), this);
 		consol.sendMessage("청크");
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
@@ -120,7 +129,7 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
-
+		structureFile.put("NULL",new File(getDataFolder(),"/structure/village/null"));
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
@@ -137,6 +146,7 @@ public class Main extends JavaPlugin implements Listener {
 		laserTowerTime();
 	}
 
+
 	@Override
 	public void onDisable() {
 		super.onDisable();
@@ -150,6 +160,19 @@ public class Main extends JavaPlugin implements Listener {
 
 		//	data.mapToFile(data.file, villageindex);
 	}
+	@EventHandler
+	public void anvilCannot(PrepareAnvilEvent event) {
+		ItemEdit edit = new ItemEdit();
+		float first = edit.loreFinder_level(event.getInventory().getFirstItem());
+		float second = edit.loreFinder_level(event.getInventory().getSecondItem());
+		if(first<second) {
+			ItemStack item1 = event.getInventory().getFirstItem();
+			ItemStack item2 = event.getInventory().getSecondItem();
+			event.getInventory().setFirstItem(item2);
+			event.getInventory().setSecondItem(item1);
+		}
+	}
+
 	@EventHandler
 	public void laserTowerTime() {
 		bug.chat("레이저 실행");

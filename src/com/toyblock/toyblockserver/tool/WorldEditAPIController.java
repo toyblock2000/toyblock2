@@ -58,6 +58,7 @@ import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
+import org.bukkit.entity.Player;
 
 public class WorldEditAPIController {
 	// copy, paste, load가 공유하는 클립보드
