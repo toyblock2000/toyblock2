@@ -167,9 +167,9 @@ public class MakeSword {
     }
     private void setUpgradeLore(ItemStack item) {
         List lore = new ArrayList();
-        lore.add(ChatColor.RED + "레벨당 데미지 + "+levelDamage);
-        lore.add(ChatColor.YELLOW + "레벨당 공격속도 + "+levelSpeed);
-        lore.add(ChatColor.LIGHT_PURPLE+ "레벨당 소울바운드 + "+levelSoulBound);
+        lore.add(ChatColor.RED + "레벨당 데미지 + "+0.2);
+        lore.add(ChatColor.YELLOW + "레벨당 공격속도 + "+0.1);
+        lore.add(ChatColor.LIGHT_PURPLE+ "레벨당 소울바운드 + "+1+"%");
         item.setLore(lore);
     }
 

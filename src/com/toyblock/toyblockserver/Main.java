@@ -21,6 +21,7 @@ import com.toyblock.toyblockserver.difficulty.item.tool.ItemEdit;
 import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
 import com.toyblock.toyblockserver.difficulty.item.tool.sword.WoodenSword;
 import com.toyblock.toyblockserver.difficulty.item.tool.sword.swordCommand;
+import com.toyblock.toyblockserver.item.testGive;
 import com.toyblock.toyblockserver.players.affiliation;
 import com.toyblock.toyblockserver.players.villageRegister;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
@@ -112,6 +113,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new Create(), this);
 		getServer().getPluginManager().registerEvents(new buildGui(), this);
 		getServer().getPluginManager().registerEvents(new landInfo(), this);
+		getServer().getPluginManager().registerEvents(new testGive(), this);
 		consol.sendMessage("청크");
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
@@ -129,6 +131,7 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
+		Bukkit.addRecipe(stoneSwordUpRecipe());
 		structureFile.put("NULL",new File(getDataFolder(),"/structure/village/null"));
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
@@ -233,6 +236,17 @@ public class Main extends JavaPlugin implements Listener {
 		NamespacedKey key = new NamespacedKey(this,"WoodenSwordUpgrade");
 		RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.WOODEN_SWORD);
 		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.CHARCOAL);
+		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+		return recipe;
+	}
+	public SmithingRecipe stoneSwordUpRecipe() {
+		MakeSword make = new MakeSword();
+		make.setWoodenSword();
+		make.setRemitLevel(10);
+		ItemStack makeItem = make.UpgradeGUI();
+		NamespacedKey key = new NamespacedKey(this,"StoneSwordUpgrade");
+		RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.STONE_SWORD);
+		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.FLINT);
 		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
 		return recipe;
 	}
@@ -765,9 +779,8 @@ public class Main extends JavaPlugin implements Listener {
 
 	}
 	public  ShapedRecipe getRecipe() {
-		MakeSword sword = new MakeSword();
-		sword.setStoneSword();
-		ItemStack item = sword.getSword(1);
+		WoodenSword sword = new WoodenSword();
+		ItemStack item = sword.get(1);
 
 		NamespacedKey Key = new NamespacedKey(this,"Wooden_Sword");
 

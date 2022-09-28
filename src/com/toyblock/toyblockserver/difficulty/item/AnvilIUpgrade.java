@@ -5,6 +5,8 @@ import com.toyblock.toyblockserver.difficulty.item.tool.MakeAxe;
 import com.toyblock.toyblockserver.difficulty.item.tool.MakePickaxe;
 import com.toyblock.toyblockserver.difficulty.item.tool.ToolEdit;
 import com.toyblock.toyblockserver.difficulty.item.tool.MakeSword;
+import com.toyblock.toyblockserver.difficulty.item.tool.sword.Sword;
+import com.toyblock.toyblockserver.difficulty.item.tool.sword.WoodenSword;
 import com.toyblock.toyblockserver.tool.developer.bug;
 
 import net.md_5.bungee.api.ChatMessageType;
@@ -175,8 +177,7 @@ public class AnvilIUpgrade implements Listener {
         int remitLevel = (int) toolEdit.loreFinder_remit(subItem,"레벨");
 
         Player player = (Player) event.getView().getPlayer();
-        MakeSword wood = new MakeSword();
-        wood.setType(subItem.getType());
+       Sword sword = new Sword();
 
         if(remitLevel <= level) {
 
@@ -185,9 +186,7 @@ public class AnvilIUpgrade implements Listener {
 
             return;
         }
-
-        bug.chat(wood.getSword(level+1).getType().toString());
-        ItemStack upItem = wood.getSword(level + 1);
+        ItemStack upItem = sword.get(subItem,level+1);
         toolEdit.moveItemMeta(subItem,upItem);
         event.getInventory().setResult(upItem);
 

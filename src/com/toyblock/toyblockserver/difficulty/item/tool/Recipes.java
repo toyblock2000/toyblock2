@@ -1,6 +1,7 @@
 package com.toyblock.toyblockserver.difficulty.item.tool;
 
 import com.toyblock.toyblockserver.Main;
+import com.toyblock.toyblockserver.difficulty.item.tool.sword.WoodenSword;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 
 public class Recipes {
     public static ShapedRecipe getRecipe_WoodenSword() {
-        MakeSword sword = new MakeSword();
-        sword.setWoodenSword();
-        ItemStack item = sword.getSword(1);
+        WoodenSword sword = new WoodenSword();
+        sword.get(1);
+        ItemStack item = sword.get(1);
 
         NamespacedKey Key = new NamespacedKey(Main.getPlugin(Main.class),"Wooden_Sword");
 

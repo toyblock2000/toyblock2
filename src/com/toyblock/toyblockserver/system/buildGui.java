@@ -11,11 +11,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class buildGui implements Listener {
 
-   // @EventHandler
+//    @EventHandler
     public void spawn(PlayerInteractEvent event) {
        on(event.getClickedBlock().getLocation(), event.getPlayer());
        CustomHead head = new CustomHead();
-       event.getPlayer().getInventory().addItem(head.house("test"));
+   //    event.getPlayer().getInventory().addItem(head.house("test"));
     }
     public void on(Location loc, Player player) {
         LocBalance balance = new LocBalance();

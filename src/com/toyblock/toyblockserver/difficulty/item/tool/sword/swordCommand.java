@@ -26,6 +26,11 @@ public class swordCommand implements CommandExecutor {
         player.getInventory().addItem(sword.get(2));
         player.getInventory().addItem(sword.get(3));
         player.getInventory().addItem(sword.get(4));
+        StoneSword sword1 = new StoneSword();
+        player.getInventory().addItem(sword1.get(1));
+        player.getInventory().addItem(sword1.get(2));
+        player.getInventory().addItem(sword1.get(3));
+        player.getInventory().addItem(sword1.get(4));
 
         return true;
     }
