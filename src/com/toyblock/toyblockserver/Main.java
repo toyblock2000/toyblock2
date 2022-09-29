@@ -28,6 +28,7 @@ import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.structure.village.house.Create;
 import com.toyblock.toyblockserver.structure.village.house.landInfo;
 import com.toyblock.toyblockserver.system.buildGui;
+import com.toyblock.toyblockserver.tile.tileOre;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.entity.ZombieDunkShot;
 import com.toyblock.toyblockserver.tool.RandomChest;
@@ -114,6 +115,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new buildGui(), this);
 		getServer().getPluginManager().registerEvents(new landInfo(), this);
 		getServer().getPluginManager().registerEvents(new testGive(), this);
+		getServer().getPluginManager().registerEvents(new tileOre("world"), this);
 		consol.sendMessage("청크");
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
