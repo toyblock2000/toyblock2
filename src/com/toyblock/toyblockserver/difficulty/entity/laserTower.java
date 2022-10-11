@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class laserTower implements Listener {
-    @EventHandler
+   // @EventHandler
     public void laserTowerSpawn(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -33,7 +33,7 @@ public class laserTower implements Listener {
         entity.setCustomName("수호자");
         entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
     }
-    @EventHandler
+   // @EventHandler
     public void setLaserTower(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {

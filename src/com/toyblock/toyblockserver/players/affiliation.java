@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class affiliation implements Listener {
-    @EventHandler
+    //@EventHandler
     public void put(PlayerInteractEvent event) {
         if (event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("소속가입")) {
             putAffiliation(event.getPlayer(), "마을소속");

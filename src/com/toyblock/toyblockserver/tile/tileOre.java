@@ -149,7 +149,7 @@ public class tileOre implements Listener {
 
         CuboidRegion region_4 = new CuboidRegion(w, min_4,max_4);
             RandomPattern pat_4 = new RandomPattern();
-            orePattenAdd(pat_4,0.140,0.140,0.119,0.017,0,0,0.170,0);
+            orePattenAdd(pat_4,0.140,0.140,0.119,0.017,0,0,0,0);
             editSession.replaceBlocks(region_4,stone,pat_4);
 
         BlockVector3 min_5 = BlockVector3.at(min_x,48,min_z);
@@ -157,7 +157,7 @@ public class tileOre implements Listener {
 
         CuboidRegion region_5 = new CuboidRegion(w, min_5,max_5);
             RandomPattern pat_5 = new RandomPattern();
-            orePattenAdd(pat_5,0.170,0.030,0.119,0,0,0,0.085,0);
+            orePattenAdd(pat_5,0.170,0.030,0.119,0,0,0,0,0);
             editSession.replaceBlocks(region_5,stone,pat_5);
 
         BlockVector3 min_6 = BlockVector3.at(min_x,80,min_z);

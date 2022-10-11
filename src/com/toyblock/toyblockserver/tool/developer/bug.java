@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class bug implements Listener {
     static HashMap<Player, Integer> debug = new HashMap<>();
 
-    @EventHandler
+   // @EventHandler
     public void debugMode(PlayerInteractEvent event) {
         ItemStack hand = event.getPlayer().getInventory().getItemInMainHand();
         if ((hand.getItemMeta().getDisplayName().equals("디버그 모드"))&&event.getPlayer().isOp()) {

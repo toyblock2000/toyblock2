@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CastleBuildPlayer implements Listener {
-    @EventHandler
+    // @EventHandler
     public void playerItemUse(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             return;

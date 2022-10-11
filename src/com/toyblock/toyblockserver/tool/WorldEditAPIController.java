@@ -108,6 +108,7 @@ public class WorldEditAPIController {
 			this.clipboard.setOrigin(centerpos);
 			// configure here
 			forwardExtentCopy.setCopyingEntities(true);
+			forwardExtentCopy.setCopyingBiomes(true);
 			
 			try {
 				Operations.complete(forwardExtentCopy);

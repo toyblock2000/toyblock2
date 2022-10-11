@@ -6,6 +6,7 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Zombie;
 
 public class mobList {
+
     public void zombieHurt_x05(Zombie mob) {
         mob.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20 * 1.5);
         mob.setHealth(40);

@@ -28,7 +28,7 @@ import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.structure.village.house.Create;
 import com.toyblock.toyblockserver.structure.village.house.landInfo;
 import com.toyblock.toyblockserver.system.buildGui;
-import com.toyblock.toyblockserver.tile.tileOre;
+import com.toyblock.toyblockserver.tile.*;
 import com.toyblock.toyblockserver.tool.developer.bug;
 import com.toyblock.toyblockserver.difficulty.entity.ZombieDunkShot;
 import com.toyblock.toyblockserver.tool.RandomChest;
@@ -116,6 +116,12 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new landInfo(), this);
 		getServer().getPluginManager().registerEvents(new testGive(), this);
 		getServer().getPluginManager().registerEvents(new tileOre("world"), this);
+		getServer().getPluginManager().registerEvents(new tileSpawn(), this);
+		getServer().getPluginManager().registerEvents(new randomTile(), this);
+		getServer().getPluginManager().registerEvents(new bossDie(), this);
+		getServer().getPluginManager().registerEvents(new dungeonTile(), this);
+		getCommand("tilesave").setExecutor(new tileSaveCommand());
+		getCommand("worldCreative").setExecutor(new worldCreativeCommand());
 		consol.sendMessage("청크");
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
@@ -134,7 +140,7 @@ public class Main extends JavaPlugin implements Listener {
 		Bukkit.addRecipe(potionRecipe());
 		Bukkit.addRecipe(getWoodenSwordUpgradeRecipe());
 		Bukkit.addRecipe(stoneSwordUpRecipe());
-		structureFile.put("NULL",new File(getDataFolder(),"/structure/village/null"));
+		structureFile.put("TILE",new File(getDataFolder(),"/structure/tile"));
 		structureFile.put("VILLAGE_CASTLE",new File(getDataFolder(),"/structure/village/castle"));
 		structureFile.put("VILLAGE_PATH",new File(getDataFolder(),"/structure/village/path"));
 		structureFile.put("VILLAGE_1X1HOUSE",new File(getDataFolder(),"/structure/village/2x2house"));
@@ -175,6 +181,13 @@ public class Main extends JavaPlugin implements Listener {
 			ItemStack item2 = event.getInventory().getSecondItem();
 			event.getInventory().setFirstItem(item2);
 			event.getInventory().setSecondItem(item1);
+		}
+	}
+	@EventHandler
+	public void batRemove(EntitySpawnEvent event) {
+		if(event.getEntity().getType().equals(EntityType.BAT)) {
+			event.setCancelled(true);
+
 		}
 	}
 

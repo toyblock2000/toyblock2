@@ -41,7 +41,7 @@ import java.util.Objects;
 
 public class villageRegister implements Listener {
     String pass = ChatColor.GREEN+""+ChatColor.BOLD+"가입 확인서";
-    @EventHandler
+
     public void setSecretary(VillagerCareerChangeEvent event) {
 
         Villager villager = (Villager) event.getEntity();
@@ -97,7 +97,7 @@ public class villageRegister implements Listener {
         task.runTaskTimer(Main.getPlugin(Main.class),5,5);
         
     }
-    @EventHandler
+    //EventHandler
     public void PlayerPassUse(PlayerInteractEvent event) {
 
         if(!passItemUse(event)) {

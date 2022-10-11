@@ -16,7 +16,7 @@ import org.bukkit.inventory.meta.BlockStateMeta;
 import java.util.*;
 
 public class RandomChest implements Listener {
-   @EventHandler
+
     public void setReplace(PlayerInteractEvent event ) {
         if(!(event.getClickedBlock().getType().equals(Material.CHEST))) {
             return;

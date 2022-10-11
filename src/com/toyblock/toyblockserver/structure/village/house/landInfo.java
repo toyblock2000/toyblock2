@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class landInfo implements Listener {
-    @EventHandler
+   // @EventHandler
     public void getInfo(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack hand = event.getPlayer().getInventory().getItemInMainHand();
@@ -45,8 +45,6 @@ public class landInfo implements Listener {
         Location center = LocBalance.balance(event.getClickedBlock().getLocation());
         overlap = notOverlap(min(center),max(center));
         player.chat("빈땅"+overlap);
-        event.setCancelled(true);
-
 
 
     }

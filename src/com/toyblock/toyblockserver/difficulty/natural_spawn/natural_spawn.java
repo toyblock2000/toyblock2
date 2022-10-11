@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 
 public class natural_spawn implements Listener {
 
-	@EventHandler
+
 	public void village_spawn(EntitySpawnEvent event) {
 	if(!event.getEntityType().equals(EntityType.ZOMBIE)) {
 		return;

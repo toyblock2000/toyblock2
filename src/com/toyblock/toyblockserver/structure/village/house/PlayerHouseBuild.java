@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerHouseBuild implements Listener {
-    @EventHandler
+   //@EventHandler
     public void houseBuild(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             return;

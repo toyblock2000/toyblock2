@@ -96,7 +96,7 @@ public class InvestmentNpc implements Listener {
         return new Location(loc.getWorld(),x,y,z);
 
     }
-    @EventHandler
+    //@EventHandler
     public void spawnInvestment (PlayerInteractEvent event) {
 
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -138,8 +138,8 @@ public class InvestmentNpc implements Listener {
         Inventory inven = PathInvestment.Inv.get(UUID);
         player.openInventory(inven);
     }
-
-    @EventHandler
+//
+  //  @EventHandler
     public void investmentOpen (PlayerInteractAtEntityEvent event) {
         Player player = event.getPlayer();
         if(!PathInvestment.Inv.containsKey(event.getRightClicked().getUniqueId())){
@@ -156,7 +156,7 @@ public class InvestmentNpc implements Listener {
         PathInvestment.OpenInv.put(PathInvestment.Inv.get(event.getRightClicked().getUniqueId()),0);
         openInv(player,event.getRightClicked().getUniqueId());
     }
-    @EventHandler
+  //  @EventHandler
     public void investmentClose(InventoryCloseEvent event) {
         if(PathInvestment.OpenInv.containsKey(event.getInventory())) {
             Player player =(Player)event.getPlayer();

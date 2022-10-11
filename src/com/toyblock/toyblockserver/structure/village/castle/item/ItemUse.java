@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemUse implements Listener {
-    @EventHandler
+    //@EventHandler
     public void item_path_undo(PlayerInteractEvent event) {
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             return;
@@ -26,7 +26,6 @@ public class ItemUse implements Listener {
         List checkLore = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
         if (castleBuildLore.get(0).equals(checkLore.get(0))) {
 
-            event.setCancelled(true);
             if (player.getInventory().getItemInMainHand().getAmount() == 1) {
                 player.getInventory().remove(player.getInventory().getItemInMainHand());
             } else {

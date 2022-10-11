@@ -17,7 +17,7 @@ public class zombieTear implements Listener {
 
     // 쉬움 2.5 보통 3 어려움 4.5
 
-    @EventHandler
+
     public void spawnZombie(EntitySpawnEvent event) {
         bug.chat("좀비스폰");
         if(event.getEntity().getType().equals(EntityType.ZOMBIE)){

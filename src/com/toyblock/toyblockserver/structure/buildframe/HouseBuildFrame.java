@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HouseBuildFrame implements Listener {
-    @EventHandler
+    //@EventHandler
     public void spawnEntity(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             return;

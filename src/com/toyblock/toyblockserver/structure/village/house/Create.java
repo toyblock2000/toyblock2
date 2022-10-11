@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Create implements Listener {
-    @EventHandler
+    //@EventHandler
     public void houseBuild(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack hand = player.getInventory().getItemInMainHand();
@@ -46,7 +46,6 @@ public class Create implements Listener {
         WorldEditAPIController houseedit = new WorldEditAPIController("NULL", "world");
         houseedit.load(nameKey+".schem");
         houseedit.paste(loc, new ExtendedHouse().viewInt(look));
-        event.setCancelled(true);
     }
 
 }

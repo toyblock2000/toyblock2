@@ -5,11 +5,18 @@ author : toy_block
 description : testing
 api-version : 1.18
 commands:
+  tilesave:
+    description: Your description
+    usage: /tilesave
   contract:
     description: Your description
     usage: /contract
   swordCommand:
     description: Your description
     usage: /swordCommand
+  worldCreative:
+    description: Your description
+    usage: /worldCreative
+
 
 

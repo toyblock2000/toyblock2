@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerCastlePath implements Listener {
-    @EventHandler
+  //  @EventHandler
     public void playerPathBuild(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             return;
