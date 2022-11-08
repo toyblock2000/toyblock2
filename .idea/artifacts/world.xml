@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="world">
-    <output-path>$USER_HOME$/Desktop/1.19.2/plugins</output-path>
+    <output-path>$USER_HOME$/Desktop/1.19.2 버킷/인텔리</output-path>
     <root id="archive" name="world.jar">
       <element id="module-output" name="toyblock" />
       <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />

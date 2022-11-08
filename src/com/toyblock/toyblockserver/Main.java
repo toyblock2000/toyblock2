@@ -2,12 +2,17 @@ package com.toyblock.toyblockserver;
 
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.*;
 
 
 import com.destroystokyo.paper.event.entity.CreeperIgniteEvent;
 import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import com.sk89q.worldguard.bukkit.event.entity.DamageEntityEvent;
 
 
@@ -25,6 +30,7 @@ import com.toyblock.toyblockserver.item.testGive;
 import com.toyblock.toyblockserver.players.affiliation;
 import com.toyblock.toyblockserver.players.villageRegister;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
+import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.village.house.Create;
 import com.toyblock.toyblockserver.structure.village.house.landInfo;
 import com.toyblock.toyblockserver.system.buildGui;
@@ -45,8 +51,13 @@ import com.toyblock.toyblockserver.structure.village.path.contract;
 import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
 import com.toyblock.toyblockserver.zombie.zombieTear;
 import org.bukkit.*;
+import org.bukkit.block.TileState;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDropItemEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
@@ -54,6 +65,9 @@ import org.bukkit.event.player.*;
 import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.BoundingBox;
 import com.toyblock.toyblockserver.structure.village.npc.villager_test;
 
@@ -73,6 +87,7 @@ public class Main extends JavaPlugin implements Listener {
 	public static HashMap<String, File > structureFile = new HashMap<String, File > () ;
 	 File f_protect = new File(getDataFolder(), "/ProtectData.txt");
 	 File link = new File(getDataFolder(), "/Link.txt");
+	File F_tileLanguage = new File(getDataFolder(), "/tileLanguage.txt");
      File chunk = new File(getDataFolder(), "/chunk.txt");
 	File affiliation = new File(getDataFolder(), "/affiliation.txt");
 	File villager_affiliation = new File(getDataFolder(), "/villager_affiliation.txt");
@@ -126,12 +141,14 @@ public class Main extends JavaPlugin implements Listener {
 		allPlayerEnergyFull();
 		MapData.makeFile(chunk);
 		MapData.makeFile(link);
+		MapData.makeFile(F_tileLanguage);
 		MapData.makeFile(affiliation);
 		MapData.makeFile(villager_affiliation);
 		MapData.makeFile(villager_name);
 		MapData.makeFile(laserTower);
 		MapData.makeFile(difficulty);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
+		tileLanguage(F_tileLanguage,tileLanguage);
 		MapData.String_fileToMap(villager_name);
 		MapData.player_fileToMap(affiliation,mapList.AFFILIATION);
 		MapData.tower_fileToMap(laserTower);
@@ -155,7 +172,14 @@ public class Main extends JavaPlugin implements Listener {
 		mapList.COUNT.put(timeChangeCount,0);
 		timeFinder();
 		laserTowerTime();
+		saveConfig();
+		File config = new File(getDataFolder(), "config.ym;");
+		if (config.length() == 0 ) {
+			getConfig().options().copyDefaults(true);
+			saveConfig();
+		}
 	}
+	public static HashMap<String , String > tileLanguage = new HashMap<String, String > () ;
 
 
 	@Override
@@ -170,6 +194,103 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.difficulty_mapToFile(difficulty,mapList.DIFFICULTY);
 
 		//	data.mapToFile(data.file, villageindex);
+	}
+	public static void tileLanguage(File f, HashMap<String, String> map) {
+
+		try {
+			FileWriter writer = new FileWriter(f, false);
+			for(String key : map.keySet()){
+				writer.write(key+"|"+map.get(key)+"\n");
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@EventHandler
+	public void join(PlayerJoinEvent e) {
+		String text = this.getConfig().getString("korean");
+		e.getPlayer().chat(text);
+	}
+	@EventHandler
+	public void apple(BlockDropItemEvent event){
+		ItemStack item = event.getItems().get(0).getItemStack();
+		ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzVlMmUwOTU5NzEyZGNkMzM1N2NjM2NlYTg1Zjk5YjNmZDgwOTc4NTVjNzU0YjliMTcxZjk2MzUxNDIyNWQifX19");
+		event.getPlayer().chat("!");
+		if(!item.hasItemMeta()) {
+			event.getPlayer().chat("1");
+			return;
+		}
+		if(!item.getType().equals(Material.PLAYER_HEAD)) {
+			event.getPlayer().chat("2");
+			return;
+		}
+
+		NamespacedKey key = new NamespacedKey(this,"apple");
+		TileState state = (TileState) event.getBlockState();
+		PersistentDataContainer container = state.getPersistentDataContainer();
+		event.getPlayer().chat("로어없sss음");
+		if(!container.has(key,PersistentDataType.STRING)) {
+			event.getPlayer().chat("re");
+			return;
+		}
+
+		event.getPlayer().chat("로어없음");
+		event.getItems().remove(0);
+		ItemStack apple = new ItemStack(Material.APPLE,4);
+		Location loc = event.getBlock().getLocation();
+		//tas
+		loc.getWorld().dropItem(loc,apple);
+		event.getPlayer().chat("toy");
+
+	}
+	@EventHandler
+	public void drop(BlockPlaceEvent event) {
+		String name = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName();
+		if(!name.equals("apple")) {
+			return;
+		}
+		NamespacedKey key = new NamespacedKey(this,"apple");
+		TileState state = (TileState) event.getBlock().getState();
+		PersistentDataContainer container = state.getPersistentDataContainer();
+				container.set(key, PersistentDataType.STRING,name);
+		state.update();
+		event.getPlayer().chat(name+"  keyset!");
+	}
+	@EventHandler
+	public void drops(BlockPlaceEvent event) {
+		String name = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName();
+		if(!name.equals("epic")) {
+			return;
+		}
+		NamespacedKey key = new NamespacedKey(this,"epic");
+		TileState state = (TileState) event.getBlock().getState();
+		PersistentDataContainer container = state.getPersistentDataContainer();
+		container.set(key, PersistentDataType.STRING,name);
+		state.update();
+		event.getPlayer().chat(name+"  keyset!");
+	}
+	public static ItemStack getSkull(String base64) {
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
+		if (base64 == null || base64.isEmpty())
+			return skull;
+		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+		GameProfile profile = new GameProfile(Bukkit.getPlayerUniqueId("toy_block"), null);
+		profile.getProperties().put("textures", new Property("textures", base64));
+		Field profileField = null;
+		try {
+			profileField = skullMeta.getClass().getDeclaredField("profile");
+		} catch (NoSuchFieldException | SecurityException e) {
+			e.printStackTrace();
+		}
+		profileField.setAccessible(true);
+		try {
+			profileField.set(skullMeta, profile);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		skull.setItemMeta(skullMeta);
+		return skull;
 	}
 	@EventHandler
 	public void anvilCannot(PrepareAnvilEvent event) {

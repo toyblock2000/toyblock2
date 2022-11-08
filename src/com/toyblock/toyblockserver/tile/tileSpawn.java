@@ -27,6 +27,7 @@ import io.lumine.mythic.core.mobs.ActiveMob;
 import io.lumine.mythic.core.spawning.spawners.MythicSpawner;
 import io.lumine.mythic.core.spawning.spawners.SpawnerManager;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -140,11 +141,10 @@ public class tileSpawn implements Listener {
         addTileRemove(spawnLoc);
 
         //이지
-        if(random == 1) {
-            worldEdit.load(random+"tile.schem");
-        }
+
+        worldEdit.load("5타일.schem");
         worldEdit.paste(spawnLoc,rotate);
-        worldGuard(spawnLoc,a+"tile");
+        worldGuard(spawnLoc,a+"tile",a+"5타일");
 
 
     }
@@ -167,8 +167,20 @@ public class tileSpawn implements Listener {
 
 
     }
+    World world = (World) Bukkit.getWorld("world");
+    org.bukkit.World bukkitWorld = Bukkit.getWorld("world");
+    public void randomTileCreate() {
+        int random = (int) (Math.random() * 20) + 1;
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionManager manager = container.get(BukkitAdapter.adapt(Bukkit.getWorld("world")));
+        BlockVector3 vector = manager.getRegion(random+"tile").getMaximumPoint();
+        Location loc = new Location(bukkitWorld,vector.getX()+47,63,vector.getX()+47);
+        spawn(loc,random);
+        Bukkit.getPlayer("toy_block").chat("랜덤한 타일 생성"+random);
 
-    public void worldGuard(Location loc,String name) {
+    }
+
+    public void worldGuard(Location loc,String name, String tilename) {
         Location loc1 = new Location(loc.getWorld(),loc.getX()-47,50,loc.getZ()-47);
         Location loc2 = new Location(loc.getWorld(),loc.getX()+47,163,loc.getZ()+47);
 
@@ -179,11 +191,15 @@ public class tileSpawn implements Listener {
         replaceOre(regions);
 
         ProtectedRegion region = new ProtectedCuboidRegion(name, pos1, pos2);
-        region.setFlag(Flags.GREET_TITLE,"/"+name);
+        region.setFlag(Flags.GREET_TITLE,"\n"+ ChatColor.GREEN +tilename + ChatColor.RED + "@ 11월21일 제거대상입니다.");
+        String str = region.getFlag(Flags.GREET_TITLE);
+        int idx = str.indexOf("@");
+        str = str.substring(0, idx);
+        Bukkit.getConsoleSender().sendMessage(str);
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         RegionManager manager = container.get(BukkitAdapter.adapt(loc1.getChunk().getWorld()));
-        if(!(manager.getRegion(name) == null)) {
-            manager.removeRegion(name);
+        if(!(manager.getRegion(tilename) == null)) {
+            manager.removeRegion(tilename);
             manager.addRegion(region);
         }
         else{

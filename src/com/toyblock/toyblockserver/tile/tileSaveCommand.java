@@ -36,7 +36,7 @@ public class tileSaveCommand implements CommandExecutor {
     public void tileSave(Player player,String name) {
         Location loc = player.getLocation();
         Location min = new Location(player.getWorld(),loc.getX()+1,loc.getY()-1-12,loc.getZ()+1);
-        Location max = new Location(player.getWorld(),loc.getX()+1+94,loc.getY()-1+100,loc.getZ()+1+94);
+        Location max = new Location(player.getWorld(),loc.getX()+1+94,loc.getY()-1+50,loc.getZ()+1+94);
         Location point = new Location(player.getWorld(),loc.getX()+1+47,loc.getY()-1,loc.getZ()+1+47);
         WorldEditAPIController edit = new WorldEditAPIController("TILE","world");
         edit.copy(min,max,point);

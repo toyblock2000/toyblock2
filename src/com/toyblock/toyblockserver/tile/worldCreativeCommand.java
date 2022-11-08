@@ -19,6 +19,10 @@ public class worldCreativeCommand implements CommandExecutor {
                 worldCreative world = new worldCreative();
                 world.worldCreative(player);
             }
+            if (args[0].equals("random")) {
+                tileSpawn spawn = new tileSpawn();
+                spawn.randomTileCreate();
+            }
 
         } else {
             player.sendMessage("명령어의 권한이 없습니다.");
