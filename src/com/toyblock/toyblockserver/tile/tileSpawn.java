@@ -8,6 +8,7 @@ import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.function.pattern.RandomPattern;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
@@ -251,7 +252,7 @@ public class tileSpawn implements Listener {
             BlockState airstate = airBlock.getDefaultState();
 
 
-            editSession.setBlocks(region,airstate);
+           editSession.setBlocks((Region) region,airstate);
         } catch(MaxChangedBlocksException ex) {
             ex.printStackTrace();
         }

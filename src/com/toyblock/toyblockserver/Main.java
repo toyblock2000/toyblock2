@@ -229,7 +229,7 @@ public class Main extends JavaPlugin implements Listener {
 		NamespacedKey key = new NamespacedKey(this,"apple");
 		TileState state = (TileState) event.getBlockState();
 		PersistentDataContainer container = state.getPersistentDataContainer();
-		event.getPlayer().chat("로어없sss음");
+		event.getPlayer().chat("로어없sssx음");
 		if(!container.has(key,PersistentDataType.STRING)) {
 			event.getPlayer().chat("re");
 			return;
