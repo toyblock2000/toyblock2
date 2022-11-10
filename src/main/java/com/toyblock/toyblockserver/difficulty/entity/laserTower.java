@@ -3,6 +3,7 @@ package com.toyblock.toyblockserver.difficulty.entity;
 import com.toyblock.toyblockserver.Main;
 import com.toyblock.toyblockserver.mapList;
 import com.toyblock.toyblockserver.tool.developer.bug;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
@@ -16,7 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class laserTower implements Listener {
-   // @EventHandler
+   @EventHandler
     public void laserTowerSpawn(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -33,7 +34,7 @@ public class laserTower implements Listener {
         entity.setCustomName("수호자");
         entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
     }
-   // @EventHandler
+    @EventHandler
     public void setLaserTower(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -44,6 +45,7 @@ public class laserTower implements Listener {
         }
         Location loc = event.getClickedBlock().getLocation();
         mapList.LASERTOWER.add(loc);
+        event.getPlayer().chat("레이저타워 스폰");
 
     }
     @EventHandler
@@ -55,9 +57,11 @@ public class laserTower implements Listener {
                 for(int i=0;i<mapList.LASERTOWER.size();i++) {
                     for (Entity entitys : mapList.LASERTOWER.get(i).getNearbyLivingEntities(100)) {
                         LivingEntity entity = (LivingEntity) entitys;
-                        if(entity.getType().equals(EntityType.PLAYER)) {
+                       if(entity.getType().equals(EntityType.PLAYER)) {
+                           Bukkit.getPlayer("toy_block").chat("플레이어다");
                             return;
                         }
+                        Bukkit.getPlayer("toy_block").chat("타겟잡기");
                         Laser laser = null;
                         Location loc = new Location(mapList.LASERTOWER.get(i).getWorld(),mapList.LASERTOWER.get(i).getX()+0.5,mapList.LASERTOWER.get(i).getBlockY()+1.5,mapList.LASERTOWER.get(i).getBlockZ()+0.5);
                         try {
@@ -68,6 +72,8 @@ public class laserTower implements Listener {
                         laser.start(Main.getPlugin(Main.class));
                         try {
                             ((Laser.GuardianLaser) laser).attachEndEntity(entity);
+                            ((Laser.GuardianLaser) laser).moveStart(entity.getLocation());
+                            ((Laser.GuardianLaser) laser).moveEnd(loc);
                         } catch (ReflectiveOperationException e) {
                             e.printStackTrace();
                         }

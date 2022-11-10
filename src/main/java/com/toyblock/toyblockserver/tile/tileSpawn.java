@@ -8,6 +8,7 @@ import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.function.pattern.RandomPattern;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.World;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
@@ -20,27 +21,34 @@ import com.sk89q.worldguard.protection.managers.storage.StorageException;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.toyblock.toyblockserver.Main;
+import com.toyblock.toyblockserver.tool.View;
 import com.toyblock.toyblockserver.tool.WorldEditAPIController;
+import com.toyblock.toyblockserver.tool.tool;
 import io.lumine.mythic.api.mobs.MythicMob;
 import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.core.mobs.ActiveMob;
 import io.lumine.mythic.core.spawning.spawners.MythicSpawner;
 import io.lumine.mythic.core.spawning.spawners.SpawnerManager;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Sign;
+import org.bukkit.block.TileState;
+import org.bukkit.block.data.Directional;
+import org.bukkit.entity.*;
+import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.SpawnerSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -92,7 +100,15 @@ public class tileSpawn implements Listener {
         manager.createSpawner(name,loc,mobName).ActivateSpawner();
         MythicBukkit.inst().getSpawnerManager().reload();
     }
-
+    @EventHandler
+    public void test(EntitySpawnEvent event) {
+        if(event.getEntity().getEntitySpawnReason().equals(CreatureSpawnEvent.SpawnReason.EGG)) {
+            if(event.getEntity().getType().equals(EntityType.VILLAGER)) {
+                ((LivingEntity)event.getEntity()).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(100);
+                ((LivingEntity)event.getEntity()).setHealth(100);
+            }
+        }
+    }
     public void spawnHandle(PlayerInteractEvent event) {
         if(event.getClickedBlock().getType().equals(Material.DIAMOND_BLOCK)) {
             Location loc = event.getClickedBlock().getLocation();
@@ -118,7 +134,7 @@ public class tileSpawn implements Listener {
         }
     }
     public void spawn(Location spawnLoc,int a) {
-        int random = (int) (Math.random() * 4) + 1;
+        int random = (int) (Math.random() * 3) + 1;
         int rotate = (int) (Math.random() * 4) + 1;
         if(rotate == 1) {
             rotate = 0;
@@ -137,14 +153,35 @@ public class tileSpawn implements Listener {
 
             players.teleport(spawn);
         }
+        for(LivingEntity entity  : spawnLoc.getNearbyLivingEntities(50)) {
+
+            if(entity.getType().equals(EntityType.PLAYER)) {
+                continue;
+            }
+            if(entity.getType().equals(EntityType.VILLAGER)) {
+                Villager villager = (Villager) entity;
+                if(villager.getMemory(MemoryKey.JOB_SITE) == null) {
+                    entity.remove();
+                    continue;
+                }
+                if(!villager.getMemory(MemoryKey.JOB_SITE).getBlock().equals(Material.BLAST_FURNACE)) {
+                    entity.remove();
+                    continue;
+                }
+                villager.teleport(Objects.requireNonNull(villager.getMemory(MemoryKey.JOB_SITE)));
+                continue;
+            }
+            entity.remove();
+        }
         WorldEditAPIController worldEdit = new WorldEditAPIController("TILE","world");
         addTileRemove(spawnLoc);
 
         //이지
 
-        worldEdit.load("5타일.schem");
+        worldEdit.load(random+".schem");
         worldEdit.paste(spawnLoc,rotate);
         worldGuard(spawnLoc,a+"tile",a+"5타일");
+        spawnEntity(spawnLoc);
 
 
     }
@@ -167,14 +204,13 @@ public class tileSpawn implements Listener {
 
 
     }
-    World world = (World) Bukkit.getWorld("world");
-    org.bukkit.World bukkitWorld = Bukkit.getWorld("world");
+
     public void randomTileCreate() {
-        int random = (int) (Math.random() * 20) + 1;
+        int random = (int) (Math.random() * 50) + 1;
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         RegionManager manager = container.get(BukkitAdapter.adapt(Bukkit.getWorld("world")));
-        BlockVector3 vector = manager.getRegion(random+"tile").getMaximumPoint();
-        Location loc = new Location(bukkitWorld,vector.getX()+47,63,vector.getX()+47);
+        BlockVector3 vector = manager.getRegion(random+"tile").getMinimumPoint();
+        Location loc = new Location(Bukkit.getWorld("world"),vector.getX()+47,63,vector.getX()+47);
         spawn(loc,random);
         Bukkit.getPlayer("toy_block").chat("랜덤한 타일 생성"+random);
 
@@ -211,6 +247,77 @@ public class tileSpawn implements Listener {
             e.printStackTrace();
         }
     }
+    public void spawnEntity(Location loc) {
+
+        for(LivingEntity e : loc.getNearbyLivingEntities(100)) {
+
+            if(!e.getType().equals(EntityType.ARMOR_STAND)) {
+                continue;
+            }
+            if(e.getEquipment().getItemInMainHand().getType().isEmpty()) {
+                continue;
+            }
+            if(!e.getEquipment().getItemInMainHand().getItemMeta().hasDisplayName()) {
+                continue;
+            }
+            if(!e.getEquipment().getItemInMainHand().getItemMeta().getDisplayName().equals("villager")) {
+                continue;
+            }
+            e.remove();
+            e.getWorld().spawnEntity(e.getLocation(),EntityType.VILLAGER);
+            e.getLocation().getBlock().setType(Material.BLAST_FURNACE);
+            String nw = getDirection(e);
+            Directional data = (Directional)e.getLocation().getBlock().getBlockData();
+            if(nw.equals("N")) {
+                data.setFacing(BlockFace.NORTH);
+            }
+            if(nw.equals("W")) {
+                data.setFacing(BlockFace.WEST);
+            }
+            if(nw.equals("S")) {
+                data.setFacing(BlockFace.SOUTH);
+            }
+            if(nw.equals("E")) {
+                data.setFacing(BlockFace.EAST);
+            }
+            e.getLocation().getBlock().setBlockData(data);
+            NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"npc");
+            TileState state = (TileState) e.getLocation().getBlock().getState();
+            PersistentDataContainer container = state.getPersistentDataContainer();
+            container.set(key, PersistentDataType.STRING,"npc");
+            state.update();
+            return;
+        }
+
+
+    }
+    public static String getDirection(LivingEntity entity) {
+        double rotation = (entity.getLocation().getYaw() - 180) % 360;
+        if (rotation < 0) {
+            rotation += 360.0;
+        }
+        if (0 <= rotation && rotation < 22.5) {
+            return "N";
+        } else if (22.5 <= rotation && rotation < 67.5) {
+            return "NE";
+        } else if (67.5 <= rotation && rotation < 112.5) {
+            return "E";
+        } else if (112.5 <= rotation && rotation < 157.5) {
+            return "SE";
+        } else if (157.5 <= rotation && rotation < 202.5) {
+            return "S";
+        } else if (202.5 <= rotation && rotation < 247.5) {
+            return "SW";
+        } else if (247.5 <= rotation && rotation < 292.5) {
+            return "W";
+        } else if (292.5 <= rotation && rotation < 337.5) {
+            return "NW";
+        } else if (337.5 <= rotation && rotation < 360.0) {
+            return "N";
+        } else {
+            return null;
+        }
+    }
     public Location getTileCenter(Location loc) {
         int x = loc.getBlockX();
         int z = loc.getBlockZ();
@@ -244,6 +351,7 @@ public class tileSpawn implements Listener {
             ex.printStackTrace();
         }
     }
+
     public void setAir(CuboidRegion region) {
         try (EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(w, -1)) {
 
@@ -251,7 +359,7 @@ public class tileSpawn implements Listener {
             BlockState airstate = airBlock.getDefaultState();
 
 
-            editSession.setBlocks(region,airstate);
+           editSession.setBlocks((Region) region,airstate);
         } catch(MaxChangedBlocksException ex) {
             ex.printStackTrace();
         }

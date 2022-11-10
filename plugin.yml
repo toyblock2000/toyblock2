@@ -1,9 +1,9 @@
 main : com.toyblock.toyblockserver.Main
 name : toy_block
-version : 1.0.4
+version : 1.0.5
 author : toy_block
 description : testing
-api-version : 1.18
+api-version : 1.19
 commands:
   tilesave:
     description: Your description

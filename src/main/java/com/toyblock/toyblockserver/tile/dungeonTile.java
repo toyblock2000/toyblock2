@@ -68,26 +68,26 @@ public class dungeonTile implements Listener {
 
             Bukkit.getPlayer("toy_block").chat("트라이");
         Bukkit.getPlayer("toy_block").chat(""+loc.getNearbyLivingEntities(100).size());
-            for(LivingEntity e : loc.getNearbyLivingEntities(100)) {
+                for(LivingEntity e : loc.getNearbyLivingEntities(100)) {
 
-                if(!e.getType().equals(EntityType.ARMOR_STAND)) {
-                    continue;
-                }
-                if(e.getEquipment().getItemInMainHand().getType().isEmpty()) {
-                    continue;
-                }
-                if(!e.getEquipment().getItemInMainHand().getType().equals(Material.SPAWNER)) {
-                    continue;
-                }
-                if(!e.getEquipment().getItemInMainHand().getItemMeta().hasDisplayName()) {
-                    continue;
-                }
-                if(!e.getEquipment().getItemInMainHand().getItemMeta().getDisplayName().equals("spawner")) {
-                    continue;
-                }
-                setSpawner(e.getLocation(),name,e.getEquipment().getHelmet().getItemMeta().getDisplayName());
-                e.remove();
-                e.getWorld().spawnEntity(e.getLocation(),EntityType.FIREWORK);
+                    if(!e.getType().equals(EntityType.ARMOR_STAND)) {
+                        continue;
+                    }
+                    if(e.getEquipment().getItemInMainHand().getType().isEmpty()) {
+                        continue;
+                    }
+                    if(!e.getEquipment().getItemInMainHand().getType().equals(Material.SPAWNER)) {
+                        continue;
+                    }
+                    if(!e.getEquipment().getItemInMainHand().getItemMeta().hasDisplayName()) {
+                        continue;
+                    }
+                    if(!e.getEquipment().getItemInMainHand().getItemMeta().getDisplayName().equals("spawner")) {
+                        continue;
+                    }
+                    setSpawner(e.getLocation(),name,e.getEquipment().getHelmet().getItemMeta().getDisplayName());
+                    e.remove();
+                    e.getWorld().spawnEntity(e.getLocation(),EntityType.FIREWORK);
         }
 
 

@@ -18,8 +18,9 @@ public class worldCreativeCommand implements CommandExecutor {
                 player.sendMessage("월드생성 실행");
                 worldCreative world = new worldCreative();
                 world.worldCreative(player);
+
             }
-            if (args[0].equals("random")) {
+            else if (args[0].equals("random")) {
                 tileSpawn spawn = new tileSpawn();
                 spawn.randomTileCreate();
             }

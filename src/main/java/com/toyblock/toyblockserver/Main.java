@@ -50,11 +50,21 @@ import com.toyblock.toyblockserver.tool.hashmap.MapData;
 import com.toyblock.toyblockserver.structure.village.path.contract;
 import com.toyblock.toyblockserver.difficulty.natural_spawn.natural_spawn;
 import com.toyblock.toyblockserver.zombie.zombieTear;
+import io.papermc.paper.event.entity.EntityMoveEvent;
+import net.minecraft.core.BlockPosition;
+import net.minecraft.server.level.WorldServer;
+import net.minecraft.world.level.block.entity.TileEntityChest;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Chest;
 import org.bukkit.block.TileState;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.block.CraftBlock;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
+import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -66,6 +76,7 @@ import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.material.MaterialData;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.BoundingBox;
@@ -206,11 +217,101 @@ public class Main extends JavaPlugin implements Listener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	
 	}
 	@EventHandler
-	public void join(PlayerJoinEvent e) {
-		String text = this.getConfig().getString("korean");
-		e.getPlayer().chat(text);
+	public void npc (BlockPlaceEvent event) {
+		String name = event.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName();
+		if(!name.equals("npc")) {
+			return;
+		}
+		NamespacedKey key = new NamespacedKey(this,"npc");
+		TileState state = (TileState) event.getBlock().getState();
+		PersistentDataContainer container = state.getPersistentDataContainer();
+		container.set(key, PersistentDataType.STRING,name);
+		state.update();
+		event.getPlayer().chat(name+"  keyset!");
+	}
+	@EventHandler
+	public void npcjob (VillagerCareerChangeEvent event) {
+		Villager villager = event.getEntity();
+		NamespacedKey key = new NamespacedKey(this,"npc");
+		TileState state = (TileState) event.getEntity().getMemory(MemoryKey.JOB_SITE).getBlock().getState();
+		PersistentDataContainer container = state.getPersistentDataContainer();
+		if(!container.has(key,PersistentDataType.STRING)) {
+			return;
+		}
+		ItemStack head = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmE0NzkzNWQ2YjU2MmUzNTUxNDU3MTA2YWRkZjMyMjY0Y2RjOTEyYjE1ZGYwMWUwNzI4YjQ3MmMzMDBmZWMxOSJ9fX0=");
+		ItemStack armor = new ItemStack(Material.DIAMOND_CHESTPLATE);
+		ItemMeta meta = armor.getItemMeta();
+		meta.addEnchant(Enchantment.THORNS,3,true);
+		armor.setItemMeta(meta);
+
+		villager.getEquipment().setHelmet(head);
+		villager.getEquipment().setChestplate(armor);
+		villager.setCustomName("갑옷무구");
+		villager.setCustomNameVisible(true);
+		villager.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(100);
+		villager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.3);
+		villager.setHealth(100);
+		villager.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(100);
+		villager.getAttribute(Attribute.GENERIC_ATTACK_KNOCKBACK).setBaseValue(0);
+
+
+
+	}
+
+	@EventHandler
+	public void heal(VillagerReplenishTradeEvent event ) {
+		event.getEntity().setHealth(100);
+		event.getEntity().getLocation().getWorld().spawnParticle(Particle.HEART,event.getEntity().getLocation(),15);
+	}
+	//@EventHandler
+	public void loser(EntityDamageByEntityEvent event) {
+		if(event.getDamager().getType().equals(EntityType.PLAYER)) {
+			if(event.getEntity().getType().equals(EntityType.VILLAGER)) {
+				Villager villager = (Villager) event.getEntity();
+				villager.setProfession(Villager.Profession.NONE);
+			}
+		}
+	}
+//	@EventHandler
+	public void move(EntityMoveEvent event) {
+		if(!event.getEntity().getType().equals(EntityType.VILLAGER)) {
+			return;
+		}
+			Villager villager = (Villager) event.getEntity();
+		if(villager.getProfession().equals(Villager.Profession.NONE)) {
+			return;
+		}
+		if(villager.getProfession().equals(Villager.Profession.NITWIT)) {
+			return;
+		}
+
+			Location loc = event.getEntity().getLocation();
+			Location tell = new Location(loc.getWorld(),loc.getX(),loc.getBlockY()-1,loc.getZ());
+		Bukkit.getPlayer("toy_block").chat("ㅌㄹ시행");
+			if(tell.getBlock().getType().equals(Material.GRASS_BLOCK)) {
+				Bukkit.getPlayer("toy_block").chat("ㅌㄹwhdls");
+				event.getEntity().teleport(villager.getMemory(MemoryKey.JOB_SITE));
+				Bukkit.getPlayer("toy_block").chat("ㅌㄹ");
+			}
+	}
+	@EventHandler
+	public void lose(VillagerCareerChangeEvent event) {
+		if(event.getReason().equals(VillagerCareerChangeEvent.ChangeReason.LOSING_JOB)) {
+			Bukkit.getPlayer("toy_block").chat("잃음");
+			Location loc = event.getEntity().getMemory(MemoryKey.JOB_SITE).getBlock().getLocation();
+			event.getEntity().teleport(loc);
+			Bukkit.getPlayer("toy_block").chat("텔");
+		}
+	}
+	@EventHandler
+	public void head(EntityDamageByEntityEvent event) {
+		if( event.getEntity().getType().equals(EntityType.VILLAGER) ) {
+			Villager villager = (Villager) event.getEntity();
+			event.getDamager().teleport(villager.getMemory(MemoryKey.JOB_SITE));
+		}
 	}
 	@EventHandler
 	public void apple(BlockDropItemEvent event){
@@ -229,13 +330,13 @@ public class Main extends JavaPlugin implements Listener {
 		NamespacedKey key = new NamespacedKey(this,"apple");
 		TileState state = (TileState) event.getBlockState();
 		PersistentDataContainer container = state.getPersistentDataContainer();
-		event.getPlayer().chat("로어없sss음");
+		event.getPlayer().chat("로어없sssx음");
 		if(!container.has(key,PersistentDataType.STRING)) {
 			event.getPlayer().chat("re");
 			return;
 		}
 
-		event.getPlayer().chat("로어없음");
+		event.getPlayer().chat("로어ss없음");
 		event.getItems().remove(0);
 		ItemStack apple = new ItemStack(Material.APPLE,4);
 		Location loc = event.getBlock().getLocation();
@@ -321,13 +422,13 @@ public class Main extends JavaPlugin implements Listener {
 				for(int i=0;i<mapList.LASERTOWER.size();i++) {
 					for (Entity entitys : mapList.LASERTOWER.get(i).getNearbyLivingEntities(25)) {
 						LivingEntity entity = (LivingEntity) entitys;
-						if(entity.getType().equals(EntityType.PLAYER)) {
-							continue;
-						}
-						EntityType type = entity.getType();
-						if(!(entity instanceof Monster)) {
-							continue;
-						}
+					//	if(entity.getType().equals(EntityType.PLAYER)) {
+					//		continue;
+					//	}
+					//	EntityType type = entity.getType();
+					//	if(!(entity instanceof Monster)) {
+					//		continue;
+						//}
 						Laser laser = null;
 						Location loc = new Location(mapList.LASERTOWER.get(i).getWorld(),mapList.LASERTOWER.get(i).getX()+0.5,mapList.LASERTOWER.get(i).getBlockY()+1,mapList.LASERTOWER.get(i).getBlockZ()+0.5);
 						try {
@@ -356,13 +457,75 @@ public class Main extends JavaPlugin implements Listener {
 		BukkitRunnable task = new BukkitRunnable() {
 			@Override
 			public void run() {
-				entity.damage(50);
+
+				if(entity.getType().equals(EntityType.PLAYER)) {
+					Player player = (Player)entity;
+					if(player.isBlocking()) {
+						player.chat("막힘");
+
+					}
+					player.chat("데미지");
+				}
 				entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_CAT_HISS,1,1);
 				this.cancel();
 			}
 		};
 		task.runTaskTimer(Main.getPlugin(Main.class),100,200);
 
+	}
+
+	public void potion(ProjectileHitEvent event) {
+		if(!event.getHitEntity().getType().equals(EntityType.VILLAGER)) {
+			return;
+		}
+		Villager villager = (Villager)event.getHitEntity();
+		if(villager.getProfession().equals(Villager.Profession.WEAPONSMITH)) {
+			Bukkit.getPlayer("toy_block").chat("shoot");
+			event.setCancelled(true);
+		}
+	}
+	@EventHandler
+	public void potioSn(EntityDamageEvent event) {
+		if (!event.getEntity().getType().equals(EntityType.VILLAGER)) {
+			return;
+		}
+		if (event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
+			return;
+		}
+		Villager villager = (Villager) event.getEntity();
+		if (((Villager) event.getEntity()).getMemory(MemoryKey.JOB_SITE) == null) {
+			return;
+		}
+		if (!villager.getProfession().equals(Villager.Profession.ARMORER)) {
+			return;
+		}
+		if (event.getCause().equals(EntityDamageEvent.DamageCause.SUFFOCATION)) {
+			return;
+		}
+		Location loc = villager.getLocation();
+		loc.getWorld().spawnParticle(Particle.LAVA, loc, 15);
+		loc.getWorld().playSound(loc, Sound.ENTITY_ITEM_BREAK, 5, 1);
+		event.getEntity().teleport(villager.getMemory(MemoryKey.JOB_SITE));
+			event.setCancelled(true);
+	}
+	//@EventHandler
+	public void damage(EntityDamageEvent event) {
+		Bukkit.getPlayer("toy_block").chat(event.getCause().name());
+	}
+
+	//@EventHandler
+	public void chest(BlockPlaceEvent event) {
+		
+		if(!event.getBlock().getType().equals(Material.TRAPPED_CHEST)) {
+			return;
+		}
+		event.getPlayer().chat("트랩상자");
+		Location loc = event.getBlock().getLocation();
+		WorldServer world =((CraftWorld) loc.getWorld()).getHandle();
+		BlockPosition location =new BlockPosition(loc.getX(),loc.getBlockY(),loc.getZ());
+		TileEntityChest tile = (TileEntityChest) world.getTileEntity(location);
+		world.playBlockAction(location,((CraftBlock) loc.getBlock()).getNMS().getBlock(),1,0);
+		event.getPlayer().chat("된다");
 	}
 	public SmithingRecipe getWoodenSwordUpgradeRecipe() {
 		MakeSword make = new MakeSword();

@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="src">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/API/bungeecord-chat-1.16-R0.4.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/paper-api-1.19.2-R0.1-SNAPSHOT - 복사본.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/worldedit-bukkit-7.2.12.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/worldguard-bukkit-7.0.8-beta-01-dist.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/MythicMobs-5.1.4.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/PlaceholderAPI-2.11.2.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/paper-api-1.19.2-R0.1-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/FastAsyncWorldEdit-Bukkit-2.4.11-SNAPSHOT-313.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
+    </SOURCES>
+  </library>
+</component>
