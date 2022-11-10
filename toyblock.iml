@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="NewModuleRootManager">
+    <output url="file://$USER_HOME$/Desktop/1.19.2 버킷/plugins/production/toyblock" />
+    <output-test url="file://$USER_HOME$/Desktop/1.19.2 버킷/plugins/test/toyblock" />
+    <exclude-output />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
