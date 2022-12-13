@@ -453,7 +453,7 @@ public class Main extends JavaPlugin implements Listener {
 		};
 		task.runTaskTimer(Main.getPlugin(Main.class),100,200);
 	}
-	public void towerKill(LivingEntity entity) {
+	public void towerKill(final LivingEntity entity) {
 		BukkitRunnable task = new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -552,7 +552,7 @@ public class Main extends JavaPlugin implements Listener {
 	String worldName = "world";
 	static String timeChangeCount = "TIME_CHANGE_COUNT";
 	public void timeFinder() {
-		int count = mapList.COUNT.get(timeChangeCount);
+		final int count = mapList.COUNT.get(timeChangeCount);
 		mapList.COUNT.put(timeChangeCount,count+1);
 		BukkitRunnable task = new BukkitRunnable() {
 			World world = Bukkit.getWorld(worldName);
@@ -584,7 +584,7 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 
-	public void healTime(int count) {
+	public void healTime(final int count) {
 		BukkitRunnable task = new BukkitRunnable() {
 			World world = Bukkit.getWorld(worldName);
 			@Override
@@ -631,7 +631,7 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 //	@EventHandler
-	public void creeperloc(EntityPathfindEvent event) {
+	public void creeperloc(final EntityPathfindEvent event) {
 		Location mobloc = event.getEntity().getLocation();
 		List<Entity> mobs = (List<Entity>) mobloc.getWorld().getNearbyEntities(mobloc,10,10,10);
 		if(mobs.isEmpty()) {
@@ -647,7 +647,7 @@ public class Main extends JavaPlugin implements Listener {
 				if(!(mob.getCustomName() == null)) {
 					return;
 				}
-				Mob creeper = (Mob) mob;
+				final Mob creeper = (Mob) mob;
 				creeper.getPathfinder().moveTo(event.getLoc());
 				bug.chat("이름도없음");
 				mob.setCustomName("move");
@@ -786,7 +786,7 @@ public class Main extends JavaPlugin implements Listener {
 	}
 
 //	@EventHandler
-	public void entityloc(EntityPathfindEvent event) {
+	public void entityloc(final EntityPathfindEvent event) {
 		if(event.getEntity().getCustomName()==null) {
 			return;
 		}
@@ -799,7 +799,7 @@ public class Main extends JavaPlugin implements Listener {
 		bug.chat("빌더맞음");
 		bug.chat("타겟도있는데");
 		event.getEntity().setCustomName("빌더.");
-		Location target = event.getLoc();
+		final Location target = event.getLoc();
 		BukkitRunnable task = new BukkitRunnable() {
 			Location loc =  event.getEntity().getLocation().getBlock().getLocation();
 			@Override
@@ -856,7 +856,7 @@ public class Main extends JavaPlugin implements Listener {
 		task.runTaskTimer(this,20,20);
 	}
 //	@EventHandler
-	public void builder(EntityTargetLivingEntityEvent event){
+	public void builder(final EntityTargetLivingEntityEvent event){
 		if (!(event.getEntity().getCustomName().equals("빌더"))) {
 			return;
 		}
@@ -926,7 +926,7 @@ public class Main extends JavaPlugin implements Listener {
 		if (!(event.getEntity().getCustomName().equals("빌더"))) {
 			return;
 		}
-		LivingEntity zombie = (LivingEntity) event.getEntity();
+		final LivingEntity zombie = (LivingEntity) event.getEntity();
 		BukkitRunnable task = new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -1000,7 +1000,7 @@ public class Main extends JavaPlugin implements Listener {
 		bug.chat("이그나이트");
 			event.getEntity().explode();
 	}
-	public void zombieCreeper(LivingEntity zombie) {
+	public void zombieCreeper(final LivingEntity zombie) {
 		zombie.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 5, 5));
 		zombie.setJumping(true);
 		BukkitRunnable task = new BukkitRunnable() {
