@@ -30,8 +30,6 @@ public class villager {
     //도구킷 toolkit
     public void spawnTrader(Location loc,String kit) {
         WanderingTrader trader = (WanderingTrader) loc.getWorld().spawnEntity(loc, EntityType.WANDERING_TRADER);
-        trader.setCanDrinkPotion(false);
-        trader.setCanDrinkMilk(false);
         trader.setDespawnDelay(10000);
 
 
