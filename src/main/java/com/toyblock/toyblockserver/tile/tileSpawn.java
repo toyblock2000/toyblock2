@@ -227,8 +227,8 @@ public class tileSpawn implements Listener {
         replaceOre(regions);
 
         ProtectedRegion region = new ProtectedCuboidRegion(name, pos1, pos2);
-        region.setFlag(Flags.GREET_TITLE,"\n"+ ChatColor.GREEN +tilename + ChatColor.RED + "@ 11월21일 제거대상입니다.");
-        String str = region.getFlag(Flags.GREET_TITLE);
+        //region.setFlag(Flags.GREET_TITLE,"\n"+ ChatColor.GREEN +tilename + ChatColor.RED + "@ 11월21일 제거대상입니다.");
+        String str = "11@11";//region.getFlag(Flags.GREET_TITLE);
         int idx = str.indexOf("@");
         str = str.substring(0, idx);
         Bukkit.getConsoleSender().sendMessage(str);

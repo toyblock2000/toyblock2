@@ -275,7 +275,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"WoodenSwordUpgrade");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.WOODEN_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.FLINT);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
     public static SmithingRecipe getSmithingRecipe_StoneSword() {
@@ -285,7 +285,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"StoneSwordUpgrade");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.STONE_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.FLINT);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
     public static SmithingRecipe getSmithingRecipe_GoldSword() {
@@ -295,7 +295,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"GoldSwordUpgrade");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.GOLDEN_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.GOLD_INGOT);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
     public static SmithingRecipe getSmithingRecipe_IronSword() {
@@ -305,7 +305,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"IronSwordUpgrade");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.IRON_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.IRON_INGOT);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
     public static SmithingRecipe getSmithingRecipe_DiamondSword() {
@@ -315,7 +315,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"DiamondSwordUpgrade");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.DIAMOND_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.DIAMOND);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
     public static SmithingRecipe getSmithingRecipe_NetheriteSword() {
@@ -325,7 +325,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"NetheriteSwordUpgrade");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.NETHERITE_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.DIAMOND);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
     public static SmithingRecipe getSmithingRecipe_UpNetheriteSword() {
@@ -335,7 +335,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"NetheriteSword");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.DIAMOND_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.NETHERITE_INGOT);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
     public static SmithingRecipe getSmithingRecipe_UpNetheritePickaxe() {
@@ -345,7 +345,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"NetheritePickaxe");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.DIAMOND_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.NETHERITE_INGOT);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
     public static SmithingRecipe getSmithingRecipe_UpNetheriteAxe() {
@@ -355,7 +355,7 @@ public class Recipes {
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"NetheriteAxe");
         RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.DIAMOND_SWORD);
         RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.NETHERITE_INGOT);
-        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+        SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
         return recipe;
     }
 

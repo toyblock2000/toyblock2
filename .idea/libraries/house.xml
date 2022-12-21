@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="house">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/API/paper-api-1.19.2-R0.1-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/API/worldedit-bukkit-7.2.6-beta-02.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/API/worldguard-bukkit-7.0.8-beta-01-dist.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/API/MythicMobs-5.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
+    </SOURCES>
+  </library>
+</component>

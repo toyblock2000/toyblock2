@@ -313,7 +313,7 @@ public class Main extends JavaPlugin implements Listener {
 			event.getDamager().teleport(villager.getMemory(MemoryKey.JOB_SITE));
 		}
 	}
-	@EventHandler
+	//@EventHandler
 	public void apple(BlockDropItemEvent event){
 		ItemStack item = event.getItems().get(0).getItemStack();
 		ItemStack investCoin = getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzVlMmUwOTU5NzEyZGNkMzM1N2NjM2NlYTg1Zjk5YjNmZDgwOTc4NTVjNzU0YjliMTcxZjk2MzUxNDIyNWQifX19");
@@ -422,13 +422,13 @@ public class Main extends JavaPlugin implements Listener {
 				for(int i=0;i<mapList.LASERTOWER.size();i++) {
 					for (Entity entitys : mapList.LASERTOWER.get(i).getNearbyLivingEntities(25)) {
 						LivingEntity entity = (LivingEntity) entitys;
-					//	if(entity.getType().equals(EntityType.PLAYER)) {
-					//		continue;
-					//	}
-					//	EntityType type = entity.getType();
-					//	if(!(entity instanceof Monster)) {
-					//		continue;
-						//}
+						if(entity.getType().equals(EntityType.PLAYER)) {
+							continue;
+						}
+						EntityType type = entity.getType();
+						if(!(entity instanceof Monster)) {
+							continue;
+						}
 						Laser laser = null;
 						Location loc = new Location(mapList.LASERTOWER.get(i).getWorld(),mapList.LASERTOWER.get(i).getX()+0.5,mapList.LASERTOWER.get(i).getBlockY()+1,mapList.LASERTOWER.get(i).getBlockZ()+0.5);
 						try {
@@ -459,14 +459,11 @@ public class Main extends JavaPlugin implements Listener {
 			public void run() {
 
 				if(entity.getType().equals(EntityType.PLAYER)) {
-					Player player = (Player)entity;
-					if(player.isBlocking()) {
-						player.chat("막힘");
-
-					}
-					player.chat("데미지");
+					Player player = (Player) entity;
+					return;
 				}
-				entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_CAT_HISS,1,1);
+				entity.damage(100);
+				entity.getLocation().getWorld().playSound(entity.getLocation(), Sound.ENTITY_CAT_HISS,3,3);
 				this.cancel();
 			}
 		};
@@ -535,7 +532,7 @@ public class Main extends JavaPlugin implements Listener {
 		NamespacedKey key = new NamespacedKey(this,"WoodenSwordUpgrade");
 		RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.WOODEN_SWORD);
 		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.CHARCOAL);
-		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
 		return recipe;
 	}
 	public SmithingRecipe stoneSwordUpRecipe() {
@@ -546,7 +543,7 @@ public class Main extends JavaPlugin implements Listener {
 		NamespacedKey key = new NamespacedKey(this,"StoneSwordUpgrade");
 		RecipeChoice choice1 = new RecipeChoice.MaterialChoice(Material.STONE_SWORD);
 		RecipeChoice choice2 = new RecipeChoice.MaterialChoice(Material.FLINT);
-		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2,false);
+		SmithingRecipe recipe = new SmithingRecipe(key,makeItem,choice1,choice2);
 		return recipe;
 	}
 	String worldName = "world";

@@ -56,7 +56,7 @@ public class DropChance implements Listener {
     @EventHandler
     public void deathDropChance(PlayerDeathEvent event) {
         ToolEdit toolEdit = new ToolEdit();
-        Player player = event.getPlayer();
+        Player player = event.getEntity().getPlayer();
         Inventory inv = player.getInventory();
         int invSize = event.getDrops().size();
         int saveCount = 0;
