@@ -4,6 +4,7 @@
     <root id="archive" name="world.jar">
       <element id="module-output" name="toyblock" />
       <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+      <element id="module-output" name="toyblock2" />
     </root>
   </artifact>
 </component>
