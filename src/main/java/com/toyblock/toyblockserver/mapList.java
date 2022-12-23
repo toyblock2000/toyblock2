@@ -24,6 +24,7 @@ public class mapList {
 
     public static ArrayList<String> VILLAGER_LIST = new ArrayList<>();
     public static ArrayList<Location> LASERTOWER = new ArrayList<>();
+    public static ArrayList<Location> QUEST = new ArrayList<>();
 
     public static HashMap<String , Float > DIFFICULTY = new HashMap<String , Float > () ;
 

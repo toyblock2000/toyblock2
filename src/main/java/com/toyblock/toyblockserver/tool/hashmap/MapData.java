@@ -195,5 +195,22 @@ public class MapData extends JavaPlugin {
             e4.printStackTrace();
         }
     }
+    public static void quest_fileToMap(File f) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            String fileLine = null;
+            while ((fileLine = reader.readLine()) != null) {
+
+                LocationSave save = new LocationSave();
+                Location loc = save.locput(fileLine);
+                mapList.QUEST.add(loc);
+
+            }
+        } catch (FileNotFoundException e3) {
+            e3.printStackTrace();
+        } catch (IOException e4) {
+            e4.printStackTrace();
+        }
+    }
 
 }

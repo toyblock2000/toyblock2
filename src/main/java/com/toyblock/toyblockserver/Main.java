@@ -29,6 +29,7 @@ import com.toyblock.toyblockserver.difficulty.item.tool.sword.swordCommand;
 import com.toyblock.toyblockserver.item.testGive;
 import com.toyblock.toyblockserver.players.affiliation;
 import com.toyblock.toyblockserver.players.villageRegister;
+import com.toyblock.toyblockserver.quest.questInventory;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
 import com.toyblock.toyblockserver.structure.village.house.Create;
@@ -104,6 +105,7 @@ public class Main extends JavaPlugin implements Listener {
 	File villager_affiliation = new File(getDataFolder(), "/villager_affiliation.txt");
 	File villager_name = new File(getDataFolder(), "/villager_name.txt");
 	File laserTower = new File(getDataFolder(), "/laserTower.txt");
+	File quest = new File(getDataFolder(), "/quest.txt");
 	File difficulty = new File(getDataFolder(), "/difficulty.txt");
 	@Override
 	public void onEnable() {
@@ -146,6 +148,7 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new randomTile(), this);
 		getServer().getPluginManager().registerEvents(new bossDie(), this);
 		getServer().getPluginManager().registerEvents(new dungeonTile(), this);
+		getServer().getPluginManager().registerEvents(new questInventory(), this);
 		getCommand("tilesave").setExecutor(new tileSaveCommand());
 		getCommand("worldCreative").setExecutor(new worldCreativeCommand());
 		consol.sendMessage("청크");
@@ -158,11 +161,13 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.makeFile(villager_name);
 		MapData.makeFile(laserTower);
 		MapData.makeFile(difficulty);
+		MapData.makeFile(quest);
 		MapData.Protect_fileToMap(link, StructureMap.Link);
 		tileLanguage(F_tileLanguage,tileLanguage);
 		MapData.String_fileToMap(villager_name);
 		MapData.player_fileToMap(affiliation,mapList.AFFILIATION);
 		MapData.tower_fileToMap(laserTower);
+		MapData.quest_fileToMap(quest);
 		MapData.difficulty_fileToMap(difficulty,mapList.DIFFICULTY);
 		Bukkit.addRecipe(getRecipe());
 		Bukkit.addRecipe(potionRecipe());
@@ -175,6 +180,8 @@ public class Main extends JavaPlugin implements Listener {
 		structureFile.put("VILLAGE_2X2HOUSE",new File(getDataFolder(),"/structure/village/1x1house"));
 		structureFile.put("DUNGEON_MOB",new File(getDataFolder(),"/structure/Dungeon/Mob"));
 		bug.chat(""+structureFile.get("DUNGEON_MOB").toString());
+		questInventory quest = new questInventory();
+		quest.questTime();
 
 		Location loc =  new Location(Bukkit.getWorld("world"),10,10,-10);
 		consol.sendMessage(""+ StructureMap.Link.get(loc));
@@ -202,6 +209,7 @@ public class Main extends JavaPlugin implements Listener {
 		MapData.uuid_mapToFile(villager_affiliation, mapList.VILLAGER_AFFILIATION);
 		MapData.villager_mapToFile(villager_name,mapList.VILLAGER_LIST);
 		MapData.laser_mapToFile(laserTower,mapList.LASERTOWER);
+		MapData.laser_mapToFile(quest,mapList.QUEST);
 		MapData.difficulty_mapToFile(difficulty,mapList.DIFFICULTY);
 
 		//	data.mapToFile(data.file, villageindex);

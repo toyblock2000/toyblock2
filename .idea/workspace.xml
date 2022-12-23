@@ -4,62 +4,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58c9bedd-6c61-4f07-b2e8-78ab427b4e1f" name="변경" comment="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/artifacts/world.xml&#10;#&#9;.idea/libraries/src.xml&#10;#&#9;.idea/misc.xml">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_7_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_failureaccess_1_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_31_0_1_jre.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_md_5_bungeecord_chat_1_16_R0_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_12_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_api_1_19_2_R0_1_SNAPSHOT.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_33.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="58c9bedd-6c61-4f07-b2e8-78ab427b4e1f" name="변경" comment="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/world.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/world.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/villager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/villager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyblock2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/toyblock2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/mapList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/mapList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/quest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/tool/hashmap/MapData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/tool/hashmap/MapData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="4" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="2HNTsur0iaERvvgIoNBILhDWW3q" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "jdk.selected.JAVA_MODULE": "openjdk-19",
-    "last_opened_file_path": "C:/Users/김근원/Desktop/코딩 플러그인/worldguard-bukkit-7.0.8-beta-01-dist.jar",
-    "project.structure.last.edited": "라이브러리",
-    "project.structure.proportion": "0.15429688",
-    "project.structure.side.proportion": "0.21034482",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/1.19.2/plugins" />
+    <property name="project.structure.last.edited" value="아티팩트" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.20418848" />
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
@@ -103,11 +93,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="2022/11/08" />
     <MESSAGE value="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/artifacts/world.xml&#10;#&#9;.idea/libraries/src.xml&#10;#&#9;.idea/misc.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/artifacts/world.xml&#10;#&#9;.idea/libraries/src.xml&#10;#&#9;.idea/misc.xml" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
