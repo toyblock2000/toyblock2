@@ -13,14 +13,36 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 
 public class questItem implements Listener {
-    String copper_quest = ChatColor.GOLD+"구리퀘스트";
+
     String copper_quest_box = ChatColor.GOLD+"구리퀘스트 상자";
     public ItemStack quest_zombie_5 () {
         ItemStack paper = new ItemStack(Material.PAPER);
         ItemMeta meta = paper.getItemMeta();
-        meta.setDisplayName(copper_quest);
+        meta.setDisplayName(ChatColor.GOLD+"좀비 5마리 잡기!");
         ArrayList<String> lore = new ArrayList<String>();
-        lore.add("내용 : 좀비 5마리 잡기!");
+        lore.add("내용 : 좀비를 5마리 잡아보자");
+        lore.add("보상 : "+copper_quest_box);
+        meta.setLore(lore);
+        paper.setItemMeta(meta);
+        return paper;
+    }
+    public ItemStack quest_wood_5 () {
+        ItemStack paper = new ItemStack(Material.PAPER);
+        ItemMeta meta = paper.getItemMeta();
+
+        ArrayList<String> lore = new ArrayList<String>();
+        lore.add("내용 : 나무 5개 캐기!");
+        lore.add("리워드 : "+copper_quest_box);
+        meta.setLore(lore);
+        paper.setItemMeta(meta);
+        return paper;
+    }
+    public ItemStack quest_stone_5 () {
+        ItemStack paper = new ItemStack(Material.PAPER);
+        ItemMeta meta = paper.getItemMeta();
+
+        ArrayList<String> lore = new ArrayList<String>();
+        lore.add("내용 : 돌 5개 캐기!");
         lore.add("리워드 : "+copper_quest_box);
         meta.setLore(lore);
         paper.setItemMeta(meta);
@@ -83,7 +105,7 @@ public class questItem implements Listener {
         ShulkerBox box = (ShulkerBox) bsm.getBlockState();
         Inventory inv = box.getInventory();
 
-        item_name(sword,"최강검");
+        item_name(sword,"돌검");
         inv.setItem(0,sword);
         bsm.setBlockState(box);
         item.setItemMeta(bsm);

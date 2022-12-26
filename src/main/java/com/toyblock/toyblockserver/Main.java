@@ -29,6 +29,8 @@ import com.toyblock.toyblockserver.difficulty.item.tool.sword.swordCommand;
 import com.toyblock.toyblockserver.item.testGive;
 import com.toyblock.toyblockserver.players.affiliation;
 import com.toyblock.toyblockserver.players.villageRegister;
+import com.toyblock.toyblockserver.quest.getQuest;
+import com.toyblock.toyblockserver.quest.questEvent;
 import com.toyblock.toyblockserver.quest.questInventory;
 import com.toyblock.toyblockserver.structure.buildframe.HouseBuildFrame;
 import com.toyblock.toyblockserver.structure.protect.LocationSave;
@@ -149,6 +151,8 @@ public class Main extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new bossDie(), this);
 		getServer().getPluginManager().registerEvents(new dungeonTile(), this);
 		getServer().getPluginManager().registerEvents(new questInventory(), this);
+		getServer().getPluginManager().registerEvents(new getQuest(), this);
+		getServer().getPluginManager().registerEvents(new questEvent(), this);
 		getCommand("tilesave").setExecutor(new tileSaveCommand());
 		getCommand("worldCreative").setExecutor(new worldCreativeCommand());
 		consol.sendMessage("청크");

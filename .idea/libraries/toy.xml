@@ -1,16 +1,16 @@
 <component name="libraryTable">
   <library name="toy">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/API/bungeecord-chat-1.16-R0.4.jar!/" />
-      <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
       <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/paper-api-1.19.2-R0.1-SNAPSHOT.jar!/" />
       <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/MythicMobs-5.1.4.jar!/" />
       <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/worldedit-bukkit-7.2.12.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/spigot/spigot-api-1.19.2-R0.1-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/API/patched_1.17.1.jar!/" />
       <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/worldguard-bukkit-7.0.8-beta-01-dist.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/Desktop/API/patched_1.17.1.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/코딩 플러그인/API/patched_1.17.1.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -23,24 +23,19 @@ public class questInventory implements Listener {
     @EventHandler
     public void openInv(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        player.chat("~");
         if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-            player.chat("1");
             return;
         }
         if(!event.getClickedBlock().getType().equals(Material.CHEST)) {
-            player.chat("2");
             return;
         }
-        player.chat("3");
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class),"quest");
         TileState state = (TileState) event.getClickedBlock().getState();
         PersistentDataContainer container = state.getPersistentDataContainer();
         if(!container.has(key, PersistentDataType.STRING)) {
-            player.chat("4");
+
             return;
         }
-        player.chat("5");
     }
     @EventHandler
     public void chestKey(BlockPlaceEvent event) {
@@ -77,12 +72,11 @@ public class questInventory implements Listener {
                     chest.getBlockInventory().clear();
                     createInv(chest.getBlockInventory());
                     chest.getLocation().getWorld().spawnEntity(chest.getLocation(),EntityType.FIREWORK);
-                    Bukkit.getPlayer("toy_block").chat("실행");
                 }
 
             }
         };
-        task.runTaskTimer(Main.getPlugin(Main.class),30,30);
+        task.runTaskTimer(Main.getPlugin(Main.class),300,300);
     }
     public void createInv (Inventory inv) {
 
