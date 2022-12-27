@@ -22,10 +22,24 @@ public class questEvent implements Listener {
                     Player player = event.getEntity().getKiller();
                     if (questMap.QUEST_MOB_5.containsKey(player.getUniqueId())) {
                         questMap.QUEST_MOB_5.put(player.getUniqueId(), questMap.QUEST_MOB_5.get(player.getUniqueId()) + 1);
-                        player.chat("퀘스트 1회 달성");
                         getQuest quest = new getQuest();
                         quest.create_quest_board(player);
                     }
+                }
+            }
+        }
+
+    }
+    @EventHandler
+    public void zombie_kill(EntityDeathEvent event) {
+        {
+            if (event.getEntityType().equals(EntityType.ZOMBIE)) {
+                if (event.getEntity().getKiller().getType().equals(EntityType.PLAYER)) {
+                    Player player = event.getEntity().getKiller();
+                    questScore score = new questScore();
+                    score.quest_triger(player,"ZOMBIEKILL");
+                    player.chat("퀘스트 1회 달성");
+                    score.create_quest_board(player);
                 }
             }
         }

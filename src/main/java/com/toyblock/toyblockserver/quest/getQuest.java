@@ -47,10 +47,11 @@ public class getQuest implements Listener {
                 player.chat("이미있는 퀘스트입니다!");
                 questScore score = new questScore();
                 score.create_quest_board(player);
+                event.setCancelled(true);
                 return;
             }
             player.getWorld().playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
-            questMap.QUEST_MOB_5.put(player.getUniqueId(),0);
+            set_quest(player,"좀비 5마리 잡기-5-C-ZOMBIEKILL");
             create_quest_board(player);
             event.setCancelled(true);
         }
@@ -71,6 +72,16 @@ public class getQuest implements Listener {
         else {
             player.getWorld().playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_BOTTLE_THROW,1,1);
             event.setCancelled(true);
+        }
+    }
+    public void set_quest(Player player,String quest) {
+        for(int i=0 ; i<=3 ; i++) {
+            if(questMap.QUEST.containsKey(player.getName()+"-"+i)) {
+                continue;
+            }
+            questMap.QUEST.put(player.getName()+"-"+i,quest);
+            questScore score = new questScore();
+            score.create_quest_board(player);
         }
     }
     public void create_quest_board(Player player) {

@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc8e10fd-2b36-4c0a-8af4-c312bd4adb84" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questScore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/world.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/world.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/getQuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/getQuest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questScore.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
