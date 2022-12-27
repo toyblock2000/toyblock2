@@ -45,6 +45,8 @@ public class getQuest implements Listener {
         if(event.getCurrentItem().getItemMeta().getDisplayName().contains("좀비 5마리 잡기!")) {
             if(questMap.QUEST_MOB_5.containsKey(player.getUniqueId())) {
                 player.chat("이미있는 퀘스트입니다!");
+                questScore score = new questScore();
+                score.create_quest_board(player);
                 return;
             }
             player.getWorld().playSound(player.getLocation(),Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
@@ -106,5 +108,9 @@ public class getQuest implements Listener {
             }
         }
         return list;
+    }
+    public String[] quest_str(String str ) {
+        String[] result = str.split("-");
+        return result;
     }
 }

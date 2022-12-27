@@ -12,5 +12,6 @@ public class questMap {
     public static int QUEST_MOB_5_MAX = 5;
     public static HashMap<UUID, String > QUEST_WOOD_5 = new HashMap<UUID,String>();
     public static HashMap<UUID, String > QUEST_STONE_5 = new HashMap<UUID,String>();
+    public static HashMap<String , String > QUEST = new HashMap<String , String >();
 
 }

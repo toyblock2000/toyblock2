@@ -5,18 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc8e10fd-2b36-4c0a-8af4-c312bd4adb84" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/getQuest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questScore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/world.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/world.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/toy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/toy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022-12-24__5_20__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2022-12-24__5_20__________.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questInventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/getQuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/getQuest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/quest/questMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/toyblock/toyblockserver/structure/village/castle/npc/vote.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +27,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="4" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -41,16 +38,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/김근원/Desktop/1.19.2 버킷/plugins",
-    "project.structure.last.edited": "라이브러리",
-    "project.structure.proportion": "0.15429688",
-    "project.structure.side.proportion": "0.21034482"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/1.19.2/plugins" />
+    <property name="project.structure.last.edited" value="아티팩트" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.20418848" />
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
@@ -72,5 +67,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
